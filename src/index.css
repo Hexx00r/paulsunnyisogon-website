@@ -8,25 +8,29 @@
   }
 
   body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #E0F7FA;
-    color: #64748B;
+    font-family: -apple-system, "SF Pro Display", "SF Pro Text", Inter, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+    background-color: #ffffff;
+    color: #1d1d1f;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #1A1A1A;
+    font-family: -apple-system, "SF Pro Display", Inter, "Segoe UI", Roboto, sans-serif;
+    color: #1d1d1f;
+    letter-spacing: -0.02em;
   }
 
   :focus-visible {
-    outline: 3px solid rgba(0, 174, 239, 0.6);
+    outline: 2px solid #0071e3;
     outline-offset: 2px;
-    border-radius: 4px;
   }
 
   ::selection {
-    background: rgba(0, 174, 239, 0.25);
+    background: rgba(0, 113, 227, 0.2);
   }
 
   :root {
@@ -36,7 +40,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
+    --primary: 211 100% 45%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -48,7 +52,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --ring: 211 100% 45%;
     --radius: 0.625rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -57,7 +61,7 @@
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 211 100% 45%;
   }
 
   .dark {
@@ -87,11 +91,17 @@
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 211 100% 45%;
   }
 }
 
 @layer base {
+  /* Grid items default to min-width:auto, which lets wide media blow out
+     single-column tracks on mobile — cap them so tracks stay container-wide. */
+  .grid > * {
+    min-width: 0;
+  }
+
   * {
     @apply border-border;
   }

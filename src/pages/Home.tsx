@@ -13,7 +13,7 @@ import StickyMobileCta from '@/sections/StickyMobileCta'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-aqua font-body">
+    <div className="min-h-screen bg-white">
       <Header />
       <main>
         <Hero />

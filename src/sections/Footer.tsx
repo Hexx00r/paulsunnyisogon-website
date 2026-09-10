@@ -1,36 +1,71 @@
-import { Droplet, Mail } from 'lucide-react'
-import { EMAIL, MAILTO } from '@/components/Shared'
+import { Droplet } from 'lucide-react'
+import { BOOKING, EMAIL, MAILTO, YOUTUBE } from '@/components/Shared'
+
+const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
+  {
+    title: 'Explore',
+    links: [
+      { label: 'What I Build', href: '#build' },
+      { label: 'Case Study: DJ Property', href: '#case-study-dj' },
+      { label: 'Case Study: Melbourne HPC', href: '#case-study-melbourne' },
+      { label: 'The Automation Engine', href: '#automations' },
+    ],
+  },
+  {
+    title: 'Work with me',
+    links: [
+      { label: 'About', href: '#about' },
+      { label: 'Services & Availability', href: '#services' },
+      { label: 'Book a Free Funnel Audit', href: BOOKING },
+    ],
+  },
+  {
+    title: 'Connect',
+    links: [
+      { label: EMAIL, href: MAILTO },
+      { label: 'Watch the demo', href: YOUTUBE },
+    ],
+  },
+]
 
 export default function Footer() {
   return (
-    <footer className="bg-ink pb-28 pt-14 text-white md:pb-14">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-          <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand">
-              <Droplet className="h-6 w-6 text-white" strokeWidth={2.5} />
-            </span>
-            <span className="leading-tight">
-              <span className="block font-display text-[10px] font-bold tracking-[0.2em] text-brand">
-                GHL FUNNEL ARCHITECT
-              </span>
-            </span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={MAILTO}
-              className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 font-display text-sm font-bold text-white transition-transform hover:scale-[1.03]"
-            >
-              <Mail className="h-4 w-4" />
-              {EMAIL}
-            </a>
-
-          </div>
+    <footer className="bg-apple-gray pb-28 pt-14 md:pb-14">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="flex items-center gap-2 text-apple-ink">
+          <Droplet className="h-5 w-5 text-apple-blue" strokeWidth={2.5} />
+          <span className="text-sm font-semibold tracking-tight">Paul Isogon</span>
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center">
-          <p>© 2026 Paul Sunny Isogon Jr · Philippines · Serving Australia, US &amp; UK remotely</p>
+        <nav className="mt-10 grid gap-8 border-b border-apple-hairline pb-10 sm:grid-cols-3" aria-label="Footer">
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-apple-ink">
+                {col.title}
+              </h3>
+              <ul className="mt-3 space-y-2.5">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                      className="text-xs text-apple-sub transition-colors hover:text-apple-ink hover:underline"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
+
+        <div className="mt-6 flex flex-col items-start justify-between gap-2 text-xs text-apple-sub md:flex-row md:items-center">
+          <p>
+            Copyright © 2026 Paul Sunny Isogon Jr · Philippines · Serving Australia, US &amp; UK
+            remotely
+          </p>
           <p>Instant-quote funnels + GHL automations for pressure cleaning &amp; trade businesses</p>
         </div>
       </div>

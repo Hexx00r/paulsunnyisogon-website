@@ -1,4 +1,5 @@
 import { Kicker } from '@/components/Shared'
+import Reveal from '@/components/Reveal'
 
 const PAINS = [
   {
@@ -17,30 +18,36 @@ const PAINS = [
 
 export default function Problem() {
   return (
-    <section className="bg-white py-20 md:py-24">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <Kicker>The leaky funnel</Kicker>
-        <h2 className="mt-4 max-w-2xl font-display text-3xl font-extrabold tracking-tight md:text-5xl">
-          Leads don&apos;t disappear. <span className="text-brand">They leak.</span>
-        </h2>
-        <p className="mt-4 max-w-2xl text-lg">
-          Every one of these has happened to a real cleaning business - mine included.
-        </p>
+    <section className="bg-apple-gray py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal>
+          <Kicker>The leaky funnel</Kicker>
+          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-apple-ink md:text-5xl">
+            Leads don&apos;t disappear. <span className="text-apple-blue">They leak.</span>
+          </h2>
+          <p className="mt-4 max-w-2xl text-lg text-apple-sub">
+            Every one of these has happened to a real cleaning business - mine included.
+          </p>
+        </Reveal>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
           {PAINS.map((p, i) => (
-            <article
+            <Reveal
               key={p.quote}
-              className="flex flex-col rounded-[18px] border border-aquadeep bg-aqua/50 p-7 shadow-card transition-shadow hover:shadow-card-hover"
+              delay={i * 100}
+              as="article"
+              className="flex h-full flex-col rounded-[28px] bg-white p-8 shadow-card transition-shadow duration-300 hover:shadow-card-hover"
             >
-              <span className="font-display text-4xl font-extrabold text-brand/30">
+              <span className="text-4xl font-semibold tracking-tight text-apple-hairline">
                 0{i + 1}
               </span>
-              <p className="mt-4 font-display text-lg font-bold leading-snug text-ink">
+              <p className="mt-4 text-lg font-semibold leading-snug text-apple-ink">
                 &ldquo;{p.quote}&rdquo;
               </p>
-              <p className="mt-4 border-t border-aquadeep pt-4 text-sm leading-relaxed">{p.fix}</p>
-            </article>
+              <p className="mt-4 border-t border-apple-gray pt-4 text-sm leading-relaxed text-apple-sub">
+                {p.fix}
+              </p>
+            </Reveal>
           ))}
         </div>
       </div>

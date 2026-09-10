@@ -1,5 +1,6 @@
 import { CheckCircle2, Globe2 } from 'lucide-react'
 import { BOOKING, Kicker } from '@/components/Shared'
+import Reveal from '@/components/Reveal'
 
 const SERVICES = [
   'Part-time & project-based GHL funnel builds',
@@ -18,56 +19,61 @@ const AVAILABILITY = [
 
 export default function Services() {
   return (
-    <section id="services" className="scroll-mt-20 bg-white py-20 md:py-24">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <Kicker>Services &amp; availability</Kicker>
-        <h2 className="mt-4 max-w-2xl font-display text-3xl font-extrabold tracking-tight md:text-5xl">
-          What you can <span className="text-brand">hire me for.</span>
-        </h2>
+    <section id="services" className="scroll-mt-16 bg-apple-gray py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal>
+          <Kicker>Services &amp; availability</Kicker>
+          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-apple-ink md:text-5xl">
+            What you can <span className="text-apple-blue">hire me for.</span>
+          </h2>
+        </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          <article className="rounded-[18px] border border-aquadeep bg-aqua/50 p-8 shadow-card">
-            <h3 className="font-display text-xl font-bold text-ink">The work</h3>
+        <div className="mt-12 grid gap-5 lg:grid-cols-2">
+          <Reveal as="article" className="h-full rounded-[28px] bg-white p-8 shadow-card md:p-10">
+            <h3 className="text-xl font-semibold tracking-tight text-apple-ink">The work</h3>
             <ul className="mt-5 space-y-3.5">
               {SERVICES.map((s) => (
-                <li key={s} className="flex items-start gap-3 text-sm leading-relaxed text-ink/80">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+                <li key={s} className="flex items-start gap-3 text-sm leading-relaxed text-apple-ink/80">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-apple-blue" />
                   {s}
                 </li>
               ))}
             </ul>
-          </article>
+          </Reveal>
 
-          <article className="rounded-[18px] border border-aquadeep bg-aqua/50 p-8 shadow-card">
-            <h3 className="font-display text-xl font-bold text-ink">The setup</h3>
+          <Reveal as="article" delay={100} className="h-full rounded-[28px] bg-white p-8 shadow-card md:p-10">
+            <h3 className="text-xl font-semibold tracking-tight text-apple-ink">The setup</h3>
             <ul className="mt-5 space-y-3.5">
               {AVAILABILITY.map((a) => (
-                <li key={a} className="flex items-start gap-3 text-sm leading-relaxed text-ink/80">
-                  <Globe2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+                <li key={a} className="flex items-start gap-3 text-sm leading-relaxed text-apple-ink/80">
+                  <Globe2 className="mt-0.5 h-5 w-5 shrink-0 text-apple-blue" />
                   {a}
                 </li>
               ))}
             </ul>
-          </article>
+          </Reveal>
         </div>
 
-        <div className="mt-14 rounded-[24px] bg-ink px-8 py-12 text-center shadow-card-hover md:px-16">
-          <h3 className="font-display text-2xl font-extrabold text-white md:text-4xl">
-            Ready to stop chasing leads? <span className="text-brand">Let&apos;s build your funnel.</span>
-          </h3>
-          <p className="mx-auto mt-4 max-w-xl text-white/70">
-            One email. I&apos;ll come back with a free audit of your current setup and a fixed
-            price for the build.
-          </p>
-          <a
-            href={BOOKING}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-10 py-4 font-display text-base font-bold text-white shadow-cta transition-transform hover:scale-[1.03]"
-          >
-            Book a Free Funnel Audit
-          </a>
-        </div>
+        <Reveal className="mt-14" y={32}>
+          <div className="rounded-[32px] bg-apple-ink px-8 py-14 text-center md:px-16 md:py-20">
+            <h3 className="mx-auto max-w-3xl text-3xl font-semibold tracking-tight text-white md:text-5xl">
+              Ready to stop chasing leads?{' '}
+              <span className="text-apple-blue">Let&apos;s build your funnel.</span>
+            </h3>
+            <p className="mx-auto mt-4 max-w-xl text-white/70">
+              One email. I&apos;ll come back with a free audit of your current setup and a fixed price
+              for the build.
+            </p>
+            <a
+              href={BOOKING}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 inline-flex items-center rounded-full bg-apple-blue px-8 py-3.5 text-base font-medium text-white transition-colors hover:bg-apple-blueDark"
+            >
+              Book a Free Funnel Audit
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

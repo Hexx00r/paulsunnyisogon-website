@@ -1,5 +1,6 @@
 import { ClipboardCheck, Hammer, Link2, TrendingUp } from 'lucide-react'
 import { Kicker } from '@/components/Shared'
+import Reveal from '@/components/Reveal'
 
 const STEPS = [
   {
@@ -30,34 +31,32 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-20 md:py-24">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <Kicker>How it works</Kicker>
-        <h2 className="mt-4 max-w-2xl font-display text-3xl font-extrabold tracking-tight md:text-5xl">
-          From first call to <span className="text-brand">fully booked</span> - four steps.
-        </h2>
+    <section className="bg-white py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal>
+          <Kicker>How it works</Kicker>
+          <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-apple-ink md:text-5xl">
+            From first call to <span className="text-apple-blue">fully booked</span> - four steps.
+          </h2>
+        </Reveal>
 
-        <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((step, i) => (
-            <li
+            <Reveal
               key={step.num}
-              className="relative rounded-[18px] border border-aquadeep bg-white p-7 shadow-card transition-shadow hover:shadow-card-hover"
+              as="li"
+              delay={i * 100}
+              className="relative h-full rounded-[28px] bg-apple-gray p-8 transition-colors duration-300 hover:bg-[#ebebee]"
             >
-              {i < STEPS.length - 1 && (
-                <span
-                  aria-hidden="true"
-                  className="absolute -right-4 top-1/2 hidden h-[2px] w-8 -translate-y-1/2 bg-aquadeep lg:block"
-                />
-              )}
-              <span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-brand text-white shadow-cta">
-                <step.icon className="h-6 w-6" />
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-apple-blue shadow-card">
+                <step.icon className="h-5 w-5" />
               </span>
-              <span className="mt-5 block font-display text-xs font-extrabold tracking-widest text-brand">
+              <span className="mt-5 block text-xs font-semibold tracking-widest text-apple-blue">
                 STEP {step.num}
               </span>
-              <h3 className="mt-1 font-display text-xl font-bold text-ink">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed">{step.desc}</p>
-            </li>
+              <h3 className="mt-1 text-xl font-semibold tracking-tight text-apple-ink">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-apple-sub">{step.desc}</p>
+            </Reveal>
           ))}
         </ol>
       </div>

@@ -5,15 +5,42 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Plus Jakarta Sans"', 'sans-serif'],
-        body: ['"Open Sans"', 'sans-serif'],
+        sans: [
+          '-apple-system',
+          '"SF Pro Display"',
+          '"SF Pro Text"',
+          'Inter',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+        ],
+        display: [
+          '-apple-system',
+          '"SF Pro Display"',
+          'Inter',
+          '"Segoe UI"',
+          'Roboto',
+          'sans-serif',
+        ],
       },
       colors: {
-        aqua: '#E0F7FA',
-        aquadeep: '#B3E5FC',
-        brand: '#00AEEF',
-        ink: '#1A1A1A',
-        slatebody: '#64748B',
+        // Apple palette
+        apple: {
+          blue: '#0071e3',
+          blueDark: '#0060c9',
+          gray: '#f5f5f7',
+          ink: '#1d1d1f',
+          sub: '#6e6e73',
+          hairline: '#d2d2d7',
+        },
+        // Legacy aliases (kept so nothing breaks)
+        aqua: '#f5f5f7',
+        aquadeep: '#d2d2d7',
+        brand: '#0071e3',
+        ink: '#1d1d1f',
+        slatebody: '#6e6e73',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -67,9 +94,9 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        card: "0 10px 40px -12px rgba(0, 174, 239, 0.18), 0 2px 8px rgba(26, 26, 26, 0.05)",
-        "card-hover": "0 18px 50px -12px rgba(0, 174, 239, 0.28), 0 4px 12px rgba(26, 26, 26, 0.08)",
-        cta: "0 10px 30px -8px rgba(0, 174, 239, 0.5)",
+        card: "0 4px 24px -8px rgba(0, 0, 0, 0.08)",
+        "card-hover": "0 12px 40px -12px rgba(0, 0, 0, 0.16)",
+        cta: "0 8px 24px -8px rgba(0, 113, 227, 0.45)",
       },
       keyframes: {
         "accordion-down": {

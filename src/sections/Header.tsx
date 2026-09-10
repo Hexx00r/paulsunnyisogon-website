@@ -1,4 +1,5 @@
-import { Droplet, Mail } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Droplet, Mail, Menu, X } from 'lucide-react'
 import { BOOKING } from '@/components/Shared'
 
 const NAV = [
@@ -9,44 +10,113 @@ const NAV = [
 ]
 
 export default function Header() {
-  return (
-    <header className="sticky top-0 z-40 bg-ink text-white shadow-lg">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
-        <a href="#top" className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand shadow-cta">
-            <Droplet className="h-6 w-6 text-white" strokeWidth={2.5} />
-          </span>
-          <span className="leading-tight">
-            <span className="block font-display text-[10px] font-bold tracking-[0.2em] text-brand md:text-[11px]">
-              GHL FUNNEL ARCHITECT
-            </span>
-          </span>
-        </a>
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
+  return (
+    <>
+      <header
+        className={`sticky top-0 z-50 border-b border-black/5 bg-white/70 backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300 ${
+          scrolled ? 'shadow-sm' : ''
+        }`}
+      >
+        <div className="mx-auto flex h-12 max-w-5xl items-center justify-between gap-4 px-5">
+          <a href="#top" className="flex items-center gap-2 text-apple-ink" aria-label="Home">
+            <Droplet className="h-5 w-5 text-apple-blue" strokeWidth={2.5} />
+            <span className="hidden text-sm font-semibold tracking-tight sm:block">
+              Paul Isogon
+            </span>
+          </a>
+
+          {/* Desktop nav — small, centered */}
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
+            {NAV.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-xs font-normal text-apple-ink/80 transition-colors hover:text-apple-ink"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <a
+              href={BOOKING}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden items-center gap-1.5 text-xs font-normal text-apple-ink/80 transition-colors hover:text-apple-ink md:inline-flex"
+              aria-label="Book a free funnel audit"
+            >
+              <Mail className="h-4 w-4" />
+            </a>
+            <a
+              href={BOOKING}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden rounded-full bg-apple-blue px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-apple-blueDark md:inline-flex"
+            >
+              Free Funnel Audit
+            </a>
+
+            {/* Mobile hamburger */}
+            <button
+              type="button"
+              className="inline-flex h-9 w-9 items-center justify-center text-apple-ink md:hidden"
+              aria-expanded={open}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile menu — sibling of header (not inside the backdrop-filter
+          context, which would trap position:fixed to the header's box) */}
+      <div
+        className={`fixed inset-x-0 top-12 bottom-0 z-40 bg-white/95 backdrop-blur-xl backdrop-saturate-150 transition-[opacity,transform] duration-300 md:hidden ${
+          open ? 'pointer-events-auto opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
+        }`}
+      >
+        <nav className="flex flex-col gap-1 px-6 pt-6" aria-label="Mobile">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-semibold text-white/70 transition-colors hover:text-white"
+              onClick={() => setOpen(false)}
+              className="border-b border-apple-hairline/60 py-4 text-2xl font-semibold tracking-tight text-apple-ink"
             >
               {item.label}
             </a>
           ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
           <a
             href={BOOKING}
             target="_blank"
             rel="noreferrer"
-            className="hidden items-center gap-2 rounded-full bg-brand px-5 py-2.5 font-display text-sm font-bold text-white shadow-cta transition-transform hover:scale-[1.03] sm:flex"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-apple-blue px-6 py-3 text-base font-medium text-white"
           >
-            <Mail className="h-4 w-4" />
-            Free Funnel Audit
+            Book a Free Funnel Audit
           </a>
-        </div>
+        </nav>
       </div>
-    </header>
+    </>
   )
 }
