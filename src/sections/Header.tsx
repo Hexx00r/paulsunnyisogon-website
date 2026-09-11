@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Droplet, Mail, Menu, X } from 'lucide-react'
 import { BOOKING } from '@/components/Shared'
+import ThemeToggle from '@/components/ThemeToggle'
 
 const NAV = [
   { label: 'What I Build', href: '#build' },
@@ -31,7 +32,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 border-b border-black/5 bg-white/70 backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300 ${
+        className={`sticky top-0 z-50 border-b border-apple-glassLine bg-apple-glass backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-300 ${
           scrolled ? 'shadow-sm' : ''
         }`}
       >
@@ -49,7 +50,7 @@ export default function Header() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-xs font-normal text-apple-ink/80 transition-colors hover:text-apple-ink"
+                className="text-xs font-normal text-apple-inkSoft transition-colors hover:text-apple-ink"
               >
                 {item.label}
               </a>
@@ -61,7 +62,7 @@ export default function Header() {
               href={BOOKING}
               target="_blank"
               rel="noreferrer"
-              className="hidden items-center gap-1.5 text-xs font-normal text-apple-ink/80 transition-colors hover:text-apple-ink md:inline-flex"
+              className="hidden items-center gap-1.5 text-xs font-normal text-apple-inkSoft transition-colors hover:text-apple-ink md:inline-flex"
               aria-label="Book a free funnel audit"
             >
               <Mail className="h-4 w-4" />
@@ -70,10 +71,12 @@ export default function Header() {
               href={BOOKING}
               target="_blank"
               rel="noreferrer"
-              className="hidden rounded-full bg-apple-blue px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-apple-blueDark md:inline-flex"
+              className="hidden rounded-full bg-apple-blueSolid px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-apple-blueDark md:inline-flex"
             >
               Free Funnel Audit
             </a>
+
+            <ThemeToggle />
 
             {/* Mobile hamburger */}
             <button
@@ -92,7 +95,7 @@ export default function Header() {
       {/* Mobile menu — sibling of header (not inside the backdrop-filter
           context, which would trap position:fixed to the header's box) */}
       <div
-        className={`fixed inset-x-0 top-12 bottom-0 z-40 bg-white/95 backdrop-blur-xl backdrop-saturate-150 transition-[opacity,transform] duration-300 md:hidden ${
+        className={`fixed inset-x-0 top-12 bottom-0 z-40 bg-apple-glassStrong backdrop-blur-xl backdrop-saturate-150 transition-[opacity,transform] duration-300 md:hidden ${
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
         }`}
       >
@@ -102,7 +105,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="border-b border-apple-hairline/60 py-4 text-2xl font-semibold tracking-tight text-apple-ink"
+              className="border-b border-apple-borderSoft py-4 text-2xl font-semibold tracking-tight text-apple-ink"
             >
               {item.label}
             </a>
@@ -111,7 +114,7 @@ export default function Header() {
             href={BOOKING}
             target="_blank"
             rel="noreferrer"
-            className="mt-6 inline-flex items-center justify-center rounded-full bg-apple-blue px-6 py-3 text-base font-medium text-white"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-apple-blueSolid px-6 py-3 text-base font-medium text-white"
           >
             Book a Free Funnel Audit
           </a>

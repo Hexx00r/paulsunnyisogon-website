@@ -2,16 +2,11 @@ import { MapPin } from 'lucide-react'
 import portrait from '@/assets/portrait.jpg'
 import { BOOKING, LinkArrow, YOUTUBE } from '@/components/Shared'
 import Reveal from '@/components/Reveal'
-
-const STATS = [
-  { value: '6+', label: 'GHL workflows, wired together' },
-  { value: '2', label: 'Live funnel builds shipped' },
-  { value: '24h', label: 'Fixed-quote turnaround baked in' },
-]
+import { techStack } from '@/site.config'
 
 export default function Hero() {
   return (
-    <section id="top" className="overflow-hidden bg-white">
+    <section id="top" className="overflow-hidden bg-apple-surface">
       <div className="mx-auto max-w-6xl px-6 pb-16 pt-14 text-center md:pt-24">
         <Reveal>
           <p className="inline-flex items-center gap-2 rounded-full bg-apple-gray px-4 py-1.5 text-xs font-medium text-apple-sub">
@@ -40,7 +35,7 @@ export default function Hero() {
               href={BOOKING}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full bg-apple-blue px-7 py-3 text-base font-medium text-white transition-colors hover:bg-apple-blueDark"
+              className="rounded-full bg-apple-blueSolid px-7 py-3 text-base font-medium text-white transition-colors hover:bg-apple-blueDark"
             >
               Book a Free Funnel Audit
             </a>
@@ -57,23 +52,31 @@ export default function Hero() {
               alt="Paul Sunny Isogon Jr — GoHighLevel specialist"
               className="w-full rounded-3xl object-cover shadow-card-hover"
             />
-            <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-apple-ink px-5 py-2 text-sm font-medium text-white">
+            <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-apple-invert px-5 py-2 text-sm font-medium text-white">
               Paul Isogon · GHL Funnel Architect
             </span>
           </div>
 
-          <dl className="mx-auto mt-14 grid max-w-2xl grid-cols-3 gap-4">
-            {STATS.map((s) => (
-              <div key={s.label} className="flex flex-col px-2 py-4">
-                <dd className="order-1 text-3xl font-semibold tracking-tight text-apple-ink md:text-4xl">
-                  {s.value}
-                </dd>
-                <dt className="order-2 mt-1 block text-xs leading-snug text-apple-sub md:text-sm">
-                  {s.label}
-                </dt>
-              </div>
-            ))}
-          </dl>
+          <div className="mx-auto mt-14 max-w-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-apple-ink md:text-3xl">
+              Tech Stack
+            </h2>
+            <dl className="mt-6 grid gap-4 text-left sm:grid-cols-2">
+              {techStack.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-[28px] bg-apple-gray p-6 transition-colors duration-300 hover:bg-apple-grayHover"
+                >
+                  <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-apple-blue">
+                    {item.label}
+                  </dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-apple-ink md:text-base">
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </Reveal>
       </div>
     </section>

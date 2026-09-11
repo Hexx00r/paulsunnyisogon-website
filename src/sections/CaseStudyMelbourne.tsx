@@ -17,7 +17,7 @@ const TECH = [
 
 export default function CaseStudyMelbourne() {
   return (
-    <section id="case-study-melbourne" className="scroll-mt-16 bg-white py-20 md:py-28">
+    <section id="case-study-melbourne" className="scroll-mt-16 bg-apple-surface py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <Kicker>Case study 02</Kicker>
@@ -85,7 +85,7 @@ export default function CaseStudyMelbourne() {
             <a
               href={quotePdf}
               download="Melbourne-HPC-Quote-Sample.pdf"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-apple-blue px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-apple-blueDark"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-apple-blueSolid px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-apple-blueDark"
             >
               <Download className="h-4 w-4" />
               Download Quote PDF

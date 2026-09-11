@@ -40,7 +40,7 @@ const WORKFLOWS = [
 
 export default function AutomationEngine() {
   return (
-    <section id="automations" className="scroll-mt-16 bg-apple-ink py-20 text-white md:py-28">
+    <section id="automations" className="scroll-mt-16 bg-apple-invert py-20 text-white md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           {/* Sticky intro — stays pinned while the workflow list scrolls past */}
@@ -48,7 +48,7 @@ export default function AutomationEngine() {
             <Reveal>
               <Kicker light>The automation engine</Kicker>
               <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                The real magic happens <span className="text-apple-blue">behind the scenes.</span>
+                The real magic happens <span className="text-apple-blueAlt">behind the scenes.</span>
               </h2>
               <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/70">
                 Most &ldquo;funnel builders&rdquo; give you a landing page and disappear. I architect
@@ -81,9 +81,9 @@ export default function AutomationEngine() {
                 as="li"
                 delay={Math.min(i * 60, 180)}
                 y={32}
-                className="rounded-[24px] border border-white/10 bg-white/5 p-7 backdrop-blur transition-colors duration-300 hover:border-apple-blue/60"
+                className="rounded-[24px] border border-white/10 bg-white/5 p-7 backdrop-blur transition-colors duration-300 hover:border-apple-blueMist"
               >
-                <span className="text-sm font-semibold tracking-widest text-apple-blue">
+                <span className="text-sm font-semibold tracking-widest text-apple-blueAlt">
                   WORKFLOW {wf.num}
                 </span>
                 <h3 className="mt-2 text-lg font-semibold tracking-tight text-white">{wf.name}</h3>

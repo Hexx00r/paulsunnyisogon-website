@@ -36,7 +36,7 @@ export default function Problem() {
               key={p.quote}
               delay={i * 100}
               as="article"
-              className="flex h-full flex-col rounded-[28px] bg-white p-8 shadow-card transition-shadow duration-300 hover:shadow-card-hover"
+              className="flex h-full flex-col rounded-[28px] bg-apple-surface p-8 shadow-card transition-shadow duration-300 hover:shadow-card-hover"
             >
               <span className="text-4xl font-semibold tracking-tight text-apple-hairline">
                 0{i + 1}

@@ -29,11 +29,11 @@ export default function Services() {
         </Reveal>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-2">
-          <Reveal as="article" className="h-full rounded-[28px] bg-white p-8 shadow-card md:p-10">
+          <Reveal as="article" className="h-full rounded-[28px] bg-apple-surface p-8 shadow-card md:p-10">
             <h3 className="text-xl font-semibold tracking-tight text-apple-ink">The work</h3>
             <ul className="mt-5 space-y-3.5">
               {SERVICES.map((s) => (
-                <li key={s} className="flex items-start gap-3 text-sm leading-relaxed text-apple-ink/80">
+                <li key={s} className="flex items-start gap-3 text-sm leading-relaxed text-apple-inkSoft">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-apple-blue" />
                   {s}
                 </li>
@@ -41,11 +41,11 @@ export default function Services() {
             </ul>
           </Reveal>
 
-          <Reveal as="article" delay={100} className="h-full rounded-[28px] bg-white p-8 shadow-card md:p-10">
+          <Reveal as="article" delay={100} className="h-full rounded-[28px] bg-apple-surface p-8 shadow-card md:p-10">
             <h3 className="text-xl font-semibold tracking-tight text-apple-ink">The setup</h3>
             <ul className="mt-5 space-y-3.5">
               {AVAILABILITY.map((a) => (
-                <li key={a} className="flex items-start gap-3 text-sm leading-relaxed text-apple-ink/80">
+                <li key={a} className="flex items-start gap-3 text-sm leading-relaxed text-apple-inkSoft">
                   <Globe2 className="mt-0.5 h-5 w-5 shrink-0 text-apple-blue" />
                   {a}
                 </li>
@@ -55,10 +55,10 @@ export default function Services() {
         </div>
 
         <Reveal className="mt-14" y={32}>
-          <div className="rounded-[32px] bg-apple-ink px-8 py-14 text-center md:px-16 md:py-20">
+          <div className="rounded-[32px] bg-apple-invert px-8 py-14 text-center md:px-16 md:py-20">
             <h3 className="mx-auto max-w-3xl text-3xl font-semibold tracking-tight text-white md:text-5xl">
               Ready to stop chasing leads?{' '}
-              <span className="text-apple-blue">Let&apos;s build your funnel.</span>
+              <span className="text-apple-blueAlt">Let&apos;s build your funnel.</span>
             </h3>
             <p className="mx-auto mt-4 max-w-xl text-white/70">
               One email. I&apos;ll come back with a free audit of your current setup and a fixed price
@@ -68,7 +68,7 @@ export default function Services() {
               href={BOOKING}
               target="_blank"
               rel="noreferrer"
-              className="mt-8 inline-flex items-center rounded-full bg-apple-blue px-8 py-3.5 text-base font-medium text-white transition-colors hover:bg-apple-blueDark"
+              className="mt-8 inline-flex items-center rounded-full bg-apple-blueSolid px-8 py-3.5 text-base font-medium text-white transition-colors hover:bg-apple-blueDark"
             >
               Book a Free Funnel Audit
             </a>

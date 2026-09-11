@@ -2,6 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Theme bootstrap: applies data-theme before first paint / before the CSS below, so there
+     is no flash of the wrong theme. Reads the stored choice (localStorage "theme", shared
+     with the main site); "system" (or nothing stored) resolves to the OS preference.
+     Without JS, the @media (prefers-color-scheme) block under :root:not([data-theme])
+     provides the same default. -->
+<script>
+(function () {
+  try {
+    var theme = localStorage.getItem('theme') || 'system';
+    var resolved = theme === 'system'
+      ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      : theme;
+    document.documentElement.setAttribute('data-theme', resolved);
+  } catch (e) {}
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>You're Booked In · Paul Sunny Isogon Jr · GHL Funnel Architect</title>
 <meta name="description" content="Your free funnel audit is booked. Here's what happens next.">
@@ -9,16 +25,65 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* Theme tokens — light values on :root, dark values on [data-theme="dark"].
+   The @media block gives no-JS visitors the OS-matched default. */
 :root{
-  --blue:#0071e3;
-  --blue-dark:#0060c9;
+  --blue:#0060c9;
+  --blue-solid:#0060c9;
+  --blue-dark:#0054b0;
+  --blue-on-dark:#2997ff;
+  --blue-glow:rgb(0 113 227 / .35);
   --gray:#f5f5f7;
-  --gray-hover:#ebebee;
+  --gray-hover:#f5f5f7;
   --ink:#1d1d1f;
   --sub:#6e6e73;
   --line:#d2d2d7;
   --white:#ffffff;
+  --invert:#1d1d1f;
+  --on-primary:#ffffff;
+  --on-invert:#ffffff;
+  --invert-sub:rgb(255 255 255 / .7);
+  --invert-glass:rgb(255 255 255 / .08);
+  --invert-line:rgb(255 255 255 / .25);
+  --glass:rgb(255 255 255 / .7);
+  --glass-line:rgb(0 0 0 / .05);
+  --shadow-card:0 4px 24px -8px rgb(0 0 0 / .08);
+  --shadow-chip:0 2px 10px rgb(0 0 0 / .05);
   --font:-apple-system,"SF Pro Display","SF Pro Text",Inter,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+[data-theme="dark"]{
+  --blue:#2997ff;
+  --blue-solid:#0057b8;
+  --blue-dark:#004a9e;
+  --blue-on-dark:#2997ff;
+  --blue-glow:rgb(41 151 255 / .35);
+  --gray:#161617;
+  --gray-hover:#262628;
+  --ink:#f5f5f7;
+  --sub:#98989d;
+  --line:#3a3a3c;
+  --white:#1d1d1f;
+  --invert:#000000;
+  --glass:rgb(29 29 31 / .7);
+  --glass-line:rgb(255 255 255 / .08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme]){
+    --blue:#2997ff;
+    --blue-solid:#0057b8;
+    --blue-dark:#004a9e;
+    --blue-on-dark:#2997ff;
+    --blue-glow:rgb(41 151 255 / .35);
+    --gray:#161617;
+    --gray-hover:#262628;
+    --ink:#f5f5f7;
+    --sub:#98989d;
+    --line:#3a3a3c;
+    --white:#1d1d1f;
+    --invert:#000000;
+    --glass:rgb(29 29 31 / .7);
+    --glass-line:rgb(255 255 255 / .08);
+  }
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -39,18 +104,19 @@ img,svg{max-width:100%;display:block}
 
 /* eyebrow label */
 .eyebrow{display:inline-block;font-weight:600;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue)}
+.cta-band .eyebrow{color:var(--blue-on-dark)}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--font);font-weight:500;font-size:.95rem;text-decoration:none;border-radius:999px;padding:.8rem 1.7rem;transition:background .2s ease,border-color .2s ease,color .2s ease;border:none;cursor:pointer}
-.btn-primary{background:var(--blue);color:#fff}
+.btn-primary{background:var(--blue-solid);color:var(--on-primary)}
 .btn-primary:hover{background:var(--blue-dark)}
 .btn-outline{background:var(--white);color:var(--ink);border:1.5px solid var(--line)}
 .btn-outline:hover{border-color:var(--blue);color:var(--blue)}
-.btn-ghost-dark{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.25)}
-.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
+.btn-ghost-dark{background:var(--invert-glass);color:var(--on-invert);border:1.5px solid var(--invert-line)}
+.btn-ghost-dark:hover{border-color:var(--blue-on-dark);color:var(--blue-on-dark)}
 
 /* nav — blurred translucent, like the main site */
-header{position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.7);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%)}
+header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--glass-line);background:var(--glass);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:48px;max-width:1024px;margin:0 auto;padding:0 20px}
 .logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--ink)}
 .logo svg{width:20px;height:20px}
@@ -62,10 +128,10 @@ header{position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(0,0,0,.05);
 .ty-hero .container{max-width:820px}
 .ty-hero h1{margin-top:1.4rem}
 .ty-hero p.lead{font-size:1.15rem;color:var(--sub);max-width:52ch;margin:1.2rem auto 0}
-.tick{width:88px;height:88px;margin:0 auto;border-radius:50%;background:var(--blue);display:grid;place-items:center;box-shadow:0 12px 32px rgba(0,113,227,.35);animation:pop .5s cubic-bezier(.22,1,.36,1) both;position:relative}
+.tick{width:88px;height:88px;margin:0 auto;border-radius:50%;background:var(--blue-solid);display:grid;place-items:center;box-shadow:0 12px 32px var(--blue-glow);animation:pop .5s cubic-bezier(.22,1,.36,1) both;position:relative}
 .tick svg{width:44px;height:44px}
-.tick path{stroke:#fff;stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .55s .35s ease forwards}
-.tick::after{content:"";position:absolute;inset:-11px;border-radius:50%;border:3px solid var(--blue);opacity:0;animation:ring 1.2s .5s ease-out both}
+.tick path{stroke:var(--on-primary);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .55s .35s ease forwards}
+.tick::after{content:"";position:absolute;inset:-11px;border-radius:50%;border:3px solid var(--blue-solid);opacity:0;animation:ring 1.2s .5s ease-out both}
 @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes draw{to{stroke-dashoffset:0}}
 @keyframes ring{0%{transform:scale(.7);opacity:.8}100%{transform:scale(1.45);opacity:0}}
@@ -85,17 +151,17 @@ section.gray{background:var(--gray)}
 
 /* booking summary */
 .summary-wrap{max-width:660px;margin:0 auto}
-.summary-card{background:var(--white);border-radius:28px;overflow:hidden;box-shadow:0 4px 24px -8px rgba(0,0,0,.08)}
-.summary-top{background:var(--ink);color:#fff;padding:1.3rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.summary-top h3{color:#fff;font-size:1.05rem;font-weight:600}
-.summary-top .live{display:inline-flex;align-items:center;gap:.5em;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
-.summary-top .live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--blue);animation:blink 1.6s ease-in-out infinite}
+.summary-card{background:var(--white);border-radius:28px;overflow:hidden;box-shadow:var(--shadow-card)}
+.summary-top{background:var(--invert);color:var(--on-invert);padding:1.3rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.summary-top h3{color:var(--on-invert);font-size:1.05rem;font-weight:600}
+.summary-top .live{display:inline-flex;align-items:center;gap:.5em;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-on-dark)}
+.summary-top .live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--blue-on-dark);animation:blink 1.6s ease-in-out infinite}
 @keyframes blink{50%{opacity:.35}}
 .summary-body{padding:1.6rem 1.8rem}
 .summary-row{display:flex;justify-content:space-between;gap:1.5rem;padding:.6rem 0;font-size:.95rem}
 .summary-row dt{color:var(--sub);font-weight:400;flex-shrink:0}
 .summary-row dd{font-weight:600;color:var(--ink);text-align:right}
-.summary-total{display:flex;justify-content:space-between;gap:1.5rem;margin-top:1rem;padding-top:1.1rem;border-top:1px solid var(--gray)}
+.summary-total{display:flex;justify-content:space-between;gap:1.5rem;margin-top:1rem;padding-top:1.1rem;border-top:1px solid var(--line)}
 .summary-total dt{font-weight:600;color:var(--ink);font-size:1rem}
 .summary-total dd{font-weight:600;color:var(--blue);font-size:1.3rem}
 .summary-note{margin:0 1.8rem 1.8rem;font-size:.85rem;color:var(--sub);background:var(--gray);border-radius:16px;padding:.9rem 1.1rem}
@@ -106,17 +172,18 @@ section.gray{background:var(--gray)}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
 .step{background:var(--white);border-radius:28px;padding:1.9rem 1.7rem;transition:background .2s ease}
 .step:hover{background:var(--gray-hover)}
-.step .icon{width:44px;height:44px;border-radius:50%;background:var(--white);box-shadow:0 4px 24px -8px rgba(0,0,0,.08);display:grid;place-items:center;margin-bottom:1.1rem}
+.step .icon{width:44px;height:44px;border-radius:50%;background:var(--white);box-shadow:var(--shadow-card);display:grid;place-items:center;margin-bottom:1.1rem}
 .step .icon svg{width:20px;height:20px;stroke:var(--blue)}
 .step h3{margin-bottom:.45rem}
 .step p{font-size:.92rem}
-.step .when{display:inline-block;margin-top:.9rem;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:var(--white);border-radius:999px;padding:.3rem .9rem;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.step .when{display:inline-block;margin-top:.9rem;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:var(--white);border-radius:999px;padding:.3rem .9rem;box-shadow:var(--shadow-chip)}
 @media(max-width:800px){.steps{grid-template-columns:1fr}}
 
 /* dark CTA band — mirrors the site's dark tiles */
-.cta-band{background:var(--ink);color:#fff;text-align:center}
-.cta-band h2{color:#fff}
-.cta-band p{color:rgba(255,255,255,.7);max-width:52ch;margin:0 auto 1.8rem;font-size:1.05rem}
+.cta-band{background:var(--invert);color:var(--on-invert);text-align:center}
+.cta-band h2{color:var(--on-invert)}
+.cta-band p{color:var(--invert-sub);max-width:52ch;margin:0 auto 1.8rem;font-size:1.05rem}
+.cta-band .accent{color:var(--blue-on-dark)}
 .cta-actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
 
 /* footer — light gray, like the main site */
@@ -134,7 +201,7 @@ footer a:hover{color:var(--ink)}
 <header>
   <div class="nav">
     <a class="logo" href="https://paulsunnybravery.kimi.page">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3C12 3 5.5 10.2 5.5 14.5C5.5 18.1 8.4 21 12 21C15.6 21 18.5 18.1 18.5 14.5C18.5 10.2 12 3 12 3Z" stroke="#0071e3" stroke-width="2.4" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3C12 3 5.5 10.2 5.5 14.5C5.5 18.1 8.4 21 12 21C15.6 21 18.5 18.1 18.5 14.5C18.5 10.2 12 3 12 3Z" style="stroke:var(--blue)" stroke-width="2.4" stroke-linejoin="round"/></svg>
       <span class="logo-text">Paul Isogon</span>
     </a>
     <a class="btn btn-primary nav-cta" href="https://paulsunnybravery.kimi.page">← Back to site</a>
@@ -150,9 +217,9 @@ footer a:hover{color:var(--ink)}
     <h1 id="tyHeadline">You're booked in. <span class="accent">Your funnel audit is locked.</span></h1>
     <p class="lead">Thanks for reaching out. Your booking summary is below and a confirmation email is on its way. Come as you are, I'll bring the teardown.</p>
     <div class="ty-badges">
-      <span class="badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" stroke="#0071e3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>100% free, no pitch-slap</span>
-      <span class="badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" stroke="#0071e3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Screen-share teardown of your funnel</span>
-      <span class="badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" stroke="#0071e3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Action list you keep either way</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" style="stroke:var(--blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>100% free, no pitch-slap</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" style="stroke:var(--blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Screen-share teardown of your funnel</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" style="stroke:var(--blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Action list you keep either way</span>
     </div>
   </div>
 </section>

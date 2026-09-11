@@ -70,7 +70,7 @@ export default function CaseStudyDJ() {
         </Reveal>
 
         <Reveal delay={100}>
-          <blockquote className="mt-10 rounded-[28px] bg-white p-8 shadow-card">
+          <blockquote className="mt-10 rounded-[28px] bg-apple-surface p-8 shadow-card">
             <p className="text-lg font-semibold leading-snug text-apple-ink md:text-xl">
               &ldquo;If it&apos;s got our name on it, it gets done right. That&apos;s the only way we
               work.&rdquo;

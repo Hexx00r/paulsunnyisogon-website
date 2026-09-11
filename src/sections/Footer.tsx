@@ -1,7 +1,7 @@
 import { Droplet } from 'lucide-react'
-import { BOOKING, EMAIL, MAILTO, YOUTUBE } from '@/components/Shared'
+import { BOOKING, EMAIL, MAILTO, RESUME, YOUTUBE } from '@/components/Shared'
 
-const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
+const COLUMNS: { title: string; links: { label: string; href: string; download?: boolean }[] }[] = [
   {
     title: 'Explore',
     links: [
@@ -24,6 +24,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
     links: [
       { label: EMAIL, href: MAILTO },
       { label: 'Watch the demo', href: YOUTUBE },
+      { label: 'Download resume (PDF)', href: RESUME, download: true },
     ],
   },
 ]
@@ -48,6 +49,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
+                      download={link.download || undefined}
                       target={link.href.startsWith('http') ? '_blank' : undefined}
                       rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
                       className="text-xs text-apple-sub transition-colors hover:text-apple-ink hover:underline"

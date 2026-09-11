@@ -31,7 +31,7 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-apple-surface py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <Kicker>How it works</Kicker>
@@ -46,9 +46,9 @@ export default function HowItWorks() {
               key={step.num}
               as="li"
               delay={i * 100}
-              className="relative h-full rounded-[28px] bg-apple-gray p-8 transition-colors duration-300 hover:bg-[#ebebee]"
+              className="relative h-full rounded-[28px] bg-apple-gray p-8 transition-colors duration-300 hover:bg-apple-grayHover"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-apple-blue shadow-card">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-apple-surface text-apple-blue shadow-card">
                 <step.icon className="h-5 w-5" />
               </span>
               <span className="mt-5 block text-xs font-semibold tracking-widest text-apple-blue">

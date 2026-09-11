@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  // Dark mode is driven by the data-theme attribute set by next-themes
+  // (inline script in index.html + ThemeProvider), not the .dark class.
+  darkMode: ['selector', '[data-theme="dark"]'],
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -26,21 +28,31 @@ module.exports = {
         ],
       },
       colors: {
-        // Apple palette
+        // Apple palette — every value is a CSS custom property defined in
+        // src/index.css under :root (light) and [data-theme="dark"] (dark).
         apple: {
-          blue: '#0071e3',
-          blueDark: '#0060c9',
-          gray: '#f5f5f7',
-          ink: '#1d1d1f',
-          sub: '#6e6e73',
-          hairline: '#d2d2d7',
+          blue: 'var(--color-primary)',
+          blueSolid: 'var(--color-primary-solid)',
+          blueDark: 'var(--color-primary-hover)',
+          blueAlt: 'var(--color-primary-on-dark)',
+          blueSoft: 'var(--color-primary-soft)',
+          blueMist: 'var(--color-primary-mist)',
+          gray: 'var(--color-bg)',
+          grayHover: 'var(--color-surface-hover)',
+          ink: 'var(--color-text)',
+          inkSoft: 'var(--color-text-soft)',
+          sub: 'var(--color-text-sub)',
+          hairline: 'var(--color-border)',
+          borderSoft: 'var(--color-border-soft)',
+          surface: 'var(--color-surface)',
+          glass: 'var(--color-glass)',
+          glassStrong: 'var(--color-glass-strong)',
+          glassLine: 'var(--color-glass-line)',
+          invert: 'var(--color-invert)',
+          trafficRed: 'var(--color-traffic-red)',
+          trafficYellow: 'var(--color-traffic-yellow)',
+          trafficGreen: 'var(--color-traffic-green)',
         },
-        // Legacy aliases (kept so nothing breaks)
-        aqua: '#f5f5f7',
-        aquadeep: '#d2d2d7',
-        brand: '#0071e3',
-        ink: '#1d1d1f',
-        slatebody: '#6e6e73',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -97,6 +109,7 @@ module.exports = {
         card: "0 4px 24px -8px rgba(0, 0, 0, 0.08)",
         "card-hover": "0 12px 40px -12px rgba(0, 0, 0, 0.16)",
         cta: "0 8px 24px -8px rgba(0, 113, 227, 0.45)",
+        sticky: "0 -8px 30px rgb(0 0 0 / 0.08)",
       },
       keyframes: {
         "accordion-down": {

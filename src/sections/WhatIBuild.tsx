@@ -68,8 +68,8 @@ const SERVICES: Service[] = [
 const money = (n: number) => `$${Math.round(n).toLocaleString('en-AU')}`
 
 function QuoteCalculator() {
-  const [selected, setSelected] = useState<Record<string, boolean>>({ driveway: true })
-  const [areas, setAreas] = useState<Record<string, string>>({ driveway: '100' })
+  const [selected, setSelected] = useState<Record<string, boolean>>({})
+  const [areas, setAreas] = useState<Record<string, string>>({})
   const [heavy, setHeavy] = useState(false)
 
   const calc = useMemo(() => {
@@ -89,7 +89,7 @@ function QuoteCalculator() {
   }, [selected, areas, heavy])
 
   return (
-    <div className="overflow-hidden rounded-[28px] bg-white shadow-card-hover">
+    <div className="overflow-hidden rounded-[28px] bg-apple-surface shadow-card-hover">
       <div className="border-b border-apple-gray px-6 py-6 md:px-10">
         <h3 className="text-xl font-semibold tracking-tight text-apple-ink md:text-2xl">
           Try the calculator - <span className="text-apple-blue">live demo</span>
@@ -116,7 +116,7 @@ function QuoteCalculator() {
                 <div
                   key={s.id}
                   className={`rounded-2xl border p-4 transition-colors ${
-                    on ? 'border-apple-blue bg-apple-blue/5' : 'border-apple-hairline bg-white hover:border-apple-blue/50'
+                    on ? 'border-apple-blue bg-apple-blueSoft' : 'border-apple-hairline bg-apple-surface hover:border-apple-blueMist'
                   }`}
                 >
                   <label className="flex cursor-pointer items-start gap-3">
@@ -124,7 +124,7 @@ function QuoteCalculator() {
                       type="checkbox"
                       checked={on}
                       onChange={(e) => setSelected((p) => ({ ...p, [s.id]: e.target.checked }))}
-                      className="mt-1 h-4 w-4 accent-[#0071e3]"
+                      className="mt-1 h-4 w-4 accent-apple-blue"
                     />
                     <span>
                       <span className="block text-sm font-semibold text-apple-ink">
@@ -141,7 +141,7 @@ function QuoteCalculator() {
                       placeholder={`Approx. area (${s.unit})`}
                       value={areas[s.id] ?? ''}
                       onChange={(e) => setAreas((p) => ({ ...p, [s.id]: e.target.value }))}
-                      className="mt-3 w-full rounded-xl border border-apple-hairline bg-white px-3 py-2 text-sm text-apple-ink placeholder:text-apple-sub/60 focus:border-apple-blue focus:outline-none"
+                      className="mt-3 w-full rounded-xl border border-apple-hairline bg-apple-surface px-3 py-2 text-sm text-apple-ink placeholder:text-apple-sub focus:border-apple-blue focus:outline-none"
                       aria-label={`${s.name} area in ${s.unit}`}
                     />
                   )}
@@ -161,8 +161,8 @@ function QuoteCalculator() {
                   onClick={() => setHeavy(i === 1)}
                   className={`rounded-full border px-4 py-2.5 text-sm font-semibold transition-colors ${
                     active
-                      ? 'border-apple-blue bg-apple-blue/5 text-apple-blue'
-                      : 'border-apple-hairline bg-white text-apple-sub hover:border-apple-blue/50'
+                      ? 'border-apple-blue bg-apple-blueSoft text-apple-blue'
+                      : 'border-apple-hairline bg-apple-surface text-apple-sub hover:border-apple-blueMist'
                   }`}
                   aria-pressed={active}
                 >
@@ -175,8 +175,8 @@ function QuoteCalculator() {
         </div>
 
         {/* instant estimate panel */}
-        <div className="flex flex-col bg-apple-ink p-6 text-white md:p-10">
-          <p className="text-xs font-semibold tracking-[0.25em] text-apple-blue">
+        <div className="flex flex-col bg-apple-invert p-6 text-white md:p-10">
+          <p className="text-xs font-semibold tracking-[0.25em] text-apple-blueAlt">
             INSTANT ESTIMATE
           </p>
           <p className="mt-2 text-5xl font-semibold tracking-tight">
@@ -203,7 +203,7 @@ function QuoteCalculator() {
               </li>
             )}
             {calc.bundle > 0 && (
-              <li className="flex items-baseline justify-between gap-3 text-apple-blue">
+              <li className="flex items-baseline justify-between gap-3 text-apple-blueAlt">
                 <span>Bundle discount (2+ services, −20%)</span>
                 <span className="font-semibold">−{money(calc.bundle)}</span>
               </li>
@@ -227,7 +227,7 @@ function QuoteCalculator() {
 
 export default function WhatIBuild() {
   return (
-    <section id="build" className="scroll-mt-16 bg-white py-20 md:py-28">
+    <section id="build" className="scroll-mt-16 bg-apple-surface py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <Kicker>What I build</Kicker>
@@ -247,11 +247,11 @@ export default function WhatIBuild() {
               key={item.title}
               as="article"
               delay={(i % 3) * 100}
-              className={`group flex h-full flex-col rounded-[28px] bg-apple-gray p-8 transition-colors duration-300 hover:bg-[#ebebee] ${
+              className={`group flex h-full flex-col rounded-[28px] bg-apple-gray p-8 transition-colors duration-300 hover:bg-apple-grayHover ${
                 i < 3 ? 'lg:col-span-2' : 'lg:col-span-3'
               }`}
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-apple-blue shadow-card transition-transform duration-300 group-hover:scale-105">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-apple-surface text-apple-blue shadow-card transition-transform duration-300 group-hover:scale-105">
                 <item.icon className="h-5 w-5" />
               </span>
               <h3 className="mt-5 text-lg font-semibold tracking-tight text-apple-ink">
@@ -267,7 +267,7 @@ export default function WhatIBuild() {
           <p className="mt-4 flex items-center justify-center gap-2 text-center text-sm font-medium text-apple-sub">
             On a client site, this form fires a webhook into GoHighLevel the second they hit
             &ldquo;Get My Free Quote&rdquo;
-            <ArrowRight className="h-4 w-4 text-apple-blue" />
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </p>
         </Reveal>
       </div>
