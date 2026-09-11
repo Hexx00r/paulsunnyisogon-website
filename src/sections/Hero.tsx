@@ -52,8 +52,8 @@ export default function Hero() {
               alt="Paul Sunny Isogon Jr — GoHighLevel specialist"
               className="w-full rounded-3xl object-cover shadow-card-hover"
             />
-            <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-apple-invert px-5 py-2 text-sm font-medium text-white">
-              Paul Isogon · GHL Funnel Architect
+            <span className="absolute -bottom-4 left-1/2 max-w-full -translate-x-1/2 rounded-full bg-apple-invert px-5 py-2 text-center text-sm font-medium text-white">
+              Paul Isogon · Full-Stack Web Developer / GHL Specialist
             </span>
           </div>
 
