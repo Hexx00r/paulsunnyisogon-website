@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <!-- Theme bootstrap: applies data-theme before first paint / before the CSS below, so there
      is no flash of the wrong theme. Reads the stored choice (localStorage "theme", shared
-     with the main site); "system" (or nothing stored) resolves to the OS preference.
+     with the main site); when nothing is stored the default is dark; a stored "system"
+     resolves to the OS preference.
      Without JS, the @media (prefers-color-scheme) block under :root:not([data-theme])
      provides the same default. -->
 <script>
 (function () {
   try {
-    var theme = localStorage.getItem('theme') || 'system';
+    var theme = localStorage.getItem('theme') || 'dark';
     var resolved = theme === 'system'
       ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
       : theme;
