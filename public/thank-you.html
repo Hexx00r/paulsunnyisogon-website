@@ -149,25 +149,6 @@ section.gray{background:var(--gray)}
 .section-head h2{margin:.5rem 0 .8rem}
 .section-head p{font-size:1.02rem}
 
-/* booking summary */
-.summary-wrap{max-width:660px;margin:0 auto}
-.summary-card{background:var(--white);border-radius:28px;overflow:hidden;box-shadow:var(--shadow-card)}
-.summary-top{background:var(--invert);color:var(--on-invert);padding:1.3rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.summary-top h3{color:var(--on-invert);font-size:1.05rem;font-weight:600}
-.summary-top .live{display:inline-flex;align-items:center;gap:.5em;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-on-dark)}
-.summary-top .live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--blue-on-dark);animation:blink 1.6s ease-in-out infinite}
-@keyframes blink{50%{opacity:.35}}
-.summary-body{padding:1.6rem 1.8rem}
-.summary-row{display:flex;justify-content:space-between;gap:1.5rem;padding:.6rem 0;font-size:.95rem}
-.summary-row dt{color:var(--sub);font-weight:400;flex-shrink:0}
-.summary-row dd{font-weight:600;color:var(--ink);text-align:right}
-.summary-total{display:flex;justify-content:space-between;gap:1.5rem;margin-top:1rem;padding-top:1.1rem;border-top:1px solid var(--line)}
-.summary-total dt{font-weight:600;color:var(--ink);font-size:1rem}
-.summary-total dd{font-weight:600;color:var(--blue);font-size:1.3rem}
-.summary-note{margin:0 1.8rem 1.8rem;font-size:.85rem;color:var(--sub);background:var(--gray);border-radius:16px;padding:.9rem 1.1rem}
-.summary-note strong{color:var(--ink)}
-@media(max-width:480px){.summary-row{flex-direction:column;gap:.05rem}.summary-row dd{text-align:left}}
-
 /* next steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
 .step{background:var(--white);border-radius:28px;padding:1.9rem 1.7rem;transition:background .2s ease}
@@ -200,11 +181,11 @@ footer a:hover{color:var(--ink)}
 
 <header>
   <div class="nav">
-    <a class="logo" href="https://paulsunnybravery.kimi.page">
+    <a class="logo" href="https://paulsunnydev.com">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 3C12 3 5.5 10.2 5.5 14.5C5.5 18.1 8.4 21 12 21C15.6 21 18.5 18.1 18.5 14.5C18.5 10.2 12 3 12 3Z" style="stroke:var(--blue)" stroke-width="2.4" stroke-linejoin="round"/></svg>
       <span class="logo-text">Paul Isogon</span>
     </a>
-    <a class="btn btn-primary nav-cta" href="https://paulsunnybravery.kimi.page">← Back to site</a>
+    <a class="btn btn-primary nav-cta" href="https://paulsunnydev.com">← Back to site</a>
   </div>
 </header>
 
@@ -215,7 +196,7 @@ footer a:hover{color:var(--ink)}
       <svg viewBox="0 0 32 32"><path d="M7 17l6 6 12-14"/></svg>
     </div>
     <h1 id="tyHeadline">You're booked in. <span class="accent">Your funnel audit is locked.</span></h1>
-    <p class="lead">Thanks for reaching out. Your booking summary is below and a confirmation email is on its way. Come as you are, I'll bring the teardown.</p>
+    <p class="lead">Thanks for reaching out. A confirmation email is on its way. Come as you are, I'll bring the teardown.</p>
     <div class="ty-badges">
       <span class="badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" style="stroke:var(--blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>100% free, no pitch-slap</span>
       <span class="badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" style="stroke:var(--blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Screen-share teardown of your funnel</span>
@@ -224,42 +205,14 @@ footer a:hover{color:var(--ink)}
   </div>
 </section>
 
-<!-- 2. BOOKING SUMMARY -->
-<section class="gray">
-  <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Your booking</span>
-      <h2>The details, <span class="accent">locked in.</span></h2>
-      <p>Double-check these: if anything's off, just reply to your confirmation email.</p>
-    </div>
-    <div class="summary-wrap reveal">
-      <div class="summary-card">
-        <div class="summary-top">
-          <h3>Booking summary</h3>
-          <span class="live">Confirmed</span>
-        </div>
-        <dl class="summary-body">
-          <div class="summary-row"><dt>Session</dt><dd id="sumService">Free Funnel Audit (30 min)</dd></div>
-          <div class="summary-row"><dt>Date</dt><dd id="sumDate">Friday, 4 September 2026</dd></div>
-          <div class="summary-row"><dt>Time</dt><dd id="sumTime">10:00 am AEST</dd></div>
-          <div class="summary-row"><dt>Where</dt><dd id="sumWhere">Google Meet (link in your email)</dd></div>
-          <div class="summary-row"><dt>Booked by</dt><dd id="sumName"></dd></div>
-          <div class="summary-total"><dt>Cost</dt><dd id="sumTotal">$0 (free)</dd></div>
-        </dl>
-        <p class="summary-note"><strong>Need to reschedule?</strong> Use the link in your confirmation email; no awkward phone call required.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 3. CALL TO ACTION -->
+<!-- 2. CALL TO ACTION -->
 <section class="cta-band">
   <div class="container reveal">
     <span class="eyebrow">Before the call</span>
     <h2>One quick favour: <span class="accent">come with your numbers.</span></h2>
     <p>Bring your ad spend, lead count and booked jobs for last month. Even rough figures let me show you exactly where the funnel is leaking, and what fixing it is worth.</p>
     <div class="cta-actions">
-      <a class="btn btn-primary" href="https://paulsunnybravery.kimi.page">See how the system works →</a>
+      <a class="btn btn-primary" href="https://paulsunnydev.com">See how the system works →</a>
       <a class="btn btn-ghost-dark" href="mailto:paulsunnyisogon@gmail.com?subject=Funnel%20link%20for%20my%20audit">Email me your funnel link</a>
     </div>
   </div>
@@ -298,45 +251,11 @@ footer a:hover{color:var(--ink)}
 <footer>
   <div class="container">
     Copyright © 2026 Paul Sunny Isogon Jr · GHL Funnel Architect · Philippines-based, serving AU · US · UK remotely<br>
-    Built the whole system for my family's cleaning business first. <a href="https://paulsunnybravery.kimi.page">See the case studies</a>
+    Built the whole system for my family's cleaning business first. <a href="https://paulsunnydev.com">See the case studies</a>
   </div>
 </footer>
 
 <script>
-/* ============================================================
-   PERSONALISATION — pass details in the redirect URL from GHL:
-   ?name={{contact.first_name}}&service={{...}}&date={{...}}
-   &time={{...}}&where={{...}}&total={{...}}
-   Any value left out keeps the default shown on the page.
-   ============================================================ */
-(function(){
-  var q = new URLSearchParams(window.location.search);
-  function safe(v){ return /^[\w\s.,'&()\/:\-$–—+@]{1,120}$/.test(v || ''); }
-  function set(id, key){
-    var v = q.get(key);
-    if (v && safe(v)) document.getElementById(id).textContent = v;
-  }
-  set('sumService','service');
-  set('sumDate','date');
-  set('sumTime','time');
-  set('sumWhere','where');
-  set('sumTotal','total');
-
-  /* headline + "booked by" row via ?name= */
-  var name = q.get('name');
-  if (name && /^[a-zA-Z' -]{2,30}$/.test(name)) {
-    var safeName = name.charAt(0).toUpperCase() + name.slice(1);
-    document.getElementById('sumName').textContent = safeName;
-    var h = document.getElementById('tyHeadline');
-    h.innerHTML = '';
-    h.appendChild(document.createTextNode('You\u2019re booked in, ' + safeName + '. '));
-    var span = document.createElement('span');
-    span.className = 'accent';
-    span.textContent = 'Your funnel audit is locked.';
-    h.appendChild(span);
-  }
-})();
-
 /* Scroll reveals */
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
