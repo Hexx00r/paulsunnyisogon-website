@@ -306,7 +306,65 @@ if (!existsSync(seoPath)) {
   check('hub links to guide #4', hub4.includes('href="/guides/pressure-washing-seo-australia.html"'))
 }
 
-// --- 15. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 15. guide #5: get-more-pressure-washing-jobs-without-hipages -------------
+const jobsPath = join(dist, 'guides', 'get-more-pressure-washing-jobs-without-hipages.html')
+console.log('\nverify: dist/guides/get-more-pressure-washing-jobs-without-hipages.html')
+if (!existsSync(jobsPath)) {
+  fail('guide #5 exists in dist')
+} else {
+  const j = readFileSync(jobsPath, 'utf8')
+  const jTitle = (j.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    jTitle === 'How to Get More Pressure Washing Jobs Without hipages (2026) | paulsunnydev',
+    `got "${jTitle}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    j.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !j.includes('/#quote'))
+  check('money-page link at ROOT path', j.includes('href="/pressure-cleaning-website-design.html"'))
+  check('links to hub', j.includes('href="/guides/"'))
+  check('links to SEO guide', j.includes('href="/guides/pressure-washing-seo-australia.html"'))
+  check('links to cost guide', j.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
+  check('links to homepage calculator anchor', j.includes('/#calculator'))
+
+  const jBlocks = [...j.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !jBlocks.find((b) => b.__parseError))
+  check('Article schema present', jBlocks.some((b) => b['@type'] === 'Article'))
+  const jFaq = jBlocks.find((b) => b['@type'] === 'FAQPage')
+  const jFaqQs = jFaq && Array.isArray(jFaq.mainEntity) ? jFaq.mainEntity : []
+  check('FAQPage schema with 4 questions', jFaqQs.length === 4, `${jFaqQs.length}`)
+  const jH3s = [...j.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const jVisible = jH3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const jKeyOf = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const jMissing = jFaqQs.filter(
+    (q) => !jVisible.some((v) => v.includes(jKeyOf(q.name)) || jKeyOf(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    jMissing.length === 0,
+    jMissing.map((q) => q.name).join('; ')
+  )
+  check('unverified GHL range is tokenized', j.includes('{{ghl_all_in_aud}}') && !j.includes('$150–$250'))
+
+  const hub5 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #5', hub5.includes('href="/guides/get-more-pressure-washing-jobs-without-hipages.html"'))
+  const jTokens = [...new Set([...j.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
+  console.log(`  INFO  guide tokens to fill: ${jTokens.map((t) => `{{${t}}}`).join(', ')}`)
+  check('tokens listed in HTML comment', j.includes('TODO(Paul)'))
+}
+
+// --- 16. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const htmlFiles = []
 ;(function walk(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
