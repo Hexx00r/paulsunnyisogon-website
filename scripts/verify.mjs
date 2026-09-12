@@ -157,5 +157,98 @@ if (existsSync(smPath)) {
 }
 check('guides.css present in dist', existsSync(join(dist, 'guides', 'guides.css')))
 
+// --- 12. guide #3: gohighlevel-for-tradies-australia ------------------------
+const guidePath = join(dist, 'guides', 'gohighlevel-for-tradies-australia.html')
+console.log('\nverify: dist/guides/gohighlevel-for-tradies-australia.html')
+if (!existsSync(guidePath)) {
+  fail('guide exists in dist')
+} else {
+  const g = readFileSync(guidePath, 'utf8')
+  const gTitle = (g.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    gTitle === 'GoHighLevel for Tradies Australia (2026 Guide) | paulsunnydev',
+    `got "${gTitle}"`
+  )
+  const gDesc = (g.match(/<meta name="description" content="([^"]*)">/) || [])[1] || ''
+  check('meta description: keyword', /gohighlevel/i.test(gDesc))
+  check('meta description: AU signal', /australia/i.test(gDesc))
+  check('meta description: cost signal', /\$\d|\{\{ghl/.test(gDesc))
+  check(
+    'canonical',
+    g.includes('<link rel="canonical" href="https://paulsunnydev.com/guides/gohighlevel-for-tradies-australia.html">')
+  )
+
+  const gBlocks = [...g.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !gBlocks.find((b) => b.__parseError))
+  const article = gBlocks.find((b) => b['@type'] === 'Article')
+  check('Article schema present', Boolean(article))
+  check(
+    'Article author is Paul Isogon',
+    Boolean(article && /paul isogon/i.test(JSON.stringify(article.author || '')))
+  )
+  check(
+    'Article datePublished is a real date',
+    Boolean(article && /^\d{4}-\d{2}-\d{2}$/.test(article.datePublished || '')),
+    article && article.datePublished
+  )
+  const gFaq = gBlocks.find((b) => b['@type'] === 'FAQPage')
+  const gFaqQs = gFaq && Array.isArray(gFaq.mainEntity) ? gFaq.mainEntity : []
+  check('FAQPage schema present', Boolean(gFaq))
+  check('FAQPage has 5 questions', gFaqQs.length === 5, `${gFaqQs.length}`)
+
+  const gMain = g.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const gText = gMain ? norm(strip(gMain[1])) : ''
+  const gWords = gText ? gText.split(' ') : []
+  check('word count 1,200–1,600', gWords.length >= 1200 && gWords.length <= 1600, `${gWords.length} words`)
+  const gFirst100 = gWords.slice(0, 100).join(' ')
+  check(
+    'first 100 words: direct answer + monthly cost',
+    /gohighlevel/i.test(gFirst100) && /month/i.test(gFirst100) && /ghl_monthly_aud|\$\d/.test(gFirst100)
+  )
+
+  check('links to money page', g.includes('href="/pressure-cleaning-website-design.html"'))
+  check('links to cost guide', g.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
+  check('links to hub', g.includes('href="/guides/"'))
+
+  const gH2s = [...g.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)].map((m) => norm(strip(m[1])))
+  const gH3s = [...g.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const gVisible = [...gH2s, ...gH3s].map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const gKeyOf = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const gMissing = gFaqQs.filter(
+    (q) => !gVisible.some((v) => v.includes(gKeyOf(q.name)) || gKeyOf(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    gMissing.length === 0,
+    gMissing.map((q) => q.name).join('; ')
+  )
+
+  for (const img of ['wf-quote.webp', 'wf-followup.webp', 'wf-review.webp']) {
+    check(`screenshot ${img} in dist`, existsSync(join(dist, 'guides', 'img', img)))
+  }
+  check('no stale /#quote anchors', !g.includes('/#quote'))
+  const gTokens = [...new Set([...g.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
+  console.log(`  INFO  guide tokens to fill: ${gTokens.map((t) => `{{${t}}}`).join(', ')}`)
+  check('tokens listed in HTML comment', g.includes('TODO(Paul)'))
+}
+
+// --- 13. hub lists guide #3 ---------------------------------------------------
+const hubPath = join(dist, 'guides', 'index.html')
+if (!existsSync(hubPath)) {
+  fail('hub exists in dist')
+} else {
+  const hub = readFileSync(hubPath, 'utf8')
+  check('hub links to guide #3', hub.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
+}
+
 console.log(failures ? `\nverify: ${failures} check(s) FAILED` : '\nverify: all checks passed')
 process.exit(failures ? 1 : 0)
