@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type FormEvent } from 'react'
 import { Kicker } from '@/components/Shared'
 import Reveal from '@/components/Reveal'
+import { QUOTE_RELAY_ENDPOINT } from '@/site.config'
 
 /* ------------------------- Live calculator demo ---------------------------- */
 
@@ -27,6 +28,12 @@ function QuoteCalculator() {
   const [selected, setSelected] = useState<Record<string, boolean>>({})
   const [areas, setAreas] = useState<Record<string, string>>({})
   const [heavy, setHeavy] = useState(false)
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [message, setMessage] = useState('')
+  const [company, setCompany] = useState('') // honeypot — must stay empty
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
 
   const calc = useMemo(() => {
     const lines = SERVICES.filter((s) => selected[s.id]).map((s) => {
@@ -43,6 +50,46 @@ function QuoteCalculator() {
     const total = minApplied ? 150 : beforeMin
     return { lines, subtotal, heavyAdj, bundle, total, minApplied }
   }, [selected, areas, heavy])
+
+  const canSubmit = calc.lines.length > 0 && !sending
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (!canSubmit) return
+    setSending(true)
+    setError('')
+
+    const details: Record<string, string> = {}
+    for (const l of calc.lines) {
+      details[l.name] = l.unit ? `${l.qty} ${l.unit}` : 'flat rate'
+    }
+    details['Condition'] = heavy ? 'Heavy staining (+20%)' : 'Normal build-up'
+
+    const payload = {
+      name: name.trim(),
+      phone: phone.trim(),
+      service: calc.lines.map((l) => l.name).join(' + '),
+      message: message.trim() || undefined,
+      timestamp: new Date().toISOString(),
+      estimate: Math.round(calc.total),
+      details,
+      bundleDiscount: calc.bundle > 0,
+      company, // honeypot — bots fill it, humans never see it
+    }
+
+    try {
+      const res = await fetch(QUOTE_RELAY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      window.location.href = '/booked'
+    } catch {
+      setError("Couldn't send your quote just now — call or text 0450 710 483 and we'll lock it in.")
+      setSending(false)
+    }
+  }
 
   return (
     <div className="card rounded-[28px] p-8 md:p-10">
@@ -168,6 +215,74 @@ function QuoteCalculator() {
           and save 20%. Minimum job $150.
         </p>
       </div>
+
+      {/* quote request form */}
+      <form onSubmit={handleSubmit} className="mt-8 rounded-[20px] border border-apple-hairline p-6 md:p-8">
+        <p className="text-xs font-semibold tracking-[0.25em] text-apple-blue">GET YOUR FIXED QUOTE</p>
+        <p className="mt-2 text-sm leading-relaxed text-apple-sub">
+          Happy with the ballpark? Send it through — the fixed quote is confirmed within one
+          business day.
+        </p>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <input
+            type="text"
+            name="name"
+            required
+            autoComplete="name"
+            placeholder="Your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-xl border border-apple-hairline bg-black/40 px-3 py-2 text-sm text-apple-ink placeholder:text-apple-sub focus:border-apple-blue focus:outline-none focus:ring-1 focus:ring-apple-blue"
+          />
+          <input
+            type="tel"
+            name="phone"
+            required
+            autoComplete="tel"
+            placeholder="Phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full rounded-xl border border-apple-hairline bg-black/40 px-3 py-2 text-sm text-apple-ink placeholder:text-apple-sub focus:border-apple-blue focus:outline-none focus:ring-1 focus:ring-apple-blue"
+          />
+        </div>
+        <textarea
+          name="message"
+          rows={3}
+          placeholder="Anything else? Gate access, pets, timing… (optional)"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className="mt-3 w-full rounded-xl border border-apple-hairline bg-black/40 px-3 py-2 text-sm text-apple-ink placeholder:text-apple-sub focus:border-apple-blue focus:outline-none focus:ring-1 focus:ring-apple-blue"
+        />
+        {/* honeypot — hidden from users, bots fill it and get silently dropped */}
+        <input
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          className="hidden"
+        />
+
+        {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
+
+        <button
+          type="submit"
+          disabled={!canSubmit}
+          className="mt-5 w-full rounded-full bg-apple-blueSolid py-3 text-sm font-semibold text-black transition-all hover:bg-apple-blueDark disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {sending
+            ? 'Sending…'
+            : calc.lines.length
+              ? `Send quote request · ${money(calc.total)}${calc.lines.some((l) => l.tbc) ? '+' : ''}`
+              : 'Send quote request'}
+        </button>
+        {calc.lines.length === 0 && (
+          <p className="mt-2 text-center text-xs text-apple-sub">Tick at least one service above first.</p>
+        )}
+      </form>
     </div>
   )
 }
