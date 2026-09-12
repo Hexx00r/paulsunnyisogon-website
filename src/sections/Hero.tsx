@@ -17,7 +17,7 @@ export default function Hero() {
 
         <Reveal delay={80}>
           <h1 className="mx-auto mt-6 max-w-4xl text-[clamp(3rem,8vw,6rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-apple-ink">
-            Your funnel should work harder than your pressure washer.
+            Your website should work harder than your pressure washer.
           </h1>
         </Reveal>
 
