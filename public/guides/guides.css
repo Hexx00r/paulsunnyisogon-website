@@ -1,0 +1,489 @@
+/* ============================================================
+   guides.css — shared styles for paulsunnydev.com/guides/
+   Standalone pages: no framework, no build step, no webfonts.
+   Matches the site's Apple-inspired dark design system.
+   ============================================================ */
+
+:root {
+  --bg: #0a0a0a;
+  --ink: #f5f5f7;
+  --sub: #86868b;
+  --accent: #00d4ff;
+  --panel: #101012;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-soft: rgba(255, 255, 255, 0.3);
+  --column: 680px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--sub);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 19px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(0, 212, 255, 0.28);
+  color: #ffffff;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ------------------------------- Header ------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(10, 10, 10, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-header .bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+/* ------------------------------- Buttons ------------------------------ */
+
+.btn {
+  display: inline-block;
+  border-radius: 980px;
+  padding: 14px 28px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #000000;
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+  background: #4ddcff;
+  border-color: #4ddcff;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-soft);
+}
+
+.btn-secondary:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+}
+
+.btn-sm {
+  padding: 10px 20px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* -------------------------------- Main -------------------------------- */
+
+main {
+  max-width: var(--column);
+  margin: 0 auto;
+  padding: 88px 24px 120px;
+}
+
+main.wide {
+  max-width: 880px;
+}
+
+/* Small-caps label */
+.kicker {
+  margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sub);
+}
+
+.breadcrumb {
+  margin: 0 0 32px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sub);
+}
+
+.breadcrumb a {
+  color: var(--sub);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--ink);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  margin: 0 0 32px;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.08;
+  font-weight: 700;
+}
+
+/* ------------------------------- Prose -------------------------------- */
+
+.prose p {
+  margin: 24px 0;
+}
+
+.prose ul,
+.prose ol {
+  margin: 24px 0;
+  padding-left: 28px;
+}
+
+.prose li {
+  margin: 12px 0;
+}
+
+.prose strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.prose em {
+  color: var(--ink);
+}
+
+.prose a {
+  color: var(--accent);
+}
+
+.prose h2 {
+  margin: 72px 0 8px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.prose h3 {
+  margin: 48px 0 8px;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+/* Lead paragraph directly under the H1 */
+.lede {
+  font-size: 21px;
+  color: #a1a1a6;
+}
+
+.lede strong {
+  color: var(--ink);
+}
+
+/* ------------------------------ Panels -------------------------------- */
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 40px;
+}
+
+.callout {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin: 40px 0;
+}
+
+.callout p {
+  margin: 0;
+}
+
+.callout p + p {
+  margin-top: 16px;
+}
+
+.price {
+  color: var(--accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* -------------------------------- CTA --------------------------------- */
+
+.cta-panel {
+  margin-top: 96px;
+  padding: 56px 40px;
+  text-align: center;
+}
+
+.cta-panel h2 {
+  margin: 0 0 16px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.02em;
+}
+
+.cta-panel p {
+  margin: 0 auto 28px;
+  max-width: 480px;
+}
+
+.cta-note {
+  margin: 24px auto 0;
+  max-width: 460px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--sub);
+}
+
+.cta-note strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ------------------------------ Author -------------------------------- */
+
+.author {
+  margin-top: 72px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--sub);
+}
+
+.author strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.author a {
+  color: var(--accent);
+}
+
+/* ------------------------------- Tables ------------------------------- */
+
+.table-wrap {
+  margin: 40px 0;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow-x: auto;
+  background: var(--panel);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+th,
+td {
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+td {
+  color: var(--sub);
+}
+
+td strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Stack table rows under 640px */
+@media (max-width: 640px) {
+  table.stack thead {
+    display: none;
+  }
+
+  table.stack,
+  table.stack tbody,
+  table.stack tr,
+  table.stack td {
+    display: block;
+    width: 100%;
+  }
+
+  table.stack tr {
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+  }
+
+  table.stack tr:last-child {
+    border-bottom: none;
+  }
+
+  table.stack td {
+    border: none;
+    padding: 6px 18px;
+  }
+
+  table.stack td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--sub);
+  }
+}
+
+/* ------------------------------ Hub cards ----------------------------- */
+
+.guide-list {
+  list-style: none;
+  margin: 48px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 24px;
+}
+
+.guide-card {
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 40px;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+.guide-card:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+}
+
+.guide-card h2 {
+  margin: 12px 0 0;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.guide-card .desc {
+  margin: 12px 0 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--sub);
+}
+
+.guide-card .read {
+  margin: 20px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ------------------------------- Footer ------------------------------- */
+
+.site-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 40px 24px 56px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--sub);
+}
+
+.site-footer a {
+  color: var(--sub);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+/* ----------------------------- Small screens -------------------------- */
+
+@media (max-width: 640px) {
+  body {
+    font-size: 17px;
+  }
+
+  main {
+    padding: 64px 20px 96px;
+  }
+
+  .site-header .bar {
+    padding: 14px 16px;
+  }
+
+  .panel,
+  .cta-panel,
+  .guide-card {
+    padding: 28px 24px;
+  }
+}
