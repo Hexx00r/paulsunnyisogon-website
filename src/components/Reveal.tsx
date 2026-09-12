@@ -20,7 +20,7 @@ export default function Reveal({
   children,
   className = '',
   delay = 0,
-  y = 24,
+  y = 40,
   as: Tag = 'div',
   style,
 }: RevealProps) {
@@ -50,8 +50,8 @@ export default function Reveal({
     opacity: visible ? 1 : 0,
     transform: visible ? 'translate3d(0, 0, 0)' : `translate3d(0, ${y}px, 0)`,
     transitionProperty: 'opacity, transform',
-    transitionDuration: '700ms',
-    transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
+    transitionDuration: '800ms',
+    transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
     transitionDelay: `${delay}ms`,
     willChange: 'opacity, transform',
   }

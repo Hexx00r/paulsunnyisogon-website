@@ -1,7 +1,12 @@
 import { Droplet } from 'lucide-react'
-import { BOOKING, EMAIL, MAILTO, RESUME, YOUTUBE } from '@/components/Shared'
+import { BOOKING, MAILTO, RESUME, YOUTUBE } from '@/components/Shared'
 
-const COLUMNS: { title: string; links: { label: string; href: string; download?: boolean }[] }[] = [
+const GITHUB_URL = 'https://github.com/Hexx00r'
+
+const COLUMNS: {
+  title: string
+  links: { label: string; href: string; external?: boolean; download?: boolean }[]
+}[] = [
   {
     title: 'Explore',
     links: [
@@ -9,36 +14,36 @@ const COLUMNS: { title: string; links: { label: string; href: string; download?:
       { label: 'Case Study: DJ Property', href: '#case-study-dj' },
       { label: 'Case Study: Melbourne HPC', href: '#case-study-melbourne' },
       { label: 'The Automation Engine', href: '#automations' },
+      { label: 'About', href: '#about' },
     ],
   },
   {
     title: 'Work with me',
     links: [
-      { label: 'About', href: '#about' },
-      { label: 'Services & Availability', href: '#services' },
-      { label: 'Book a Free Funnel Audit', href: BOOKING },
+      { label: 'Book a Call', href: BOOKING, external: true },
+      { label: 'Email', href: MAILTO },
+      { label: 'Resume', href: RESUME, download: true },
     ],
   },
   {
     title: 'Connect',
     links: [
-      { label: EMAIL, href: MAILTO },
-      { label: 'Watch the demo', href: YOUTUBE },
-      { label: 'Download resume (PDF)', href: RESUME, download: true },
+      { label: 'GitHub', href: GITHUB_URL, external: true },
+      { label: 'YouTube', href: YOUTUBE, external: true },
     ],
   },
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-apple-gray pb-28 pt-14 md:pb-14">
+    <footer className="bg-apple-surface py-10">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="flex items-center gap-2 text-apple-ink">
+        <a href="#top" className="flex items-center gap-2 text-apple-ink" aria-label="Home">
           <Droplet className="h-5 w-5 text-apple-blue" strokeWidth={2.5} />
           <span className="text-sm font-semibold tracking-tight">Paul Isogon</span>
-        </div>
+        </a>
 
-        <nav className="mt-10 grid gap-8 border-b border-apple-hairline pb-10 sm:grid-cols-3" aria-label="Footer">
+        <nav className="mt-10 grid gap-8 sm:grid-cols-3" aria-label="Footer">
           {COLUMNS.map((col) => (
             <div key={col.title}>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-apple-ink">
@@ -50,9 +55,9 @@ export default function Footer() {
                     <a
                       href={link.href}
                       download={link.download || undefined}
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                      className="text-xs text-apple-sub transition-colors hover:text-apple-ink hover:underline"
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      className="text-xs text-apple-sub transition-colors hover:text-apple-ink"
                     >
                       {link.label}
                     </a>
@@ -63,13 +68,9 @@ export default function Footer() {
           ))}
         </nav>
 
-        <div className="mt-6 flex flex-col items-start justify-between gap-2 text-xs text-apple-sub md:flex-row md:items-center">
-          <p>
-            Copyright © 2026 Paul Sunny Isogon Jr · Philippines · Serving Australia, US &amp; UK
-            remotely
-          </p>
-          <p>Instant-quote funnels + GHL automations for pressure cleaning &amp; trade businesses</p>
-        </div>
+        <p className="mt-10 border-t border-apple-hairline pt-6 text-xs text-apple-sub">
+          © {new Date().getFullYear()} Paul Sunny Isogon Jr
+        </p>
       </div>
     </footer>
   )

@@ -1,27 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // Dark mode is driven by the data-theme attribute set by next-themes
-  // (inline script in index.html + ThemeProvider), not the .dark class.
-  darkMode: ['selector', '[data-theme="dark"]'],
+  // Single dark theme — no class/attribute switching.
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
         sans: [
           '-apple-system',
-          '"SF Pro Display"',
-          '"SF Pro Text"',
-          'Inter',
+          'BlinkMacSystemFont',
           '"Segoe UI"',
           'Roboto',
-          '"Helvetica Neue"',
-          'Arial',
           'sans-serif',
         ],
         display: [
           '-apple-system',
-          '"SF Pro Display"',
-          'Inter',
+          'BlinkMacSystemFont',
           '"Segoe UI"',
           'Roboto',
           'sans-serif',

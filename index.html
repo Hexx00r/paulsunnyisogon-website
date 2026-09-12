@@ -2,24 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Theme bootstrap: applies data-theme before first paint / before CSS, so there is
-         no flash of the wrong theme. Reads the stored choice (localStorage "theme");
-         when nothing is stored the default is dark; a stored "system" resolves to the OS
-         preference. Must stay in sync with <ThemeProvider> in src/components/ThemeProvider.tsx. -->
-    <script>
-      (function () {
-        try {
-          var theme = localStorage.getItem('theme') || 'dark'
-          var resolved =
-            theme === 'system'
-              ? window.matchMedia('(prefers-color-scheme: dark)').matches
-                ? 'dark'
-                : 'light'
-              : theme
-          document.documentElement.setAttribute('data-theme', resolved)
-        } catch (e) {}
-      })()
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paul Sunny Isogon Jr — Full-Stack Web Developer / GHL Specialist for High-Pressure Cleaning Businesses</title>
     <meta
@@ -37,12 +19,6 @@
     />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div id="root"></div>

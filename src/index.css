@@ -8,10 +8,12 @@
   }
 
   body {
-    font-family: -apple-system, "SF Pro Display", "SF Pro Text", Inter, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, sans-serif;
-    background-color: var(--color-surface);
-    color: var(--color-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #0a0a0a;
+    color: #f5f5f7;
+    font-size: 19px;
+    line-height: 1.5;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -19,9 +21,10 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: -apple-system, "SF Pro Display", Inter, "Segoe UI", Roboto, sans-serif;
-    color: var(--color-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #f5f5f7;
     letter-spacing: -0.02em;
+    font-weight: 700;
   }
 
   :focus-visible {
@@ -34,118 +37,104 @@
   }
 
   /* ============================================================
-     Theme tokens — single source of truth for both themes.
-     Light values on :root, dark values on [data-theme="dark"]
-     (the attribute is set by the inline script in index.html and
-     kept in sync by next-themes — see src/components/ThemeProvider.tsx).
+     Design tokens — dark only. The site is committed to a single
+     dark theme (#0a0a0a); there is no light theme and no toggle.
      tailwind.config.js maps every apple.* color to one of these.
      ============================================================ */
   :root {
-    /* Apple palette — light */
-    --color-bg: #f5f5f7;
-    --color-surface: #ffffff;
-    --color-surface-hover: #ffffff;
-    --color-text: #1d1d1f;
-    --color-text-sub: #6e6e73;
-    --color-text-soft: rgb(29 29 31 / 0.8);
-    --color-border: #d2d2d7;
-    --color-border-soft: rgb(210 210 215 / 0.6);
-    --color-primary: #0060c9;
-    --color-primary-solid: #0060c9;
-    --color-primary-hover: #0054b0;
-    --color-primary-on-dark: #2997ff;
-    --color-primary-soft: rgb(0 96 201 / 0.05);
-    --color-primary-mist: rgb(0 96 201 / 0.5);
-    --color-primary-wash: rgb(0 113 227 / 0.2);
-    --color-invert: #1d1d1f;
-    --color-glass: rgb(255 255 255 / 0.7);
-    --color-glass-strong: rgb(255 255 255 / 0.95);
-    --color-glass-line: rgb(0 0 0 / 0.05);
-    --color-traffic-red: #ff5f57;
-    --color-traffic-yellow: #febc2e;
-    --color-traffic-green: #28c840;
-
-    /* shadcn tokens (HSL channels) — light */
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 211 100% 39%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 211 100% 39%;
-    --radius: 0.625rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 211 100% 39%;
-  }
-
-  [data-theme="dark"] {
-    /* Apple palette — dark */
-    --color-bg: #161617;
-    --color-surface: #1d1d1f;
-    --color-surface-hover: #262628;
+    /* Apple-inspired dark palette */
+    --color-bg: #101012;            /* raised panel */
+    --color-surface: #0a0a0a;       /* page background */
+    --color-surface-hover: #161618;
     --color-text: #f5f5f7;
-    --color-text-sub: #98989d;
-    --color-text-soft: rgb(245 245 247 / 0.8);
-    --color-border: #3a3a3c;
-    --color-border-soft: rgb(120 120 128 / 0.4);
-    --color-primary: #2997ff;
-    --color-primary-solid: #0057b8;
-    --color-primary-hover: #004a9e;
-    --color-primary-on-dark: #2997ff;
-    --color-primary-soft: rgb(41 151 255 / 0.1);
-    --color-primary-mist: rgb(41 151 255 / 0.45);
-    --color-primary-wash: rgb(41 151 255 / 0.25);
+    --color-text-sub: #86868b;
+    --color-text-soft: rgb(245 245 247 / 0.7);
+    --color-border: rgb(255 255 255 / 0.1);
+    --color-border-soft: rgb(255 255 255 / 0.08);
+    --color-primary: #00d4ff;       /* single electric-cyan accent */
+    --color-primary-solid: #00d4ff;
+    --color-primary-hover: #33e0ff;
+    --color-primary-on-dark: #00d4ff;
+    --color-primary-soft: rgb(0 212 255 / 0.08);
+    --color-primary-mist: rgb(0 212 255 / 0.4);
+    --color-primary-wash: rgb(0 212 255 / 0.25);
     --color-invert: #000000;
-    --color-glass: rgb(29 29 31 / 0.7);
-    --color-glass-strong: rgb(29 29 31 / 0.95);
+    --color-glass: rgb(10 10 10 / 0.7);
+    --color-glass-strong: rgb(10 10 10 / 0.92);
     --color-glass-line: rgb(255 255 255 / 0.08);
+    --color-traffic-red: rgb(255 95 87 / 0.6);
+    --color-traffic-yellow: rgb(254 188 46 / 0.6);
+    --color-traffic-green: rgb(40 200 64 / 0.6);
 
-    /* shadcn tokens (HSL channels) — dark, aligned to the Apple palette */
-    --background: 240 2% 9%;
+    /* shadcn tokens (HSL channels) — aligned to the dark palette */
+    --background: 0 0% 4%;
     --foreground: 240 4% 96%;
-    --card: 240 2% 12%;
+    --card: 240 2% 6%;
     --card-foreground: 240 4% 96%;
-    --popover: 240 2% 12%;
+    --popover: 240 2% 6%;
     --popover-foreground: 240 4% 96%;
-    --primary: 211 100% 58%;
-    --primary-foreground: 240 10% 4%;
-    --secondary: 240 2% 15%;
+    --primary: 189 100% 50%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 240 2% 10%;
     --secondary-foreground: 240 4% 96%;
-    --muted: 240 2% 15%;
-    --muted-foreground: 240 1% 62%;
-    --accent: 240 2% 15%;
+    --muted: 240 2% 10%;
+    --muted-foreground: 240 1% 54%;
+    --accent: 240 2% 10%;
     --accent-foreground: 240 4% 96%;
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 2% 23%;
-    --input: 240 2% 23%;
-    --ring: 211 100% 58%;
-    --sidebar-background: 240 2% 12%;
+    --border: 0 0% 100% / 0.1;
+    --input: 0 0% 100% / 0.15;
+    --ring: 189 100% 50%;
+    --radius: 0.625rem;
+    --sidebar-background: 240 2% 6%;
     --sidebar-foreground: 240 4% 96%;
-    --sidebar-primary: 211 100% 58%;
-    --sidebar-primary-foreground: 240 10% 4%;
-    --sidebar-accent: 240 2% 15%;
+    --sidebar-primary: 189 100% 50%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 240 2% 10%;
     --sidebar-accent-foreground: 240 4% 96%;
-    --sidebar-border: 240 2% 23%;
-    --sidebar-ring: 211 100% 58%;
+    --sidebar-border: 240 2% 15%;
+    --sidebar-ring: 189 100% 50%;
+  }
+}
+
+@layer components {
+  /* Pill CTA — solid cyan, black text (the one primary action per section) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-[980px] px-7 py-3.5 text-base font-semibold;
+    background-color: var(--color-primary-solid);
+    color: #0a0a0a;
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    box-shadow: 0 0 40px rgb(0 212 255 / 0.25);
+  }
+
+  /* Pill CTA — ghost: transparent, hairline border; hover fills white */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-[980px] px-7 py-3.5 text-base font-semibold;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    color: #f5f5f7;
+    transition: all 0.3s ease;
+  }
+  .btn-secondary:hover {
+    background-color: #f5f5f7;
+    color: #0a0a0a;
+    border-color: #f5f5f7;
+  }
+
+  /* Raised panel on the #0a0a0a canvas */
+  .card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+  }
+  /* Apple product-card hover: subtle scale + cyan glow */
+  .card-lift:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 40px rgb(0 212 255 / 0.1);
+    border-color: rgb(0 212 255 / 0.25);
   }
 }
 
@@ -161,5 +150,23 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* AutomationEngine — slow breathing glow on the flow-diagram nodes.
+   Plain block (outside layers) so it always ships; only animates for
+   users who have not requested reduced motion. */
+@keyframes node-pulse {
+  from {
+    box-shadow: 0 0 0 rgb(0 212 255 / 0);
+  }
+  to {
+    box-shadow: 0 0 16px rgb(0 212 255 / 0.15);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .node-pulse {
+    animation: node-pulse 2.5s ease-in-out infinite alternate;
   }
 }
