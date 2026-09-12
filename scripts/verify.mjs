@@ -441,6 +441,10 @@ if (!existsSync(incPath)) {
 }
 
 // --- 17. dist-wide hygiene: no stale anchors or wrong paths -------------------
+const css = readFileSync(join(dist, 'guides', 'guides.css'), 'utf8')
+check('btn-primary text is black', /\.btn-primary\s*\{[^}]*color:\s*#000000/.test(css))
+check('prose link color excludes .btn', css.includes('.prose a:not(.btn)'))
+
 const htmlFiles = []
 ;(function walk(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
