@@ -15,7 +15,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 pb-32 pt-20 text-center md:pt-32">
+      <div className="relative mx-auto max-w-6xl px-6 pb-14 pt-20 text-center md:pt-32">
         <Reveal>
           <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.05em] text-apple-sub">
             <MapPin className="h-3.5 w-3.5 text-apple-blue" />

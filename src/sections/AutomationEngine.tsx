@@ -11,7 +11,6 @@ import {
 } from 'lucide-react'
 import { BrowserShot, Kicker } from '@/components/Shared'
 import Reveal from '@/components/Reveal'
-import wfList from '@/assets/wf-list.webp'
 import wfQuote from '@/assets/wf-quote.webp'
 import wfFollowup from '@/assets/wf-followup.webp'
 import wfReview from '@/assets/wf-review.webp'
@@ -120,7 +119,7 @@ export default function AutomationEngine() {
         </Reveal>
 
         {/* Supporting evidence: the actual workflow screenshots */}
-        <div className="mx-auto mt-12 grid max-w-[1200px] grid-cols-2 gap-4 md:mt-16 md:gap-5 lg:grid-cols-4">
+        <div className="mx-auto mt-12 grid max-w-[1200px] grid-cols-2 gap-4 md:mt-16 md:gap-5 lg:grid-cols-3">
           <Reveal as="div">
             <BrowserShot
               src={wfQuote}
@@ -130,19 +129,12 @@ export default function AutomationEngine() {
           </Reveal>
           <Reveal as="div" delay={100}>
             <BrowserShot
-              src={wfList}
-              alt="GoHighLevel workflows list - six published automations running as one system"
-              url="app.gohighlevel.com · DJ's Workflow folder"
-            />
-          </Reveal>
-          <Reveal as="div" delay={200}>
-            <BrowserShot
               src={wfFollowup}
               alt="Workflow 02 - quoted follow-up sequence with waits, conditions and last-call step"
               url="02 · Quoted follow-up"
             />
           </Reveal>
-          <Reveal as="div" delay={300}>
+          <Reveal as="div" delay={200}>
             <BrowserShot
               src={wfReview}
               alt="Workflow 05 - Google review follow-up with 3-day wait and pipeline condition"
