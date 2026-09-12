@@ -46,13 +46,13 @@ export default function Hero() {
         </Reveal>
 
         <Reveal delay={320}>
-          <div className="relative mx-auto mt-14 max-w-sm">
+          <div className="mx-auto mt-14 max-w-sm">
             <img
               src={portrait}
               alt="Paul Sunny Isogon Jr — GoHighLevel specialist"
               className="w-full rounded-3xl object-cover shadow-card-hover"
             />
-            <span className="absolute -bottom-4 left-1/2 max-w-full -translate-x-1/2 rounded-full bg-apple-invert px-5 py-2 text-center text-sm font-medium text-white">
+            <span className="mt-4 block rounded-full bg-apple-invert px-5 py-2 text-center text-sm font-medium text-white">
               Paul Isogon · Full-Stack Web Developer / GHL Specialist
             </span>
           </div>
