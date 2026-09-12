@@ -555,7 +555,65 @@ if (!existsSync(w8Path)) {
   check('hub links to guide #8', hub8.includes('href="/guides/gohighlevel-pricing-australia.html"'))
 }
 
-// --- 19. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 19. guide #9: how-to-get-more-google-reviews-pressure-washing -----------
+const w9Path = join(dist, 'guides', 'how-to-get-more-google-reviews-pressure-washing.html')
+console.log('\nverify: dist/guides/how-to-get-more-google-reviews-pressure-washing.html')
+if (!existsSync(w9Path)) {
+  fail('guide #9 exists in dist')
+} else {
+  const w9 = readFileSync(w9Path, 'utf8')
+  const w9Title = (w9.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w9Title === 'How to Get More Google Reviews for Your Pressure Washing Business (2026) | paulsunnydev',
+    `got "${w9Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w9.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w9.includes('/#quote'))
+  check('no em dashes', !w9.includes('—'))
+  check('money-page link at /guides/ path', w9.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('links to hub', w9.includes('href="/guides/"'))
+  check('links to SEO guide', w9.includes('href="/guides/pressure-washing-seo-australia.html"'))
+  check('links to checklist guide', w9.includes('href="/guides/what-should-a-pressure-washing-website-include.html"'))
+  check('links to GHL tradies guide', w9.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
+  check('links to homepage calculator anchor', w9.includes('/#calculator'))
+  const w9Blocks = [...w9.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w9Blocks.find((b) => b.__parseError))
+  check('Article schema present', w9Blocks.some((b) => b['@type'] === 'Article'))
+  const w9Faq = w9Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w9FaqQs = w9Faq && Array.isArray(w9Faq.mainEntity) ? w9Faq.mainEntity : []
+  check('FAQPage schema with 5 questions', w9FaqQs.length === 5, `${w9FaqQs.length}`)
+  const w9H3s = [...w9.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w9Vis = w9H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w9Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w9Missing = w9FaqQs.filter(
+    (q) => !w9Vis.some((v) => v.includes(w9Key(q.name)) || w9Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w9Missing.length === 0,
+    w9Missing.map((q) => q.name).join('; ')
+  )
+  const w9Main = w9.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w9Text = w9Main ? norm(strip(w9Main[1])) : ''
+  const w9Words = w9Text ? w9Text.split(' ').length : 0
+  check('word count 1,200–1,600', w9Words >= 1200 && w9Words <= 1600, `${w9Words} words`)
+  const hub9 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #9', hub9.includes('href="/guides/how-to-get-more-google-reviews-pressure-washing.html"'))
+}
+
+// --- 20. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const css = readFileSync(join(dist, 'guides', 'guides.css'), 'utf8')
 check('btn-primary text is black', /\.btn-primary\s*\{[^}]*color:\s*#000000/.test(css))
 check('prose link color excludes .btn', css.includes('.prose a:not(.btn)'))
