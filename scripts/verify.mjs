@@ -613,7 +613,64 @@ if (!existsSync(w9Path)) {
   check('hub links to guide #9', hub9.includes('href="/guides/how-to-get-more-google-reviews-pressure-washing.html"'))
 }
 
-// --- 20. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 20. guide #10: missed-call-text-back-for-tradies -----------------------
+const w10Path = join(dist, 'guides', 'missed-call-text-back-for-tradies.html')
+console.log('\nverify: dist/guides/missed-call-text-back-for-tradies.html')
+if (!existsSync(w10Path)) {
+  fail('guide #10 exists in dist')
+} else {
+  const w10 = readFileSync(w10Path, 'utf8')
+  const w10Title = (w10.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w10Title === 'Missed Call Text Back for Tradies: How It Works and What It Costs (2026) | paulsunnydev',
+    `got "${w10Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w10.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w10.includes('/#quote'))
+  check('no em dashes', !w10.includes('—'))
+  check('money-page link at /guides/ path', w10.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('links to hub', w10.includes('href="/guides/"'))
+  check('links to GHL tradies guide', w10.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
+  check('links to pricing guide', w10.includes('href="/guides/gohighlevel-pricing-australia.html"'))
+  check('links to homepage calculator anchor', w10.includes('/#calculator'))
+  const w10Blocks = [...w10.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w10Blocks.find((b) => b.__parseError))
+  check('Article schema present', w10Blocks.some((b) => b['@type'] === 'Article'))
+  const w10Faq = w10Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w10FaqQs = w10Faq && Array.isArray(w10Faq.mainEntity) ? w10Faq.mainEntity : []
+  check('FAQPage schema with 5 questions', w10FaqQs.length === 5, `${w10FaqQs.length}`)
+  const w10H3s = [...w10.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w10Vis = w10H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w10Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w10Missing = w10FaqQs.filter(
+    (q) => !w10Vis.some((v) => v.includes(w10Key(q.name)) || w10Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w10Missing.length === 0,
+    w10Missing.map((q) => q.name).join('; ')
+  )
+  const w10Main = w10.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w10Text = w10Main ? norm(strip(w10Main[1])) : ''
+  const w10Words = w10Text ? w10Text.split(' ').length : 0
+  check('word count 1,200–1,600', w10Words >= 1200 && w10Words <= 1600, `${w10Words} words`)
+  const hub10 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #10', hub10.includes('href="/guides/missed-call-text-back-for-tradies.html"'))
+}
+
+// --- 21. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const css = readFileSync(join(dist, 'guides', 'guides.css'), 'utf8')
 check('btn-primary text is black', /\.btn-primary\s*\{[^}]*color:\s*#000000/.test(css))
 check('prose link color excludes .btn', css.includes('.prose a:not(.btn)'))
