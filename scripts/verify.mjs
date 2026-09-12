@@ -441,7 +441,64 @@ if (!existsSync(incPath)) {
   )
 }
 
-// --- 17. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 17. guide #7: is-gohighlevel-worth-it-small-business -------------------
+const w7Path = join(dist, 'guides', 'is-gohighlevel-worth-it-small-business.html')
+console.log('\nverify: dist/guides/is-gohighlevel-worth-it-small-business.html')
+if (!existsSync(w7Path)) {
+  fail('guide #7 exists in dist')
+} else {
+  const w7 = readFileSync(w7Path, 'utf8')
+  const w7Title = (w7.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w7Title === 'Is GoHighLevel Worth It for a Small Business? An Honest Tradie Review (2026) | paulsunnydev',
+    `got "${w7Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w7.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w7.includes('/#quote'))
+  check('no em dashes', !w7.includes('—'))
+  check('money-page link at /guides/ path', w7.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('links to hub', w7.includes('href="/guides/"'))
+  check('links to pricing guide', w7.includes('href="/guides/gohighlevel-pricing-australia.html"'))
+  check('links to GHL tradies guide', w7.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
+  check('links to homepage calculator anchor', w7.includes('/#calculator'))
+  const w7Blocks = [...w7.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w7Blocks.find((b) => b.__parseError))
+  check('Article schema present', w7Blocks.some((b) => b['@type'] === 'Article'))
+  const w7Faq = w7Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w7FaqQs = w7Faq && Array.isArray(w7Faq.mainEntity) ? w7Faq.mainEntity : []
+  check('FAQPage schema with 5 questions', w7FaqQs.length === 5, `${w7FaqQs.length}`)
+  const w7H3s = [...w7.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w7Vis = w7H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w7Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w7Missing = w7FaqQs.filter(
+    (q) => !w7Vis.some((v) => v.includes(w7Key(q.name)) || w7Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w7Missing.length === 0,
+    w7Missing.map((q) => q.name).join('; ')
+  )
+  const w7Main = w7.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w7Text = w7Main ? norm(strip(w7Main[1])) : ''
+  const w7Words = w7Text ? w7Text.split(' ').length : 0
+  check('word count 1,200–1,600', w7Words >= 1200 && w7Words <= 1600, `${w7Words} words`)
+  const hub7 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #7', hub7.includes('href="/guides/is-gohighlevel-worth-it-small-business.html"'))
+}
+
+// --- 18. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const css = readFileSync(join(dist, 'guides', 'guides.css'), 'utf8')
 check('btn-primary text is black', /\.btn-primary\s*\{[^}]*color:\s*#000000/.test(css))
 check('prose link color excludes .btn', css.includes('.prose a:not(.btn)'))
