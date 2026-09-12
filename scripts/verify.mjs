@@ -3,8 +3,8 @@
 // word count, calculator parity with the homepage demo, internal links, and
 // sitemap inclusion. Run after `npm run build`.
 
-import { existsSync, readFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -249,6 +249,79 @@ if (!existsSync(hubPath)) {
   const hub = readFileSync(hubPath, 'utf8')
   check('hub links to guide #3', hub.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
 }
+
+// --- 14. guide #4: pressure-washing-seo-australia ----------------------------
+const seoPath = join(dist, 'guides', 'pressure-washing-seo-australia.html')
+console.log('\nverify: dist/guides/pressure-washing-seo-australia.html')
+if (!existsSync(seoPath)) {
+  fail('guide #4 exists in dist')
+} else {
+  const s = readFileSync(seoPath, 'utf8')
+  const sTitle = (s.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    sTitle === 'Pressure Washing SEO in Australia (2026): The Local Guide That Actually Applies Here | paulsunnydev',
+    `got "${sTitle}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    s.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('portrait.jpg copied to dist', existsSync(join(dist, 'images', 'portrait.jpg')))
+  check('no /#quote anchors', !s.includes('/#quote'))
+  check('money-page link at ROOT path', s.includes('href="/pressure-cleaning-website-design.html"'))
+  check('no wrong-path money-page link', !s.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('links to hub', s.includes('href="/guides/"'))
+  check('links to cost guide', s.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
+  check('links to GHL guide', s.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
+  check('links to homepage calculator anchor', s.includes('/#calculator'))
+
+  const sBlocks = [...s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !sBlocks.find((b) => b.__parseError))
+  check('Article schema present', sBlocks.some((b) => b['@type'] === 'Article'))
+  const sFaq = sBlocks.find((b) => b['@type'] === 'FAQPage')
+  const sFaqQs = sFaq && Array.isArray(sFaq.mainEntity) ? sFaq.mainEntity : []
+  check('FAQPage schema with 4 questions', sFaqQs.length === 4, `${sFaqQs.length}`)
+  const sH3s = [...s.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const sVisible = sH3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const sKeyOf = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const sMissing = sFaqQs.filter(
+    (q) => !sVisible.some((v) => v.includes(sKeyOf(q.name)) || sKeyOf(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    sMissing.length === 0,
+    sMissing.map((q) => q.name).join('; ')
+  )
+
+  const hub4 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #4', hub4.includes('href="/guides/pressure-washing-seo-australia.html"'))
+}
+
+// --- 15. dist-wide hygiene: no stale anchors or wrong paths -------------------
+const htmlFiles = []
+;(function walk(dir) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, entry.name)
+    if (entry.isDirectory()) walk(p)
+    else if (entry.name.endsWith('.html')) htmlFiles.push(p)
+  }
+})(dist)
+const offenders = []
+for (const f of htmlFiles) {
+  const c = readFileSync(f, 'utf8')
+  if (c.includes('/#quote')) offenders.push(`${relative(dist, f)}: /#quote`)
+  if (c.includes('/guides/pressure-cleaning-website-design')) offenders.push(`${relative(dist, f)}: wrong money-page path`)
+}
+check('dist-wide: no /#quote or wrong money-page paths', offenders.length === 0, offenders.join('; '))
 
 console.log(failures ? `\nverify: ${failures} check(s) FAILED` : '\nverify: all checks passed')
 process.exit(failures ? 1 : 0)
