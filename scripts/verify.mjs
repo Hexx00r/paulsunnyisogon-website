@@ -670,7 +670,64 @@ if (!existsSync(w10Path)) {
   check('hub links to guide #10', hub10.includes('href="/guides/missed-call-text-back-for-tradies.html"'))
 }
 
-// --- 21. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 21. guide #11: why-is-my-pressure-washing-website-not-showing-up-on-google
+const w11Path = join(dist, 'guides', 'why-is-my-pressure-washing-website-not-showing-up-on-google.html')
+console.log('\nverify: dist/guides/why-is-my-pressure-washing-website-not-showing-up-on-google.html')
+if (!existsSync(w11Path)) {
+  fail('guide #11 exists in dist')
+} else {
+  const w11 = readFileSync(w11Path, 'utf8')
+  const w11Title = (w11.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w11Title === "Why Isn't My Pressure Washing Website Showing Up on Google? 7 Causes (2026) | paulsunnydev",
+    `got "${w11Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w11.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w11.includes('/#quote'))
+  check('no em dashes', !w11.includes('—'))
+  check('money-page link at /guides/ path', w11.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('links to hub', w11.includes('href="/guides/"'))
+  check('links to SEO guide', w11.includes('href="/guides/pressure-washing-seo-australia.html"'))
+  check('links to checklist guide', w11.includes('href="/guides/what-should-a-pressure-washing-website-include.html"'))
+  check('links to homepage calculator anchor', w11.includes('/#calculator'))
+  const w11Blocks = [...w11.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w11Blocks.find((b) => b.__parseError))
+  check('Article schema present', w11Blocks.some((b) => b['@type'] === 'Article'))
+  const w11Faq = w11Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w11FaqQs = w11Faq && Array.isArray(w11Faq.mainEntity) ? w11Faq.mainEntity : []
+  check('FAQPage schema with 5 questions', w11FaqQs.length === 5, `${w11FaqQs.length}`)
+  const w11H3s = [...w11.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w11Vis = w11H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w11Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w11Missing = w11FaqQs.filter(
+    (q) => !w11Vis.some((v) => v.includes(w11Key(q.name)) || w11Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w11Missing.length === 0,
+    w11Missing.map((q) => q.name).join('; ')
+  )
+  const w11Main = w11.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w11Text = w11Main ? norm(strip(w11Main[1])) : ''
+  const w11Words = w11Text ? w11Text.split(' ').length : 0
+  check('word count 1,200–1,600', w11Words >= 1200 && w11Words <= 1600, `${w11Words} words`)
+  const hub11 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #11', hub11.includes('href="/guides/why-is-my-pressure-washing-website-not-showing-up-on-google.html"'))
+}
+
+// --- 22. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const css = readFileSync(join(dist, 'guides', 'guides.css'), 'utf8')
 check('btn-primary text is black', /\.btn-primary\s*\{[^}]*color:\s*#000000/.test(css))
 check('prose link color excludes .btn', css.includes('.prose a:not(.btn)'))
