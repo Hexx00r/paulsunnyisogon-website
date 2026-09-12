@@ -1,5 +1,5 @@
-// scripts/verify.mjs — verifies the built money page (dist/pressure-cleaning-
-// website-design.html) against the agreed spec: SEO tags, schema, structure,
+// scripts/verify.mjs — verifies the built money page (dist/guides/pressure-
+// cleaning-website-design.html) against the agreed spec: SEO tags, schema, structure,
 // word count, calculator parity with the homepage demo, internal links, and
 // sitemap inclusion. Run after `npm run build`.
 
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
-const pagePath = join(dist, 'pressure-cleaning-website-design.html')
+const pagePath = join(dist, 'guides', 'pressure-cleaning-website-design.html')
 
 let failures = 0
 const ok = (label) => console.log(`  PASS  ${label}`)
@@ -19,7 +19,7 @@ const fail = (label, detail) => {
 }
 const check = (label, cond, detail) => (cond ? ok(label) : fail(label, detail))
 
-console.log('verify: dist/pressure-cleaning-website-design.html')
+console.log('verify: dist/guides/pressure-cleaning-website-design.html')
 
 if (!existsSync(pagePath)) {
   fail('page exists in dist (run npm run build first)')
@@ -51,7 +51,7 @@ check('meta description: AU signal', /australia/i.test(desc))
 check('meta description: pricing signal', /\$\d/.test(desc))
 check(
   'canonical',
-  html.includes('<link rel="canonical" href="https://paulsunnydev.com/pressure-cleaning-website-design.html">')
+  html.includes('<link rel="canonical" href="https://paulsunnydev.com/guides/pressure-cleaning-website-design.html">')
 )
 for (const prop of ['og:title', 'og:description', 'og:url', 'og:type']) {
   check(`${prop}`, html.includes(`property="${prop}"`))
@@ -153,7 +153,8 @@ check('tokens also listed in HTML comment', html.includes('TODO(Paul)'))
 const smPath = join(dist, 'sitemap.xml')
 check('sitemap.xml exists', existsSync(smPath))
 if (existsSync(smPath)) {
-  check('sitemap lists money page', readFileSync(smPath, 'utf8').includes('https://paulsunnydev.com/pressure-cleaning-website-design.html'))
+  check('sitemap lists money page', readFileSync(smPath, 'utf8').includes('https://paulsunnydev.com/guides/pressure-cleaning-website-design.html'))
+  check('sitemap excludes root stub', !readFileSync(smPath, 'utf8').includes('https://paulsunnydev.com/pressure-cleaning-website-design.html'))
 }
 check('guides.css present in dist', existsSync(join(dist, 'guides', 'guides.css')))
 
@@ -215,7 +216,7 @@ if (!existsSync(guidePath)) {
     /gohighlevel/i.test(gFirst100) && /month/i.test(gFirst100) && /ghl_monthly_aud|\$\d/.test(gFirst100)
   )
 
-  check('links to money page', g.includes('href="/pressure-cleaning-website-design.html"'))
+  check('links to money page', g.includes('href="/guides/pressure-cleaning-website-design.html"'))
   check('links to cost guide', g.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
   check('links to hub', g.includes('href="/guides/"'))
 
@@ -269,8 +270,8 @@ if (!existsSync(seoPath)) {
   )
   check('portrait.jpg copied to dist', existsSync(join(dist, 'images', 'portrait.jpg')))
   check('no /#quote anchors', !s.includes('/#quote'))
-  check('money-page link at ROOT path', s.includes('href="/pressure-cleaning-website-design.html"'))
-  check('no wrong-path money-page link', !s.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('money-page link at /guides/ path', s.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('no stale root money-page link', !s.includes('href="/pressure-cleaning-website-design.html"'))
   check('links to hub', s.includes('href="/guides/"'))
   check('links to cost guide', s.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
   check('links to GHL guide', s.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
@@ -324,7 +325,7 @@ if (!existsSync(jobsPath)) {
     j.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
   )
   check('no /#quote anchors', !j.includes('/#quote'))
-  check('money-page link at ROOT path', j.includes('href="/pressure-cleaning-website-design.html"'))
+  check('money-page link at /guides/ path', j.includes('href="/guides/pressure-cleaning-website-design.html"'))
   check('links to hub', j.includes('href="/guides/"'))
   check('links to SEO guide', j.includes('href="/guides/pressure-washing-seo-australia.html"'))
   check('links to cost guide', j.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
@@ -382,8 +383,8 @@ if (!existsSync(incPath)) {
     i6.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
   )
   check('no /#quote anchors', !i6.includes('/#quote'))
-  check('money-page link at ROOT path', i6.includes('href="/pressure-cleaning-website-design.html"'))
-  check('no wrong-path money-page link', !i6.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('money-page link at /guides/ path', i6.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('no stale root money-page link', !i6.includes('href="/pressure-cleaning-website-design.html"'))
   check('links to hub', i6.includes('href="/guides/"'))
   check('links to cost guide', i6.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
   check('links to homepage calculator anchor', i6.includes('/#calculator'))
@@ -453,13 +454,22 @@ const htmlFiles = []
     else if (entry.name.endsWith('.html')) htmlFiles.push(p)
   }
 })(dist)
+const stubPath = join(dist, 'pressure-cleaning-website-design.html')
+check('root stub exists', existsSync(stubPath))
 const offenders = []
 for (const f of htmlFiles) {
+  const rel = relative(dist, f)
   const c = readFileSync(f, 'utf8')
-  if (c.includes('/#quote')) offenders.push(`${relative(dist, f)}: /#quote`)
-  if (c.includes('/guides/pressure-cleaning-website-design')) offenders.push(`${relative(dist, f)}: wrong money-page path`)
+  if (c.includes('/#quote')) offenders.push(`${rel}: /#quote`)
+  if (rel === 'pressure-cleaning-website-design.html') {
+    // root stub: must redirect to the /guides/ canonical URL and stay out of the index
+    if (!c.includes('url=/guides/pressure-cleaning-website-design.html')) offenders.push(`${rel}: stub missing redirect`)
+    if (!c.includes('noindex')) offenders.push(`${rel}: stub missing noindex`)
+  } else if (c.includes('href="/pressure-cleaning-website-design.html"')) {
+    offenders.push(`${rel}: stale root money-page link`)
+  }
 }
-check('dist-wide: no /#quote or wrong money-page paths', offenders.length === 0, offenders.join('; '))
+check('dist-wide: no /#quote, stub redirects, no stale money-page links', offenders.length === 0, offenders.join('; '))
 
 console.log(failures ? `\nverify: ${failures} check(s) FAILED` : '\nverify: all checks passed')
 process.exit(failures ? 1 : 0)

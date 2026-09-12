@@ -48,7 +48,12 @@ function toRoute(rel) {
 }
 
 function lastmodFor(rel, absDistPath) {
-  const candidates = rel === 'index.html' ? ['index.html', 'src'] : [`public/${rel}`]
+  const candidates =
+    rel === 'index.html'
+      ? ['index.html', 'src']
+      : rel === 'guides/pressure-cleaning-website-design.html'
+        ? [`public/${rel}`, 'public/pressure-cleaning-website-design.html']
+        : [`public/${rel}`]
   const iso = gitDate(candidates)
   const date = iso ? new Date(iso) : statSync(absDistPath).mtime
   return date.toISOString().slice(0, 10)
@@ -56,7 +61,7 @@ function lastmodFor(rel, absDistPath) {
 
 const urls = htmlFiles
   .map((p) => relative(dist, p).split('\\').join('/')) // windows-safe rel paths
-  .filter((rel) => rel !== '404.html')
+  .filter((rel) => rel !== '404.html' && rel !== 'pressure-cleaning-website-design.html')
   .map((rel) => ({
     loc: base + toRoute(rel),
     lastmod: lastmodFor(rel, join(dist, rel)),
