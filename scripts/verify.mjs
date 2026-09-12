@@ -498,7 +498,64 @@ if (!existsSync(w7Path)) {
   check('hub links to guide #7', hub7.includes('href="/guides/is-gohighlevel-worth-it-small-business.html"'))
 }
 
-// --- 18. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 18. guide #8: gohighlevel-pricing-australia ----------------------------
+const w8Path = join(dist, 'guides', 'gohighlevel-pricing-australia.html')
+console.log('\nverify: dist/guides/gohighlevel-pricing-australia.html')
+if (!existsSync(w8Path)) {
+  fail('guide #8 exists in dist')
+} else {
+  const w8 = readFileSync(w8Path, 'utf8')
+  const w8Title = (w8.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w8Title === 'GoHighLevel Pricing Australia (2026): The Real Cost in AUD | paulsunnydev',
+    `got "${w8Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w8.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w8.includes('/#quote'))
+  check('no em dashes', !w8.includes('—'))
+  check('money-page link at /guides/ path', w8.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('links to hub', w8.includes('href="/guides/"'))
+  check('links to worth-it guide', w8.includes('href="/guides/is-gohighlevel-worth-it-small-business.html"'))
+  check('links to GHL tradies guide', w8.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
+  check('links to homepage calculator anchor', w8.includes('/#calculator'))
+  const w8Blocks = [...w8.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w8Blocks.find((b) => b.__parseError))
+  check('Article schema present', w8Blocks.some((b) => b['@type'] === 'Article'))
+  const w8Faq = w8Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w8FaqQs = w8Faq && Array.isArray(w8Faq.mainEntity) ? w8Faq.mainEntity : []
+  check('FAQPage schema with 5 questions', w8FaqQs.length === 5, `${w8FaqQs.length}`)
+  const w8H3s = [...w8.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w8Vis = w8H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w8Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w8Missing = w8FaqQs.filter(
+    (q) => !w8Vis.some((v) => v.includes(w8Key(q.name)) || w8Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w8Missing.length === 0,
+    w8Missing.map((q) => q.name).join('; ')
+  )
+  const w8Main = w8.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w8Text = w8Main ? norm(strip(w8Main[1])) : ''
+  const w8Words = w8Text ? w8Text.split(' ').length : 0
+  check('word count 1,200–1,600', w8Words >= 1200 && w8Words <= 1600, `${w8Words} words`)
+  const hub8 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #8', hub8.includes('href="/guides/gohighlevel-pricing-australia.html"'))
+}
+
+// --- 19. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const css = readFileSync(join(dist, 'guides', 'guides.css'), 'utf8')
 check('btn-primary text is black', /\.btn-primary\s*\{[^}]*color:\s*#000000/.test(css))
 check('prose link color excludes .btn', css.includes('.prose a:not(.btn)'))
