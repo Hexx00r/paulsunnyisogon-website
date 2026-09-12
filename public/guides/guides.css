@@ -108,6 +108,11 @@ a:focus-visible {
   border-color: #4ddcff;
 }
 
+/* Variant: white label on the accent fill (demo CTAs) */
+.btn-primary.btn-white-text {
+  color: #ffffff;
+}
+
 .btn-secondary {
   background: transparent;
   color: var(--ink);
