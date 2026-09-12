@@ -364,7 +364,83 @@ if (!existsSync(jobsPath)) {
   check('tokens listed in HTML comment', j.includes('TODO(Paul)'))
 }
 
-// --- 16. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 16. guide #6: what-should-a-pressure-washing-website-include -------------
+const incPath = join(dist, 'guides', 'what-should-a-pressure-washing-website-include.html')
+console.log('\nverify: dist/guides/what-should-a-pressure-washing-website-include.html')
+if (!existsSync(incPath)) {
+  fail('guide #6 exists in dist')
+} else {
+  const i6 = readFileSync(incPath, 'utf8')
+  const i6Title = (i6.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    i6Title === 'What Should a Pressure Washing Website Include? The 9-Point Checklist (2026) | paulsunnydev',
+    `got "${i6Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    i6.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !i6.includes('/#quote'))
+  check('money-page link at ROOT path', i6.includes('href="/pressure-cleaning-website-design.html"'))
+  check('no wrong-path money-page link', !i6.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('links to hub', i6.includes('href="/guides/"'))
+  check('links to cost guide', i6.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
+  check('links to homepage calculator anchor', i6.includes('/#calculator'))
+
+  const i6Blocks = [...i6.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !i6Blocks.find((b) => b.__parseError))
+  check('Article schema present', i6Blocks.some((b) => b['@type'] === 'Article'))
+  const i6Faq = i6Blocks.find((b) => b['@type'] === 'FAQPage')
+  const i6FaqQs = i6Faq && Array.isArray(i6Faq.mainEntity) ? i6Faq.mainEntity : []
+  check('FAQPage schema with 4 questions', i6FaqQs.length === 4, `${i6FaqQs.length}`)
+  const i6List = i6Blocks.find((b) => b['@type'] === 'ItemList')
+  const i6Items = i6List && Array.isArray(i6List.itemListElement) ? i6List.itemListElement : []
+  check('ItemList schema with 9 items', i6Items.length === 9, `${i6Items.length}`)
+
+  const i6H2s = [...i6.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)].map((m) => norm(strip(m[1])))
+  const i6H3s = [...i6.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const i6Visible = [...i6H2s, ...i6H3s].map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const i6KeyOf = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const i6Missing = i6FaqQs.filter(
+    (q) => !i6Visible.some((v) => v.includes(i6KeyOf(q.name)) || i6KeyOf(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    i6Missing.length === 0,
+    i6Missing.map((q) => q.name).join('; ')
+  )
+  const i6MissingItems = i6Items.filter(
+    (it) => !i6H3s.some((h) => h.toLowerCase().includes((it.name || '').toLowerCase()))
+  )
+  check(
+    'every ItemList item matches a visible checklist heading',
+    i6MissingItems.length === 0,
+    i6MissingItems.map((it) => it.name).join('; ')
+  )
+
+  const hub6 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #6', hub6.includes('href="/guides/what-should-a-pressure-washing-website-include.html"'))
+  check(
+    'hub ItemList JSON-LD includes guide #6',
+    hub6.includes('"position": 5') && hub6.includes('what-should-a-pressure-washing-website-include.html')
+  )
+  const sm6 = existsSync(smPath) ? readFileSync(smPath, 'utf8') : ''
+  check(
+    'sitemap lists guide #6',
+    sm6.includes('https://paulsunnydev.com/guides/what-should-a-pressure-washing-website-include.html')
+  )
+}
+
+// --- 17. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const htmlFiles = []
 ;(function walk(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
