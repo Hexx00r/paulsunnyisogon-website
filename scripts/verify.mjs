@@ -727,7 +727,78 @@ if (!existsSync(w11Path)) {
   check('hub links to guide #11', hub11.includes('href="/guides/why-is-my-pressure-washing-website-not-showing-up-on-google.html"'))
 }
 
-// --- 22. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 22. guide #12: pressure-cleaning-websites-that-book-jobs -----------------
+const wbPath = join(dist, 'guides', 'pressure-cleaning-websites-that-book-jobs.html')
+console.log('\nverify: dist/guides/pressure-cleaning-websites-that-book-jobs.html')
+if (!existsSync(wbPath)) {
+  fail('guide exists in dist')
+} else {
+  const wb = readFileSync(wbPath, 'utf8')
+  const wbTitle = (wb.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    wbTitle === 'Pressure Cleaning Websites That Book Jobs: 7 Real Examples (and Why They Convert) (2026) | paulsunnydev',
+    `got "${wbTitle}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    wb.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !wb.includes('/#quote'))
+  check('no em dashes', !wb.includes('—'))
+  check('money-page link at /guides/ path', wb.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('no stale root money-page link', !wb.includes('href="/pressure-cleaning-website-design.html"'))
+  check('links to hub', wb.includes('href="/guides/"'))
+  check('links to checklist guide', wb.includes('href="/guides/what-should-a-pressure-washing-website-include.html"'))
+  check('links to cost guide', wb.includes('href="/guides/pressure-washing-website-cost-australia.html"'))
+  check('links to homepage calculator anchor', wb.includes('/#calculator'))
+  const wbBlocks = [...wb.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !wbBlocks.find((b) => b.__parseError))
+  check('Article schema present', wbBlocks.some((b) => b['@type'] === 'Article'))
+  const wbFaq = wbBlocks.find((b) => b['@type'] === 'FAQPage')
+  const wbFaqQs = wbFaq && Array.isArray(wbFaq.mainEntity) ? wbFaq.mainEntity : []
+  check('FAQPage schema with 4 questions', wbFaqQs.length === 4, `${wbFaqQs.length}`)
+  const wbH3s = [...wb.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const wbVis = wbH3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const wbKey = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const wbMissing = wbFaqQs.filter(
+    (q) => !wbVis.some((v) => v.includes(wbKey(q.name)) || wbKey(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    wbMissing.length === 0,
+    wbMissing.map((q) => q.name).join('; ')
+  )
+  const wbMain = wb.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const wbText = wbMain ? norm(strip(wbMain[1])) : ''
+  const wbWords = wbText ? wbText.split(' ').length : 0
+  check('word count 1,200–1,600', wbWords >= 1200 && wbWords <= 1600, `${wbWords} words`)
+  const hubWb = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #12', hubWb.includes('href="/guides/pressure-cleaning-websites-that-book-jobs.html"'))
+  const smWb = existsSync(smPath) ? readFileSync(smPath, 'utf8') : ''
+  check(
+    'sitemap lists guide #12',
+    smWb.includes('https://paulsunnydev.com/guides/pressure-cleaning-websites-that-book-jobs.html')
+  )
+  check(
+    'checklist guide links back',
+    existsSync(incPath) && readFileSync(incPath, 'utf8').includes('href="/guides/pressure-cleaning-websites-that-book-jobs.html"')
+  )
+  check(
+    'money page links back',
+    existsSync(pagePath) && readFileSync(pagePath, 'utf8').includes('href="/guides/pressure-cleaning-websites-that-book-jobs.html"')
+  )
+}
+
+// --- 23. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const css = readFileSync(join(dist, 'guides', 'guides.css'), 'utf8')
 check('btn-primary text is black', /\.btn-primary\s*\{[^}]*color:\s*#000000/.test(css))
 check('prose link color excludes .btn', css.includes('.prose a:not(.btn)'))
