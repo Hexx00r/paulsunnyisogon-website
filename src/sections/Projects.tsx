@@ -13,7 +13,7 @@ const PROJECTS = [
   {
     icon: Globe,
     name: 'paulsunnydev.com',
-    desc: 'Prerendered React portfolio (custom zero-dependency SSR build), 12+ article SEO content cluster targeting AU pressure-cleaning keywords, JSON-LD structured data, sub-second static delivery.',
+    desc: 'Prerendered React portfolio (custom zero-dependency SSR build), 12-article SEO content cluster targeting AU pressure-cleaning keywords, JSON-LD structured data, sub-second static delivery.',
     owned: 'Owned end-to-end: design, build, technical SEO, content strategy, deploy pipeline.',
   },
 ]

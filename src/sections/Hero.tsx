@@ -31,8 +31,8 @@ export default function Hero() {
 
         <Reveal delay={200}>
           <p className="mx-auto mt-8 max-w-2xl text-[19px] leading-[1.5] text-apple-sub md:text-xl">
-            I build complete GoHighLevel systems so leads turn into jobs
-            <br className="hidden md:block" /> while you&apos;re on-site.
+            Complete GoHighLevel systems, plus the custom code, webhooks,
+            <br className="hidden md:block" /> and technical SEO most GHL freelancers can&apos;t touch.
           </p>
         </Reveal>
 
