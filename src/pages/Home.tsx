@@ -5,6 +5,7 @@ import QuoteCalculatorDemo from '@/sections/QuoteCalculatorDemo'
 import CaseStudyDJ from '@/sections/CaseStudyDJ'
 import CaseStudyMelbourne from '@/sections/CaseStudyMelbourne'
 import AutomationEngine from '@/sections/AutomationEngine'
+import Projects from '@/sections/Projects'
 import WhyMe from '@/sections/WhyMe'
 import Faq from '@/sections/Faq'
 import Footer from '@/sections/Footer'
@@ -20,6 +21,7 @@ export default function Home() {
         <CaseStudyDJ />
         <CaseStudyMelbourne />
         <AutomationEngine />
+        <Projects />
         <WhyMe />
         <Faq />
       </main>
