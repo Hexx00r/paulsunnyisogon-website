@@ -50,12 +50,12 @@ export default function WhyMe() {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-apple-sub">
               I&apos;m <strong className="font-semibold text-apple-ink">Paul Sunny Isogon Jr</strong>. I
-              built the complete GHL automation system for my own family&apos;s business — DJ Property
+              built the complete GHL automation system for my own family&apos;s business DJ Property
               &amp; Cleaning Services in Albury–Wodonga, Australia. I know what it&apos;s like to miss a
               call because you&apos;re on the truck, so I design systems that work when you can&apos;t.
             </p>
             <p className="mt-4 leading-relaxed text-apple-sub">
-              I don&apos;t just set up GHL — I design the entire lead-to-revenue flow: frontend funnel,
+              I don&apos;t just set up GHL, I design the entire lead-to-revenue flow: frontend funnel,
               backend automation, and pipeline logic. I learned it by building it for my own family
               first.
             </p>

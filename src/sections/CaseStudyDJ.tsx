@@ -8,22 +8,23 @@ export default function CaseStudyDJ() {
       id="case-study-dj"
       className="relative scroll-mt-16 overflow-hidden bg-apple-surface"
     >
-      {/* Full-bleed case-study hero */}
+      {/* Case-study hero: full image at natural size stacked above the copy on
+          mobile, full-bleed background from md up */}
       <img
         src={djHero}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="relative block h-auto w-full md:absolute md:inset-0 md:h-full md:w-full md:object-cover"
       />
-      {/* Darken the shot to 40% brightness so the copy stays crisp */}
-      <div aria-hidden="true" className="absolute inset-0 bg-black/60" />
-      {/* Fade the image into the page background at the bottom edge */}
+      {/* Darken the shot to 40% brightness so the copy stays crisp (full-bleed layout only) */}
+      <div aria-hidden="true" className="absolute inset-0 hidden bg-black/60 md:block" />
+      {/* Fade the image into the page background at the bottom edge (full-bleed layout only) */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-b from-transparent to-[#0a0a0a]"
+        className="absolute inset-x-0 bottom-0 hidden h-[30%] bg-gradient-to-b from-transparent to-[#0a0a0a] md:block"
       />
 
-      <div className="relative mx-auto flex min-h-[85vh] max-w-4xl flex-col items-center justify-center px-6 py-24 text-center">
+      <div className="relative mx-auto flex max-w-4xl flex-col items-center justify-center px-6 py-24 text-center md:min-h-[85vh]">
         <Reveal>
           <Kicker light>Case study 01</Kicker>
         </Reveal>
