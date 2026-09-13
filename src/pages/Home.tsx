@@ -6,6 +6,7 @@ import CaseStudyDJ from '@/sections/CaseStudyDJ'
 import CaseStudyMelbourne from '@/sections/CaseStudyMelbourne'
 import AutomationEngine from '@/sections/AutomationEngine'
 import WhyMe from '@/sections/WhyMe'
+import Faq from '@/sections/Faq'
 import Footer from '@/sections/Footer'
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
         <CaseStudyMelbourne />
         <AutomationEngine />
         <WhyMe />
+        <Faq />
       </main>
       <Footer />
     </div>
