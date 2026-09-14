@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Droplet, Menu, X } from 'lucide-react'
 import { BOOKING } from '@/components/Shared'
+import SplashCanvas from '@/components/SplashCanvas'
 
 const NAV = [
   { label: 'What I Build', href: '#build' },
@@ -32,14 +33,15 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 z-50 overflow-hidden transition-all duration-300 ${
           scrolled
             ? 'border-b border-apple-glassLine backdrop-blur-[20px]'
             : 'border-b border-transparent'
         }`}
         style={{ backgroundColor: scrolled ? 'rgba(10,10,10,0.7)' : 'transparent' }}
       >
-        <div className="mx-auto flex h-12 max-w-5xl items-center justify-between gap-4 px-5">
+        <SplashCanvas />
+        <div className="relative z-10 mx-auto flex h-12 max-w-5xl items-center justify-between gap-4 px-5">
           <a href="#top" className="flex items-center gap-2 text-apple-ink" aria-label="Home">
             <Droplet className="h-5 w-5 text-apple-blue" strokeWidth={2.5} />
             <span className="hidden text-sm font-semibold tracking-tight sm:block">
