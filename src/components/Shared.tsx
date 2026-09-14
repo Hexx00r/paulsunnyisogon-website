@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 export const EMAIL = 'paulsunnyisogon@gmail.com'
-export const MAILTO = `mailto:${EMAIL}?subject=Free%20Funnel%20Audit%20Request`
+export const MAILTO = `mailto:${EMAIL}?subject=Free%20Funnel%20Website%20Audit%20Request`
 export const YOUTUBE = 'https://youtu.be/BoxC1hGvrZo?si=PS-OS4KbCIEolAGV'
 export const BOOKING = 'https://api.leadconnectorhq.com/widget/booking/3VFHT95QH0s3uIZ7ED9H'
 export const RESUME = 'Paul-Sunny-Isogon-Resume.pdf'
@@ -54,11 +54,15 @@ export function BrowserShot({
   src,
   alt,
   url,
+  width,
+  height,
   className = '',
 }: {
   src: string
   alt: string
   url?: string
+  width: number
+  height: number
   className?: string
 }) {
   return (
@@ -75,7 +79,7 @@ export function BrowserShot({
           </span>
         )}
       </div>
-      <img src={src} alt={alt} loading="lazy" className="block w-full" />
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" className="block h-auto w-full" />
     </figure>
   )
 }

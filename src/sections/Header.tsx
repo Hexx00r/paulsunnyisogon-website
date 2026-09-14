@@ -49,27 +49,29 @@ export default function Header() {
             </span>
           </a>
 
-          {/* Desktop nav — small, centered */}
-          <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
-            {NAV.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-xs font-normal text-apple-ink opacity-70 transition-opacity duration-300 hover:opacity-100"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+          {/* Right cluster: nav beside the CTA so the bar's center stays
+              clear for the splash animation (desktop); CTA + hamburger only
+              on mobile (≤768px) */}
+          <div className="flex items-center gap-3 md:gap-8">
+            <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
+              {NAV.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="text-xs font-normal text-apple-ink opacity-70 transition-opacity duration-300 hover:opacity-100"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
 
-          <div className="flex items-center gap-4">
             <a
               href={BOOKING}
               target="_blank"
               rel="noreferrer"
-              className="hidden rounded-full bg-apple-blueSolid px-4 py-1.5 text-xs font-semibold text-black transition-all duration-300 hover:bg-apple-blueDark md:inline-flex"
+              className="inline-flex rounded-full bg-apple-blueSolid px-3 py-1.5 text-[11px] font-semibold text-black transition-all duration-300 hover:bg-apple-blueDark md:px-4 md:text-xs"
             >
-              Free Funnel Audit
+              Free Funnel Website Audit
             </a>
 
             {/* Mobile hamburger */}
@@ -111,7 +113,7 @@ export default function Header() {
             rel="noreferrer"
             className="mt-6 inline-flex items-center justify-center rounded-full bg-apple-blueSolid px-6 py-3 text-base font-semibold text-black transition-all duration-300 hover:bg-apple-blueDark"
           >
-            Book a Free Funnel Audit
+            Book a Free Funnel Website Audit
           </a>
         </nav>
       </div>

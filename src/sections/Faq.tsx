@@ -11,7 +11,7 @@ const FAQS = [
   },
   {
     q: 'How much does a system like this cost?',
-    a: 'Every build is scoped to the business — the services you offer, your pricing logic, and the automations you need. Book a free funnel audit and I\'ll map exactly what your system looks like before you commit to anything.',
+    a: 'Every build is scoped to the business — the services you offer, your pricing logic, and the automations you need. Book a free funnel website audit and I\'ll map exactly what your system looks like before you commit to anything.',
   },
   {
     q: 'Who have you built this for?',

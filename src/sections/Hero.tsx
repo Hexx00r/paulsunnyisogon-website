@@ -39,7 +39,7 @@ export default function Hero() {
         <Reveal delay={300}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a href={BOOKING} target="_blank" rel="noreferrer" className="btn-primary">
-              Book a Free Funnel Audit
+              Book a Free Funnel Website Audit
             </a>
             <a
               href={YOUTUBE}

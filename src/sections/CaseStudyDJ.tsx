@@ -14,6 +14,9 @@ export default function CaseStudyDJ() {
         src={djHero}
         alt=""
         aria-hidden="true"
+        width={1600}
+        height={825}
+        loading="lazy"
         className="relative block h-auto w-full md:absolute md:inset-0 md:h-full md:w-full md:object-cover"
       />
       {/* Darken the shot to 40% brightness so the copy stays crisp (full-bleed layout only) */}
@@ -52,7 +55,7 @@ export default function CaseStudyDJ() {
             rel="noreferrer"
             className="btn-secondary mt-9"
           >
-            Book a Free Funnel Audit
+            Book a Free Funnel Website Audit
           </a>
         </Reveal>
       </div>
