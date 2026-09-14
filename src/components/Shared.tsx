@@ -61,8 +61,9 @@ export function BrowserShot({
   src: string
   alt: string
   url?: string
-  width: number
-  height: number
+  /** Natural pixel size — recommended (prevents layout shift) but optional. */
+  width?: number
+  height?: number
   className?: string
 }) {
   return (
