@@ -41,7 +41,7 @@ export default function Header() {
         style={{ backgroundColor: scrolled ? 'rgba(10,10,10,0.7)' : 'transparent' }}
       >
         <SplashCanvas />
-        <div className="relative z-10 mx-auto flex h-12 max-w-5xl items-center justify-between gap-4 px-5">
+        <div className="relative z-10 flex h-12 items-center justify-between gap-4 px-5">
           <a href="#top" className="flex items-center gap-2 text-apple-ink" aria-label="Home">
             <Droplet className="h-5 w-5 text-apple-blue" strokeWidth={2.5} />
             <span className="hidden text-sm font-semibold tracking-tight sm:block">
