@@ -29,8 +29,16 @@
   css(panel, { position: "fixed", bottom: "88px", right: "20px", width: "340px", maxWidth: "calc(100vw - 40px)", maxHeight: "70vh", display: "none", flexDirection: "column", background: C.panel, border: C.border, borderRadius: "16px", zIndex: "60", overflow: "hidden", fontFamily: "-apple-system,Segoe UI,Roboto,sans-serif", boxShadow: "0 20px 60px rgba(0,0,0,0.6)" });
 
   var head = document.createElement("div");
-  head.textContent = "Chat — ask me anything";
-  css(head, { padding: "14px 16px", color: C.text, fontSize: "13px", fontWeight: "600", borderBottom: C.border, background: "rgba(255,255,255,0.03)" });
+  css(head, { display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", padding: "14px 16px", color: C.text, fontSize: "13px", fontWeight: "600", borderBottom: C.border, background: "rgba(255,255,255,0.03)" });
+  var title = document.createElement("span");
+  title.textContent = "Chat — ask me anything";
+  var closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.setAttribute("aria-label", "Close chat");
+  closeBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+  css(closeBtn, { flex: "none", width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", border: "none", borderRadius: "8px", background: "transparent", color: C.sub, cursor: "pointer", padding: "0" });
+  head.appendChild(title);
+  head.appendChild(closeBtn);
 
   var log = document.createElement("div");
   css(log, { flex: "1", overflowY: "auto", padding: "12px", display: "flex", flexDirection: "column", gap: "8px", minHeight: "220px" });
@@ -79,17 +87,51 @@
     css(form, m ? { padding: "10px 12px", gap: "6px" } : { padding: "12px", gap: "8px" });
     css(input, m ? { padding: "9px 12px", fontSize: "16px" } : { padding: "10px 12px", fontSize: "14px" });
     css(send, m ? { padding: "0 12px", fontSize: "12.5px" } : { padding: "0 14px", fontSize: "13px" });
+    css(closeBtn, m ? { width: "44px", height: "44px", margin: "-10px -12px -10px 0" } : { width: "32px", height: "32px", margin: "-6px -8px -6px 0" });
+    if (backdrop) backdrop.style.display = open && m ? "block" : "none";
   }
   applyLayout();
   if (mq.addEventListener) mq.addEventListener("change", applyLayout);
   else mq.addListener(applyLayout);
 
   var open = false;
-  btn.addEventListener("click", function () {
-    open = !open;
-    panel.style.display = open ? "flex" : "none";
-    if (open && !log.childNodes.length) bubble("Hey! Ask me about Paul's websites, GHL systems, pricing, or process.", false);
-    if (open) input.focus();
+  /* Backdrop: mobile-only dim layer behind the sheet; tap = close. */
+  var backdrop = document.createElement("div");
+  backdrop.setAttribute("aria-hidden", "true");
+  css(backdrop, { position: "fixed", top: "0", left: "0", right: "0", bottom: "0", background: "rgba(0,0,0,0.45)", zIndex: "59", display: "none" });
+  backdrop.addEventListener("click", function () { setOpen(false); });
+
+  function setOpen(v) {
+    open = v;
+    panel.style.display = v ? "flex" : "none";
+    backdrop.style.display = v && mq.matches ? "block" : "none";
+    panel.style.transform = "";
+    if (v && !log.childNodes.length) bubble("Hey! Ask me about Paul's websites, GHL systems, pricing, or process.", false);
+    if (v) input.focus();
+  }
+  btn.addEventListener("click", function () { setOpen(!open); });
+  closeBtn.addEventListener("click", function () { setOpen(false); });
+
+  /* Swipe-down on the sheet header closes (standard mobile pattern). */
+  var dragY = null;
+  head.addEventListener("touchstart", function (e) {
+    if (e.touches.length === 1) dragY = e.touches[0].clientY;
+  }, { passive: true });
+  head.addEventListener("touchmove", function (e) {
+    if (dragY === null) return;
+    var dy = Math.max(0, e.touches[0].clientY - dragY);
+    if (dy > 0 && !reduced) {
+      panel.style.transition = "none";
+      panel.style.transform = "translateY(" + dy + "px)";
+    }
+  }, { passive: true });
+  head.addEventListener("touchend", function (e) {
+    if (dragY === null) return;
+    var dy = e.changedTouches[0].clientY - dragY;
+    dragY = null;
+    panel.style.transition = reduced ? "" : "opacity 160ms ease, transform 160ms ease";
+    panel.style.transform = "";
+    if (dy > 60) setOpen(false);
   });
 
   form.addEventListener("submit", function (e) {
@@ -106,6 +148,7 @@
   });
 
   if (!reduced) panel.style.transition = "opacity 160ms ease, transform 160ms ease";
+  document.body.appendChild(backdrop);
   document.body.appendChild(btn);
   document.body.appendChild(panel);
 })();
