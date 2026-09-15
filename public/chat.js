@@ -60,6 +60,30 @@
     return b;
   }
 
+  /* Mobile (≤480px): thumb-sized launcher with safe-area padding, and the
+     panel becomes a bottom sheet (90vw, rounded top corners) that caps at
+     70vh so it never reaches the sticky header CTA. Desktop values are
+     restored when the query stops matching. */
+  var mq = window.matchMedia("(max-width: 480px)");
+  function applyLayout() {
+    var m = mq.matches;
+    css(btn, m
+      ? { width: "48px", height: "48px", bottom: "calc(16px + env(safe-area-inset-bottom, 0px))", right: "calc(16px + env(safe-area-inset-right, 0px))" }
+      : { width: "56px", height: "56px", bottom: "20px", right: "20px" });
+    css(panel, m
+      ? { left: "5vw", right: "5vw", width: "auto", maxWidth: "none", bottom: "0", maxHeight: "70vh", borderRadius: "16px 16px 0 0" }
+      : { left: "", right: "20px", width: "340px", maxWidth: "calc(100vw - 40px)", bottom: "88px", maxHeight: "70vh", borderRadius: "16px" });
+    if (m) panel.style.maxHeight = "70dvh"; // ignored where unsupported; 70vh stays
+    css(head, m ? { padding: "12px 14px", fontSize: "12.5px" } : { padding: "14px 16px", fontSize: "13px" });
+    css(log, m ? { padding: "10px", gap: "6px", minHeight: "160px" } : { padding: "12px", gap: "8px", minHeight: "220px" });
+    css(form, m ? { padding: "10px 12px", gap: "6px" } : { padding: "12px", gap: "8px" });
+    css(input, m ? { padding: "9px 12px", fontSize: "16px" } : { padding: "10px 12px", fontSize: "14px" });
+    css(send, m ? { padding: "0 12px", fontSize: "12.5px" } : { padding: "0 14px", fontSize: "13px" });
+  }
+  applyLayout();
+  if (mq.addEventListener) mq.addEventListener("change", applyLayout);
+  else mq.addListener(applyLayout);
+
   var open = false;
   btn.addEventListener("click", function () {
     open = !open;
