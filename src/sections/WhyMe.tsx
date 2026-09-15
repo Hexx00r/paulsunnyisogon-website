@@ -35,6 +35,8 @@ export default function WhyMe() {
             <img
               src={portrait}
               alt="Paul Sunny Isogon Jr"
+              width={800}
+              height={1280}
               loading="lazy"
               className="block w-full rounded-[20px] object-cover"
               style={{ filter: 'contrast(1.08) saturate(0.92) brightness(0.95)' }}

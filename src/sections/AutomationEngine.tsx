@@ -125,6 +125,8 @@ export default function AutomationEngine() {
               src={wfQuote}
               alt="Workflow 01 - inbound webhook to contact, tags, opportunity and internal notification"
               url="01 · New quote submitted"
+              width={1076}
+              height={976}
             />
           </Reveal>
           <Reveal as="div" delay={100}>
@@ -132,6 +134,8 @@ export default function AutomationEngine() {
               src={wfFollowup}
               alt="Workflow 02 - quoted follow-up sequence with waits, conditions and last-call step"
               url="02 · Quoted follow-up"
+              width={942}
+              height={881}
             />
           </Reveal>
           <Reveal as="div" delay={200}>
@@ -139,6 +143,8 @@ export default function AutomationEngine() {
               src={wfReview}
               alt="Workflow 05 - Google review follow-up with 3-day wait and pipeline condition"
               url="05 · Review follow-up"
+              width={1111}
+              height={977}
             />
           </Reveal>
         </div>

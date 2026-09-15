@@ -2,24 +2,24 @@ import { Kicker } from '@/components/Shared'
 import Reveal from '@/components/Reveal'
 
 /* ------------------------------ FAQ copy --------------------------------- */
-/* Answers are drawn from the copy already on this page — keep them in sync. */
+/* Answers are drawn from the copy already on this page; keep them in sync. */
 
 const FAQS = [
   {
     q: 'Do I need GoHighLevel already set up?',
-    a: "No. I build the complete system end-to-end: the instant-quote funnel, the pricing logic behind it, the GHL pipeline and CRM, and every follow-up automation. You don't need anything in place first — and when native GHL isn't enough, I write the custom code that is.",
+    a: "No. I build the complete system end-to-end: the instant-quote funnel, the pricing logic behind it, the GHL pipeline and CRM, and every follow-up automation. You don't need anything in place first. And when native GHL isn't enough, I write the custom code that is.",
   },
   {
     q: 'How much does a system like this cost?',
-    a: 'Every build is scoped to the business — the services you offer, your pricing logic, and the automations you need. Book a free funnel website audit and I\'ll map exactly what your system looks like before you commit to anything.',
+    a: 'Every build is scoped to the business: the services you offer, your pricing logic, and the automations you need. Book a free funnel website audit and I\'ll map exactly what your system looks like before you commit to anything.',
   },
   {
     q: 'Who have you built this for?',
-    a: "I built the complete GHL automation system for my own family's business — DJ Property & Cleaning Services in Albury–Wodonga — and for Melbourne High Pressure Cleaning. I learned it by building it for my own family first.",
+    a: "I built the complete GHL automation system for my own family's business, DJ Property & Cleaning Services in Albury–Wodonga, and for Melbourne High Pressure Cleaning. I learned it by building it for my own family first.",
   },
   {
     q: 'What happens to a lead after they submit a quote?',
-    a: 'The lead drops straight into a GHL pipeline with auto-tagging and stage management — nothing falls through the cracks. From there, SMS and email follow-up sequences, smart booking reminders, and post-job review requests run automatically while you\'re on the truck.',
+    a: 'The lead drops straight into a GHL pipeline with auto-tagging and stage management. Nothing falls through the cracks. From there, SMS and email follow-up sequences, smart booking reminders, and post-job review requests run automatically while you\'re on the truck.',
   },
 ] as const
 

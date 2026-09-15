@@ -15,6 +15,9 @@ export default function CaseStudyMelbourne() {
         src={melbHero}
         alt=""
         aria-hidden="true"
+        width={1600}
+        height={817}
+        loading="lazy"
         className="relative block h-auto w-full md:absolute md:inset-0 md:h-full md:w-full md:object-cover"
       />
       {/* Darken the shot to 40% brightness so the copy stays crisp (full-bleed layout only) */}
