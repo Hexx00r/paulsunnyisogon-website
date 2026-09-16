@@ -798,7 +798,297 @@ if (!existsSync(wbPath)) {
   )
 }
 
-// --- 23. dist-wide hygiene: no stale anchors or wrong paths -------------------
+// --- 23. guide #13: how-to-start-a-pressure-washing-business-australia ------
+const w13Path = join(dist, 'guides', 'how-to-start-a-pressure-washing-business-australia.html')
+console.log('\nverify: dist/guides/how-to-start-a-pressure-washing-business-australia.html')
+if (!existsSync(w13Path)) {
+  fail('guide #13 exists in dist')
+} else {
+  const w13 = readFileSync(w13Path, 'utf8')
+  const w13Title = (w13.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w13Title === 'How to Start a Pressure Washing Business in Australia (2026): Licences, Costs and Your First 10 Customers | paulsunnydev',
+    `got "${w13Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w13.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w13.includes('/#quote'))
+  check('no em dashes', !w13.includes('—'))
+  check('money-page link at /guides/ path', w13.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('no stale root money-page link', !w13.includes('href="/pressure-cleaning-website-design.html"'))
+  check('links to hub', w13.includes('href="/guides/"'))
+  check('links to leads guide', w13.includes('href="/guides/pressure-washing-leads-australia.html"'))
+  check('links to missed-call guide', w13.includes('href="/guides/missed-call-text-back-pressure-washing.html"'))
+  check('links to homepage calculator anchor', w13.includes('/#calculator'))
+  const w13Blocks = [...w13.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w13Blocks.find((b) => b.__parseError))
+  check('Article schema present', w13Blocks.some((b) => b['@type'] === 'Article'))
+  const w13Faq = w13Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w13FaqQs = w13Faq && Array.isArray(w13Faq.mainEntity) ? w13Faq.mainEntity : []
+  check('FAQPage schema with 5 questions', w13FaqQs.length === 5, `${w13FaqQs.length}`)
+  const w13H3s = [...w13.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w13Vis = w13H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w13Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w13Missing = w13FaqQs.filter(
+    (q) => !w13Vis.some((v) => v.includes(w13Key(q.name)) || w13Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w13Missing.length === 0,
+    w13Missing.map((q) => q.name).join('; ')
+  )
+  const w13Main = w13.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w13Text = w13Main ? norm(strip(w13Main[1])) : ''
+  const w13Words = w13Text ? w13Text.split(' ').length : 0
+  check('word count 1,200–1,600', w13Words >= 1200 && w13Words <= 1600, `${w13Words} words`)
+  const hub13 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #13', hub13.includes('href="/guides/how-to-start-a-pressure-washing-business-australia.html"'))
+  check(
+    'hub ItemList JSON-LD includes guide #13',
+    hub13.includes('"position": 13') && hub13.includes('how-to-start-a-pressure-washing-business-australia.html')
+  )
+  const sm13 = existsSync(smPath) ? readFileSync(smPath, 'utf8') : ''
+  check(
+    'sitemap lists guide #13',
+    sm13.includes('https://paulsunnydev.com/guides/how-to-start-a-pressure-washing-business-australia.html')
+  )
+  const w13Tokens = [...new Set([...w13.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
+  console.log(`  INFO  guide tokens to fill: ${w13Tokens.map((t) => `{{${t}}}`).join(', ')}`)
+  check('tokens listed in HTML comment', w13.includes('TODO(Paul)'))
+}
+
+// --- 24. guide #14: missed-call-text-back-pressure-washing -------------------
+const w14Path = join(dist, 'guides', 'missed-call-text-back-pressure-washing.html')
+console.log('\nverify: dist/guides/missed-call-text-back-pressure-washing.html')
+if (!existsSync(w14Path)) {
+  fail('guide #14 exists in dist')
+} else {
+  const w14 = readFileSync(w14Path, 'utf8')
+  const w14Title = (w14.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w14Title === 'Missed Call Text Back for Pressure Washing: How It Works and the Real Monthly Cost (2026) | paulsunnydev',
+    `got "${w14Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w14.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w14.includes('/#quote'))
+  check('no em dashes', !w14.includes('—'))
+  check('loss math is tokenized, no hardcoded monthly figure', !w14.includes('$3,840'))
+  check('money-page link at /guides/ path', w14.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('links to hub', w14.includes('href="/guides/"'))
+  check('links to tradies missed-call guide', w14.includes('href="/guides/missed-call-text-back-for-tradies.html"'))
+  check('links to pricing guide', w14.includes('href="/guides/gohighlevel-pricing-australia.html"'))
+  check('links to CRM guide', w14.includes('href="/guides/best-crm-pressure-washing-australia.html"'))
+  check('links to homepage calculator anchor', w14.includes('/#calculator'))
+  const w14Blocks = [...w14.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w14Blocks.find((b) => b.__parseError))
+  check('Article schema present', w14Blocks.some((b) => b['@type'] === 'Article'))
+  const w14Faq = w14Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w14FaqQs = w14Faq && Array.isArray(w14Faq.mainEntity) ? w14Faq.mainEntity : []
+  check('FAQPage schema with 5 questions', w14FaqQs.length === 5, `${w14FaqQs.length}`)
+  const w14H3s = [...w14.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w14Vis = w14H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w14Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w14Missing = w14FaqQs.filter(
+    (q) => !w14Vis.some((v) => v.includes(w14Key(q.name)) || w14Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w14Missing.length === 0,
+    w14Missing.map((q) => q.name).join('; ')
+  )
+  const w14Main = w14.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w14Text = w14Main ? norm(strip(w14Main[1])) : ''
+  const w14Words = w14Text ? w14Text.split(' ').length : 0
+  check('word count 1,200–1,600', w14Words >= 1200 && w14Words <= 1600, `${w14Words} words`)
+  const hub14 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #14', hub14.includes('href="/guides/missed-call-text-back-pressure-washing.html"'))
+  check(
+    'hub ItemList JSON-LD includes guide #14',
+    hub14.includes('"position": 14') && hub14.includes('missed-call-text-back-pressure-washing.html')
+  )
+  const sm14 = existsSync(smPath) ? readFileSync(smPath, 'utf8') : ''
+  check(
+    'sitemap lists guide #14',
+    sm14.includes('https://paulsunnydev.com/guides/missed-call-text-back-pressure-washing.html')
+  )
+  const w14Tokens = [...new Set([...w14.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
+  console.log(`  INFO  guide tokens to fill: ${w14Tokens.map((t) => `{{${t}}}`).join(', ')}`)
+  check('tokens listed in HTML comment', w14.includes('TODO(Paul)'))
+}
+
+// --- 25. guide #15: best-crm-pressure-washing-australia ----------------------
+const w15Path = join(dist, 'guides', 'best-crm-pressure-washing-australia.html')
+console.log('\nverify: dist/guides/best-crm-pressure-washing-australia.html')
+if (!existsSync(w15Path)) {
+  fail('guide #15 exists in dist')
+} else {
+  const w15 = readFileSync(w15Path, 'utf8')
+  const w15Title = (w15.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w15Title === 'Best CRM for Pressure Washing in Australia (2026): GHL vs Jobber vs ServiceM8 vs Housecall Pro | paulsunnydev',
+    `got "${w15Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w15.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w15.includes('/#quote'))
+  check('no em dashes', !w15.includes('—'))
+  check('money-page link at /guides/ path', w15.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('no stale root money-page link', !w15.includes('href="/pressure-cleaning-website-design.html"'))
+  check('links to hub', w15.includes('href="/guides/"'))
+  check('links to pricing guide', w15.includes('href="/guides/gohighlevel-pricing-australia.html"'))
+  check('links to GHL tradies guide', w15.includes('href="/guides/gohighlevel-for-tradies-australia.html"'))
+  check('links to worth-it guide', w15.includes('href="/guides/is-gohighlevel-worth-it-small-business.html"'))
+  check('links to missed-call pressure washing guide', w15.includes('href="/guides/missed-call-text-back-pressure-washing.html"'))
+  check('links to homepage calculator anchor', w15.includes('/#calculator'))
+  const w15Blocks = [...w15.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w15Blocks.find((b) => b.__parseError))
+  check('Article schema present', w15Blocks.some((b) => b['@type'] === 'Article'))
+  const w15Faq = w15Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w15FaqQs = w15Faq && Array.isArray(w15Faq.mainEntity) ? w15Faq.mainEntity : []
+  check('FAQPage schema with 5 questions', w15FaqQs.length === 5, `${w15FaqQs.length}`)
+  const w15H3s = [...w15.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w15Vis = w15H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w15Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w15Missing = w15FaqQs.filter(
+    (q) => !w15Vis.some((v) => v.includes(w15Key(q.name)) || w15Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w15Missing.length === 0,
+    w15Missing.map((q) => q.name).join('; ')
+  )
+  const w15Main = w15.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w15Text = w15Main ? norm(strip(w15Main[1])) : ''
+  const w15Words = w15Text ? w15Text.split(' ').length : 0
+  check('word count 1,200–1,600', w15Words >= 1200 && w15Words <= 1600, `${w15Words} words`)
+  const hub15 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #15', hub15.includes('href="/guides/best-crm-pressure-washing-australia.html"'))
+  check(
+    'hub ItemList JSON-LD includes guide #15',
+    hub15.includes('"position": 15') && hub15.includes('best-crm-pressure-washing-australia.html')
+  )
+  const sm15 = existsSync(smPath) ? readFileSync(smPath, 'utf8') : ''
+  check(
+    'sitemap lists guide #15',
+    sm15.includes('https://paulsunnydev.com/guides/best-crm-pressure-washing-australia.html')
+  )
+  const w15Tokens = [...new Set([...w15.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
+  console.log(`  INFO  guide tokens to fill: ${w15Tokens.map((t) => `{{${t}}}`).join(', ')}`)
+  check('tokens listed in HTML comment', w15.includes('TODO(Paul)'))
+}
+
+// --- 26. guide #16: pressure-washing-leads-australia --------------------------
+const w16Path = join(dist, 'guides', 'pressure-washing-leads-australia.html')
+console.log('\nverify: dist/guides/pressure-washing-leads-australia.html')
+if (!existsSync(w16Path)) {
+  fail('guide #16 exists in dist')
+} else {
+  const w16 = readFileSync(w16Path, 'utf8')
+  const w16Title = (w16.match(/<title>([^<]*)<\/title>/) || [])[1] || ''
+  check(
+    'exact <title>',
+    w16Title === 'Pressure Washing Leads Australia (2026): Every Channel Ranked by Cost per Booked Job | paulsunnydev',
+    `got "${w16Title}"`
+  )
+  check(
+    'og:image is the real portrait URL',
+    w16.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+  )
+  check('no /#quote anchors', !w16.includes('/#quote'))
+  check('no em dashes', !w16.includes('—'))
+  check('money-page link at /guides/ path', w16.includes('href="/guides/pressure-cleaning-website-design.html"'))
+  check('no stale root money-page link', !w16.includes('href="/pressure-cleaning-website-design.html"'))
+  check('links to hub', w16.includes('href="/guides/"'))
+  check('links to without-hipages guide', w16.includes('href="/guides/get-more-pressure-washing-jobs-without-hipages.html"'))
+  check('links to SEO guide', w16.includes('href="/guides/pressure-washing-seo-australia.html"'))
+  check('links to missed-call guide', w16.includes('href="/guides/missed-call-text-back-pressure-washing.html"'))
+  check('links to start-a-business guide', w16.includes('href="/guides/how-to-start-a-pressure-washing-business-australia.html"'))
+  check('links to homepage calculator anchor', w16.includes('/#calculator'))
+  const w16Blocks = [...w16.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(
+    (m) => {
+      try {
+        return JSON.parse(m[1])
+      } catch (e) {
+        return { __parseError: e.message }
+      }
+    }
+  )
+  check('all JSON-LD blocks parse', !w16Blocks.find((b) => b.__parseError))
+  const w16Service = w16Blocks.find((b) => b['@type'] === 'Service')
+  check('Service schema present (no Article)', Boolean(w16Service) && !w16Blocks.some((b) => b['@type'] === 'Article'))
+  check(
+    'Service schema: areaServed Australia',
+    Boolean(w16Service && /australia/i.test(JSON.stringify(w16Service['areaServed'] || '')))
+  )
+  const w16Faq = w16Blocks.find((b) => b['@type'] === 'FAQPage')
+  const w16FaqQs = w16Faq && Array.isArray(w16Faq.mainEntity) ? w16Faq.mainEntity : []
+  check('FAQPage schema with 4 questions', w16FaqQs.length === 4, `${w16FaqQs.length}`)
+  const w16H3s = [...w16.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((m) => norm(strip(m[1])))
+  const w16Vis = w16H3s.map((q) => q.toLowerCase().replace(/[?.]/g, '').trim())
+  const w16Key = (q) => (q || '').toLowerCase().replace(/[?.]/g, '').trim()
+  const w16Missing = w16FaqQs.filter(
+    (q) => !w16Vis.some((v) => v.includes(w16Key(q.name)) || w16Key(q.name).includes(v))
+  )
+  check(
+    'every FAQPage question is visible on the page',
+    w16Missing.length === 0,
+    w16Missing.map((q) => q.name).join('; ')
+  )
+  const w16Main = w16.match(/<main[^>]*>([\s\S]*?)<\/main>/)
+  const w16Text = w16Main ? norm(strip(w16Main[1])) : ''
+  const w16Words = w16Text ? w16Text.split(' ').length : 0
+  check('word count 1,200–1,600', w16Words >= 1200 && w16Words <= 1600, `${w16Words} words`)
+  const hub16 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
+  check('hub links to guide #16', hub16.includes('href="/guides/pressure-washing-leads-australia.html"'))
+  check(
+    'hub ItemList JSON-LD includes guide #16',
+    hub16.includes('"position": 16') && hub16.includes('pressure-washing-leads-australia.html')
+  )
+  const sm16 = existsSync(smPath) ? readFileSync(smPath, 'utf8') : ''
+  check(
+    'sitemap lists guide #16',
+    sm16.includes('https://paulsunnydev.com/guides/pressure-washing-leads-australia.html')
+  )
+  const w16Tokens = [...new Set([...w16.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
+  console.log(`  INFO  guide tokens to fill: ${w16Tokens.map((t) => `{{${t}}}`).join(', ')}`)
+  check('tokens listed in HTML comment', w16.includes('TODO(Paul)'))
+}
+
+// --- 27. dist-wide hygiene: no stale anchors or wrong paths -------------------
 const css = readFileSync(join(dist, 'guides', 'guides.css'), 'utf8')
 check('btn-primary text is black', /\.btn-primary\s*\{[^}]*color:\s*#000000/.test(css))
 check('prose link color excludes .btn', css.includes('.prose a:not(.btn)'))
