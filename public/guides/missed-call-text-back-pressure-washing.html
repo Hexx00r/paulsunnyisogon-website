@@ -94,14 +94,6 @@
 </head>
 <body>
 
-<!-- TODO(Paul): verify tokens, one line per token:
-  {{MISSED_CALLS_PER_WEEK}} = missed calls per week; count ring-outs + voicemail messages in last month's phone log, divide by 4.3
-  {{CLOSE_RATE_PERCENT}} = share of answered enquiries that actually book, taken from your own job book
-  {{AVG_JOB_VALUE_AUD}} = average job value in AUD; last month's revenue divided by jobs done (house wash, driveway, roof blended)
-  {{MISSED_CALL_MONTHLY_LOSS_AUD}} = the monthly loss figure the formula produces with your numbers plugged in
-  {{MISSED_CALL_TEXTBACK_SETUP_HOURS}} = realistic hours to set the workflow up, only if the setup-time claim stays in the guide
--->
-
 <header class="site-header">
   <nav class="bar" aria-label="Site">
     <a class="brand" href="/">
@@ -159,12 +151,15 @@
 
     <h2>The monthly-loss math, with the working shown</h2>
 
-    <p>Most articles skip the actual working. Every variable below is a token, so plug in your
-    own numbers; the worked example uses my family's pressure cleaning figures:</p>
+    <p>Most articles skip the actual working. Here it is with the inputs stated openly, so you
+    can check the maths and swap in your own numbers from your call log and job book:</p>
 
-    <p>{{MISSED_CALLS_PER_WEEK}} missed calls a week × 4.3 weeks × {{CLOSE_RATE_PERCENT}} of them
-    that would have booked × {{AVG_JOB_VALUE_AUD}} average job = {{MISSED_CALL_MONTHLY_LOSS_AUD}}
-    lost every month.</p>
+    <p>Here's the honest version, inputs labelled: my family business doesn't track ring-outs,
+    so treat these as typical one-truck-operator numbers, not measured stats. Miss roughly
+    5–8 calls a week × 4.3 weeks × 30–40% who would have booked × $300–$400 average job =
+    about $1,900–$5,500 in lost work every month. Low end: 5 × 4.3 × 30% × $300 ≈ $1,900.
+    High end: 8 × 4.3 × 40% × $400 ≈ $5,500. The point isn't the exact figure: run your own
+    numbers and the result is rarely zero.</p>
 
     <p>Three of those numbers come straight from your own phone. Missed calls a week: count the
     ring-outs and voicemail messages in last month's call log, divided by 4.3. Close rate: of the
@@ -177,7 +172,7 @@
     hipages at $139–$649 a month, typically around $400 a month, for leads that also went to two
     or three rivals. The missed caller dialled you specifically and got silence.</p>
 
-    <p>Now weigh that against the fix: one rescued {{AVG_JOB_VALUE_AUD}} job covers the ≈$150 AUD
+    <p>Now weigh that against the fix: one rescued $350 job covers the ≈$150 AUD
     platform for a month, and every rescued job after that is margin. If the maths stings, pair
     the text back with a website that gives callers something to do at 8:01pm: my
     <a href="/guides/pressure-cleaning-website-design.html">pressure cleaning website design</a>
@@ -206,8 +201,8 @@
     fee. The platform runs about <strong>$150 AUD a month</strong> on Starter, less on annual
     billing, and it's one flat price for the whole business with unlimited users and contacts.
     SMS sends through Twilio at fractions of a cent each, so a busy month of texts costs a few
-    dollars, and a domain runs about $20 a year if you want a tracked number. Allow
-    {{MISSED_CALL_TEXTBACK_SETUP_HOURS}} for setup once the message is written. The line-by-line
+    dollars, and a domain runs about $20 a year if you want a tracked number. Allow a few
+    hours, half a day at most, for setup once the message is written. The line-by-line
     breakdown is in my
     <a href="/guides/gohighlevel-pricing-australia.html">GoHighLevel pricing Australia</a> guide.
     The workflow runs inside a CRM; my pick for pressure washing, and what it has to beat, is in

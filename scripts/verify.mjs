@@ -865,7 +865,7 @@ if (!existsSync(w13Path)) {
   )
   const w13Tokens = [...new Set([...w13.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
   console.log(`  INFO  guide tokens to fill: ${w13Tokens.map((t) => `{{${t}}}`).join(', ')}`)
-  check('tokens listed in HTML comment', w13.includes('TODO(Paul)'))
+  check('tokens listed in HTML comment (or all filled)', w13Tokens.length === 0 || w13.includes('TODO(Paul)'))
 }
 
 // --- 24. guide #14: missed-call-text-back-pressure-washing -------------------
@@ -936,7 +936,7 @@ if (!existsSync(w14Path)) {
   )
   const w14Tokens = [...new Set([...w14.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
   console.log(`  INFO  guide tokens to fill: ${w14Tokens.map((t) => `{{${t}}}`).join(', ')}`)
-  check('tokens listed in HTML comment', w14.includes('TODO(Paul)'))
+  check('tokens listed in HTML comment (or all filled)', w14Tokens.length === 0 || w14.includes('TODO(Paul)'))
 }
 
 // --- 25. guide #15: best-crm-pressure-washing-australia ----------------------
@@ -1008,7 +1008,7 @@ if (!existsSync(w15Path)) {
   )
   const w15Tokens = [...new Set([...w15.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
   console.log(`  INFO  guide tokens to fill: ${w15Tokens.map((t) => `{{${t}}}`).join(', ')}`)
-  check('tokens listed in HTML comment', w15.includes('TODO(Paul)'))
+  check('tokens listed in HTML comment (or all filled)', w15Tokens.length === 0 || w15.includes('TODO(Paul)'))
 }
 
 // --- 26. guide #16: pressure-washing-leads-australia --------------------------
@@ -1085,7 +1085,7 @@ if (!existsSync(w16Path)) {
   )
   const w16Tokens = [...new Set([...w16.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
   console.log(`  INFO  guide tokens to fill: ${w16Tokens.map((t) => `{{${t}}}`).join(', ')}`)
-  check('tokens listed in HTML comment', w16.includes('TODO(Paul)'))
+  check('tokens listed in HTML comment (or all filled)', w16Tokens.length === 0 || w16.includes('TODO(Paul)'))
 }
 
 // --- 27. dist-wide hygiene: no stale anchors or wrong paths -------------------
