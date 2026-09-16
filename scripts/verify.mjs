@@ -147,7 +147,7 @@ check('no localhost links', !/localhost|127\.0\.0\.1/.test(html))
 // --- 10. placeholder tokens (report) ------------------------------------------
 const tokens = [...new Set([...html.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
 console.log(`  INFO  placeholder tokens to fill: ${tokens.map((t) => `{{${t}}}`).join(', ')}`)
-check('tokens also listed in HTML comment', html.includes('TODO(Paul)'))
+check('tokens also listed in HTML comment (or all filled)', tokens.length === 0 || html.includes('TODO(Paul)'))
 
 // --- 11. sitemap + assets -----------------------------------------------------
 const smPath = join(dist, 'sitemap.xml')
@@ -239,7 +239,7 @@ if (!existsSync(guidePath)) {
   check('no stale /#quote anchors', !g.includes('/#quote'))
   const gTokens = [...new Set([...g.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
   console.log(`  INFO  guide tokens to fill: ${gTokens.map((t) => `{{${t}}}`).join(', ')}`)
-  check('tokens listed in HTML comment', g.includes('TODO(Paul)'))
+  check('tokens listed in HTML comment (or all filled)', gTokens.length === 0 || g.includes('TODO(Paul)'))
 }
 
 // --- 13. hub lists guide #3 ---------------------------------------------------
@@ -356,13 +356,13 @@ if (!existsSync(jobsPath)) {
     jMissing.length === 0,
     jMissing.map((q) => q.name).join('; ')
   )
-  check('unverified GHL range is tokenized', j.includes('{{ghl_all_in_aud}}') && !j.includes('$150–$250'))
+  check('GHL all-in figure filled (no token, no invented range)', !j.includes('{{ghl_all_in_aud}}') && !j.includes('$150–$250'))
 
   const hub5 = existsSync(hubPath) ? readFileSync(hubPath, 'utf8') : ''
   check('hub links to guide #5', hub5.includes('href="/guides/get-more-pressure-washing-jobs-without-hipages.html"'))
   const jTokens = [...new Set([...j.matchAll(/\{\{(\w+)\}\}/g)].map((m) => m[1]))]
   console.log(`  INFO  guide tokens to fill: ${jTokens.map((t) => `{{${t}}}`).join(', ')}`)
-  check('tokens listed in HTML comment', j.includes('TODO(Paul)'))
+  check('tokens listed in HTML comment (or all filled)', jTokens.length === 0 || j.includes('TODO(Paul)'))
 }
 
 // --- 16. guide #6: what-should-a-pressure-washing-website-include -------------
