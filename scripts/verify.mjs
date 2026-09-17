@@ -265,8 +265,8 @@ if (!existsSync(seoPath)) {
     `got "${sTitle}"`
   )
   check(
-    'og:image is the real portrait URL',
-    s.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+    'og:image is the mapped guide image',
+    s.includes('property="og:image" content="https://paulsunnydev.com/images/melbourne-hpc-photos/site-06.jpeg"')
   )
   check('portrait.jpg copied to dist', existsSync(join(dist, 'images', 'portrait.jpg')))
   check('no /#quote anchors', !s.includes('/#quote'))
@@ -321,8 +321,8 @@ if (!existsSync(jobsPath)) {
     `got "${jTitle}"`
   )
   check(
-    'og:image is the real portrait URL',
-    j.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+    'og:image is the mapped guide image',
+    j.includes('property="og:image" content="https://paulsunnydev.com/images/melbourne-hpc-photos/maps-02.jpg"')
   )
   check('no /#quote anchors', !j.includes('/#quote'))
   check('money-page link at /guides/ path', j.includes('href="/guides/pressure-cleaning-website-design.html"'))
@@ -379,8 +379,8 @@ if (!existsSync(incPath)) {
     `got "${i6Title}"`
   )
   check(
-    'og:image is the real portrait URL',
-    i6.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+    'og:image is the mapped guide image',
+    i6.includes('property="og:image" content="https://paulsunnydev.com/images/melbourne-hpc-photos/site-04.jpeg"')
   )
   check('no /#quote anchors', !i6.includes('/#quote'))
   check('money-page link at /guides/ path', i6.includes('href="/guides/pressure-cleaning-website-design.html"'))
@@ -684,8 +684,8 @@ if (!existsSync(w11Path)) {
     `got "${w11Title}"`
   )
   check(
-    'og:image is the real portrait URL',
-    w11.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+    'og:image is the mapped guide image',
+    w11.includes('property="og:image" content="https://paulsunnydev.com/images/melbourne-hpc-photos/site-06.jpeg"')
   )
   check('no /#quote anchors', !w11.includes('/#quote'))
   check('no em dashes', !w11.includes('—'))
@@ -741,8 +741,8 @@ if (!existsSync(wbPath)) {
     `got "${wbTitle}"`
   )
   check(
-    'og:image is the real portrait URL',
-    wb.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+    'og:image is the mapped guide image',
+    wb.includes('property="og:image" content="https://paulsunnydev.com/images/melbourne-hpc-photos/site-10.jpg"')
   )
   check('no /#quote anchors', !wb.includes('/#quote'))
   check('no em dashes', !wb.includes('—'))
@@ -812,8 +812,8 @@ if (!existsSync(w13Path)) {
     `got "${w13Title}"`
   )
   check(
-    'og:image is the real portrait URL',
-    w13.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+    'og:image is the mapped guide image',
+    w13.includes('property="og:image" content="https://paulsunnydev.com/images/melbourne-hpc-photos/maps-02.jpg"')
   )
   check('no /#quote anchors', !w13.includes('/#quote'))
   check('no em dashes', !w13.includes('—'))
@@ -1025,8 +1025,8 @@ if (!existsSync(w16Path)) {
     `got "${w16Title}"`
   )
   check(
-    'og:image is the real portrait URL',
-    w16.includes('property="og:image" content="https://paulsunnydev.com/images/portrait.jpg"')
+    'og:image is the mapped guide image',
+    w16.includes('property="og:image" content="https://paulsunnydev.com/images/melbourne-hpc-photos/site-10.jpg"')
   )
   check('no /#quote anchors', !w16.includes('/#quote'))
   check('no em dashes', !w16.includes('—'))
