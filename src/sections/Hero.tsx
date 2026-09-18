@@ -1,8 +1,30 @@
+import { useEffect } from 'react'
 import { MapPin } from 'lucide-react'
 import { BOOKING, YOUTUBE } from '@/components/Shared'
+import { VideoModal } from '@/lib/video-modal'
 import Reveal from '@/components/Reveal'
 
+// Modal video ID — derived from the YOUTUBE link in components/Shared.tsx so
+// the no-JS fallback href and the modal player can never drift apart.
+// (Change the video in one place: the YOUTUBE constant.)
+const DEMO_VIDEO_ID = YOUTUBE.match(/youtu\.be\/([\w-]+)/)?.[1] ?? ''
+
 export default function Hero() {
+  // Enhance the "Watch the Demo" link client-side only: with JS, clicks open
+  // the modal; without JS (or before hydration) the plain YouTube href in the
+  // prerendered HTML still works. Instantiated once per homepage mount and
+  // fully torn down on unmount — no double-instantiation under react-router
+  // navigation, and nothing here runs during the SSR/prerender pass.
+  useEffect(() => {
+    const modal = new VideoModal({
+      videoId: DEMO_VIDEO_ID,
+      triggerSelector: 'a[data-video-modal]',
+      // Respect reduced motion: no autoplay for those users.
+      autoplay: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    })
+    return () => modal.destroy()
+  }, [])
+
   return (
     <section id="top" className="relative overflow-hidden bg-apple-surface">
       {/* Subtle radial glow behind the headline, fading to black at the edges */}
@@ -45,6 +67,7 @@ export default function Hero() {
               href={YOUTUBE}
               target="_blank"
               rel="noreferrer"
+              data-video-modal
               className="btn-secondary"
             >
               Watch the Demo
