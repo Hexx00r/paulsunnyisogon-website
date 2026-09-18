@@ -6,7 +6,6 @@ export type TechStackItem = {
   label: string
   value: string
 }
-
 /** Tech Stack section content (rendered in Hero). */
 export const techStack: TechStackItem[] = [
   {
@@ -34,3 +33,11 @@ export const techStack: TechStackItem[] = [
     value: 'JavaScript, Python, PowerShell',
   },
 ]
+
+/**
+ * Hero headline animation. Edit this ONE word to switch the homepage hero
+ * effect — 'wall-wash' (contained grime canvas on the H1) or 'splash'
+ * (water jets in a header-height strip at the top of the hero). Both
+ * engines live in src/lib/; nothing else needs to change.
+ */
+export const HERO_ANIMATION: 'wall-wash' | 'splash' = 'wall-wash'

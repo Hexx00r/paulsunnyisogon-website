@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { MapPin } from 'lucide-react'
 import { BOOKING, YOUTUBE } from '@/components/Shared'
 import { VideoModal } from '@/lib/video-modal'
-import { initWallWash } from '@/lib/wall-wash'
+import { HERO_ANIMATION } from '@/site.config'
 import Reveal from '@/components/Reveal'
 
 // Modal video ID — derived from the YOUTUBE link in components/Shared.tsx so
@@ -26,25 +26,54 @@ export default function Hero() {
     return () => modal.destroy()
   }, [])
 
-  // Wall-wash headline: a grime canvas contained to the H1 box (see
-  // src/lib/wall-wash.ts). The H1 text stays real DOM — the canvas only
-  // overlays it. Reduced-motion users get the plain static headline: the
-  // canvas is never started and is hidden so it can't intercept anything.
+  // Hero headline animation, selected by the HERO_ANIMATION constant in
+  // site.config.ts. Exactly one engine mounts:
+  //   'wall-wash' — grime canvas contained to the H1 box (src/lib/wall-wash.ts)
+  //   'splash'    — water jets in a header-height strip at the top of the hero
+  //                 (src/lib/splash.ts, restored from git history)
+  // Engines are dynamically imported per mode so the inactive one stays out
+  // of the bundle. Reduced-motion users get neither: the canvas is hidden
+  // and never started, leaving a fully static hero.
   const washRef = useRef<HTMLCanvasElement>(null)
+  const splashRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const cv = washRef.current
+    const cv = HERO_ANIMATION === 'wall-wash' ? washRef.current : splashRef.current
     if (!cv) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       cv.style.display = 'none'
       return
     }
-    const { destroy } = initWallWash(cv)
-    return destroy
+    let destroy: (() => void) | undefined
+    let cancelled = false
+    const loaded =
+      HERO_ANIMATION === 'wall-wash'
+        ? import('@/lib/wall-wash').then((m) => m.initWallWash(cv).destroy)
+        : import('@/lib/splash').then((m) => m.initSplash(cv).destroy)
+    loaded.then((d) => {
+      if (cancelled) d() // unmounted while the chunk was loading
+      else destroy = d
+    })
+    return () => {
+      cancelled = true
+      destroy?.()
+    }
   }, [])
 
   return (
     <section id="top" className="relative overflow-hidden bg-apple-surface">
+      {HERO_ANIMATION === 'splash' && (
+        /* Header-height strip at the very top of the hero, directly beneath
+            the transparent sticky header — the same zone the splash occupied
+            before the wall-wash swap. Canvas is decorative: no pointer events. */
+        <div className="absolute inset-x-0 top-0 h-12 overflow-hidden" aria-hidden="true">
+          <canvas
+            ref={splashRef}
+            className="pointer-events-none absolute inset-0 block h-full w-full"
+          />
+        </div>
+      )}
+
       {/* Subtle radial glow behind the headline, fading to black at the edges */}
       <div
         aria-hidden="true"
@@ -64,15 +93,21 @@ export default function Hero() {
         </Reveal>
 
         <Reveal delay={100}>
-          {/* Sizing classes moved from the h1 to this wrapper so the
-              wall-wash canvas (absolute inset-0) covers exactly the same
-              box as the headline. Computed layout is unchanged. */}
-          <div className="relative mx-auto mt-8 max-w-5xl">
-            <h1 className="text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.02] tracking-[-0.02em] text-apple-ink">
+          {HERO_ANIMATION === 'wall-wash' ? (
+            /* Sizing classes moved from the h1 to this wrapper so the
+               wall-wash canvas (absolute inset-0) covers exactly the same
+               box as the headline. Computed layout is unchanged. */
+            <div className="relative mx-auto mt-8 max-w-5xl">
+              <h1 className="text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.02] tracking-[-0.02em] text-apple-ink">
+                Your website should work harder than your pressure washer.
+              </h1>
+              <canvas ref={washRef} aria-hidden="true" className="wall-wash-canvas" />
+            </div>
+          ) : (
+            <h1 className="mx-auto mt-8 max-w-5xl text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.02] tracking-[-0.02em] text-apple-ink">
               Your website should work harder than your pressure washer.
             </h1>
-            <canvas ref={washRef} aria-hidden="true" className="wall-wash-canvas" />
-          </div>
+          )}
         </Reveal>
 
         <Reveal delay={200}>
