@@ -25,6 +25,16 @@ const IDLE_AFTER_MS = 2400 // pointer silence before the auto-sweep takes over
 const REGRIME_AFTER_MS = 60_000 // idle streak that triggers a re-grime
 const MAX_DPR = 2
 
+/* Water-stream endpoint math (used by frameLoop): grime is erased where
+   the water LANDS, not where the pointer points. Drops leave the nozzle
+   tip at R(2300,3100) px/s (mean 2700) and live R(0.16,0.28)s (mean 0.22),
+   so the visible stream ends ~594px out, sagging under gravity. If the
+   drop update's gravity figure changes, keep DROP_GRAVITY in sync. */
+const DROP_GRAVITY = 3400
+const STREAM_T = 0.22 // mean drop lifetime, seconds
+const STREAM_LEN = 2700 * STREAM_T // mean speed × lifetime ≈ 594px
+const STREAM_SAG = 0.5 * DROP_GRAVITY * STREAM_T * STREAM_T // ≈ 82px
+
 type Drop = { x: number; y: number; vx: number; vy: number; life: number; ml: number }
 type Splash = Drop
 type Mist = { x: number; y: number; r: number; vr: number; life: number; ml: number }
@@ -307,7 +317,12 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
     const tipX = frame.nx + Math.cos(ang) * 70 * s
     const tipY = frame.ny + Math.sin(ang) * 70 * s
 
-    erase(tx, ty, 1)
+    // Erase where the water lands — the stream endpoint (tip + direction
+    // × stream length + gravity sag) — so the clean disc rides the spray
+    // instead of leading it. Same rule for pointer aim and idle sweep.
+    const impactX = tipX + Math.cos(ang) * STREAM_LEN
+    const impactY = tipY + Math.sin(ang) * STREAM_LEN + STREAM_SAG
+    erase(impactX, impactY, 1)
 
     const cnt = Math.max(1, Math.round(26 * dt * 60))
     for (let i = 0; i < cnt; i++) {
@@ -331,7 +346,7 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
       }
       p.x += p.vx * dt
       p.y += p.vy * dt
-      p.vy += 3400 * dt
+      p.vy += DROP_GRAVITY * dt
     }
     if (drops.length > 900) drops.splice(0, drops.length - 900)
 
