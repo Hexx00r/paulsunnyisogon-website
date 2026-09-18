@@ -250,3 +250,18 @@ body.video-modal-open { overflow: hidden; }
   .video-modal-overlay,
   .video-modal { transition: none; }
 }
+
+/* ============================================================
+   WallWash — grime canvas contained to the hero H1 box
+   (src/lib/wall-wash.ts). Scoped to this class only; touch-action
+   is what keeps touch-drags on the headline from fighting page
+   scroll, and it applies to the canvas (the H1 zone) alone. */
+.wall-wash-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}

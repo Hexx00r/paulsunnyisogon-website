@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { MapPin } from 'lucide-react'
 import { BOOKING, YOUTUBE } from '@/components/Shared'
 import { VideoModal } from '@/lib/video-modal'
+import { initWallWash } from '@/lib/wall-wash'
 import Reveal from '@/components/Reveal'
 
 // Modal video ID — derived from the YOUTUBE link in components/Shared.tsx so
@@ -25,6 +26,23 @@ export default function Hero() {
     return () => modal.destroy()
   }, [])
 
+  // Wall-wash headline: a grime canvas contained to the H1 box (see
+  // src/lib/wall-wash.ts). The H1 text stays real DOM — the canvas only
+  // overlays it. Reduced-motion users get the plain static headline: the
+  // canvas is never started and is hidden so it can't intercept anything.
+  const washRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const cv = washRef.current
+    if (!cv) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cv.style.display = 'none'
+      return
+    }
+    const { destroy } = initWallWash(cv)
+    return destroy
+  }, [])
+
   return (
     <section id="top" className="relative overflow-hidden bg-apple-surface">
       {/* Subtle radial glow behind the headline, fading to black at the edges */}
@@ -46,9 +64,15 @@ export default function Hero() {
         </Reveal>
 
         <Reveal delay={100}>
-          <h1 className="mx-auto mt-8 max-w-5xl text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.02] tracking-[-0.02em] text-apple-ink">
-            Your website should work harder than your pressure washer.
-          </h1>
+          {/* Sizing classes moved from the h1 to this wrapper so the
+              wall-wash canvas (absolute inset-0) covers exactly the same
+              box as the headline. Computed layout is unchanged. */}
+          <div className="relative mx-auto mt-8 max-w-5xl">
+            <h1 className="text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.02] tracking-[-0.02em] text-apple-ink">
+              Your website should work harder than your pressure washer.
+            </h1>
+            <canvas ref={washRef} aria-hidden="true" className="wall-wash-canvas" />
+          </div>
         </Reveal>
 
         <Reveal delay={200}>

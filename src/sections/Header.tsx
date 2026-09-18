@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Droplet, Menu, X } from 'lucide-react'
 import { BOOKING } from '@/components/Shared'
-import SplashCanvas from '@/components/SplashCanvas'
 
 const NAV = [
   { label: 'What I Build', href: '#build' },
@@ -40,7 +39,6 @@ export default function Header() {
         }`}
         style={{ backgroundColor: scrolled ? 'rgba(10,10,10,0.7)' : 'transparent' }}
       >
-        <SplashCanvas />
         <div className="relative z-10 flex h-12 items-center justify-between gap-4 px-5">
           <a href="#top" className="flex items-center gap-2 text-apple-ink" aria-label="Home">
             <Droplet className="h-5 w-5 text-apple-blue" strokeWidth={2.5} />
@@ -50,8 +48,7 @@ export default function Header() {
           </a>
 
           {/* Right cluster: nav beside the CTA so the bar's center stays
-              clear for the splash animation (desktop); CTA + hamburger only
-              on mobile (≤768px) */}
+              clear; CTA + hamburger only on mobile (≤768px) */}
           <div className="flex items-center gap-3 md:gap-8">
             <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
               {NAV.map((item) => (
