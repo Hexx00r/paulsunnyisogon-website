@@ -35,6 +35,16 @@ const STREAM_T = 0.22 // mean drop lifetime, seconds
 const STREAM_LEN = 2700 * STREAM_T // mean speed × lifetime ≈ 594px
 const STREAM_SAG = 0.5 * DROP_GRAVITY * STREAM_T * STREAM_T // ≈ 82px
 
+/* Corridor erase (used by frameLoop): the water cleans everything from the
+   nozzle tip to the impact point, not just the endpoint. Spacing ≈ the mean
+   erase diameter, so consecutive passes overlap without striping. Power
+   fades with distance; the endpoint erase stays full strength so the
+   landing spot remains the single brightest point. */
+const CORRIDOR_STEP = 56 // px between samples (erase diameter ≈ 40–72px)
+const MAX_CORRIDOR_SAMPLES = 10
+const CORRIDOR_START = 0.9 // erase power at the tip
+const CORRIDOR_END = 0.65 // erase power just before the impact point
+
 type Drop = { x: number; y: number; vx: number; vy: number; life: number; ml: number }
 type Splash = Drop
 type Mist = { x: number; y: number; r: number; vr: number; life: number; ml: number }
@@ -62,6 +72,8 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
   let last = performance.now()
   let raf = 0
   const frame = { nx: 0, ny: 0 }
+  // Corridor sample positions, reused every frame (no per-frame allocations).
+  const corridor = new Float64Array(MAX_CORRIDOR_SAMPLES * 2)
 
   const R = (a: number, b: number) => a + Math.random() * (b - a)
 
@@ -317,12 +329,31 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
     const tipX = frame.nx + Math.cos(ang) * 70 * s
     const tipY = frame.ny + Math.sin(ang) * 70 * s
 
-    // Erase where the water lands — the stream endpoint (tip + direction
-    // × stream length + gravity sag) — so the clean disc rides the spray
-    // instead of leading it. Same rule for pointer aim and idle sweep.
+    // Erase along the whole stream — tip → impact — so the water cleans
+    // everything it touches: a sweep covers the full headline box, left
+    // edge included. Sample count is bounded by MAX_CORRIDOR_SAMPLES and
+    // shrinks for a shorter stream; spacing matches the erase diameter so
+    // passes overlap without striping. Power fades with distance and the
+    // endpoint erase is full strength, so the corridor fades INTO the
+    // landing spot, which stays the single brightest point.
     const impactX = tipX + Math.cos(ang) * STREAM_LEN
     const impactY = tipY + Math.sin(ang) * STREAM_LEN + STREAM_SAG
-    erase(impactX, impactY, 1)
+    const cdx = impactX - tipX
+    const cdy = impactY - tipY
+    const cn = Math.min(
+      MAX_CORRIDOR_SAMPLES,
+      Math.max(2, Math.ceil(Math.sqrt(cdx * cdx + cdy * cdy) / CORRIDOR_STEP)),
+    )
+    for (let i = 0; i < cn; i++) {
+      const t = i / (cn - 1)
+      corridor[i * 2] = tipX + cdx * t
+      corridor[i * 2 + 1] = tipY + cdy * t
+    }
+    for (let i = 0; i < cn - 1; i++) {
+      const t = i / (cn - 1)
+      erase(corridor[i * 2], corridor[i * 2 + 1], CORRIDOR_START + (CORRIDOR_END - CORRIDOR_START) * t)
+    }
+    erase(corridor[(cn - 1) * 2], corridor[(cn - 1) * 2 + 1], 1)
 
     const cnt = Math.max(1, Math.round(26 * dt * 60))
     for (let i = 0; i < cnt; i++) {
