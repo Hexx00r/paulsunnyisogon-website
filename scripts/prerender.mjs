@@ -39,5 +39,5 @@ const shell = readFileSync(indexPath, 'utf8')
 if (!shell.includes('<div id="root"></div>')) {
   throw new Error('dist/index.html: expected an empty #root div — has the shell changed?')
 }
-writeFileSync(indexPath, shell.replace('<div id="root"></div>', `<div id="root">${html}</div>`))
+writeFileSync(indexPath, shell.replace('<div id="root"></div>', () => `<div id="root">${html}</div>`))
 console.log(`prerendered / -> ${html.length} chars into dist/index.html`)

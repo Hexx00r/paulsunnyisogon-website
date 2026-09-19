@@ -70,7 +70,7 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
   let lastMove = -1e9 // start idle so the wall cleans itself on load
   let T = 0
   let last = performance.now()
-  let raf = 0
+  let raf: number | null = null
   const frame = { nx: 0, ny: 0 }
   // Corridor sample positions, reused every frame (no per-frame allocations).
   const corridor = new Float64Array(MAX_CORRIDOR_SAMPLES * 2)
@@ -450,6 +450,17 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
     raf = requestAnimationFrame(frameLoop)
   }
 
+  function start(): void {
+    if (raf !== null) return
+    raf = requestAnimationFrame(frameLoop)
+  }
+
+  function stop(): void {
+    if (raf === null) return
+    cancelAnimationFrame(raf)
+    raf = null
+  }
+
   const aim = (e: PointerEvent): void => {
     const r = canvas.getBoundingClientRect()
     mouse.x = e.clientX - r.left
@@ -461,13 +472,30 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
 
   const ro = new ResizeObserver(sizeAll)
   ro.observe(host)
+
+  // Pause when scrolled off-screen or the tab is hidden (mirrors splash.ts).
+  let inView = true
+  const io = new IntersectionObserver(([e]) => {
+    inView = e.isIntersecting
+    if (inView && !document.hidden) start()
+    else stop()
+  })
+  io.observe(host)
+  const onVisibility = (): void => {
+    if (!document.hidden && inView) start()
+    else stop()
+  }
+  document.addEventListener('visibilitychange', onVisibility)
+
   sizeAll()
-  raf = requestAnimationFrame(frameLoop)
+  start()
 
   return {
     destroy() {
-      cancelAnimationFrame(raf)
+      stop()
       ro.disconnect()
+      io.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
       canvas.removeEventListener('pointermove', aim)
       canvas.removeEventListener('pointerdown', aim)
     },

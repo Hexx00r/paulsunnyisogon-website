@@ -14,8 +14,8 @@ export default function Hero() {
   // Enhance the "Watch the Demo" link client-side only: with JS, clicks open
   // the modal; without JS (or before hydration) the plain YouTube href in the
   // prerendered HTML still works. Instantiated once per homepage mount and
-  // fully torn down on unmount — no double-instantiation under react-router
-  // navigation, and nothing here runs during the SSR/prerender pass.
+  // fully torn down on unmount — no double-instantiation across remounts,
+  // and nothing here runs during the SSR/prerender pass.
   useEffect(() => {
     const modal = new VideoModal({
       videoId: DEMO_VIDEO_ID,
