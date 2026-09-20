@@ -196,7 +196,8 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
     const g = dctx
     if (!g || !wctx) return
     g.globalCompositeOperation = 'destination-out'
-    const r = (20 + Math.random() * 16) * pow
+    // Impact head — the single round clean spot where the water lands.
+    const r = (20 + Math.random() * 16) * pow * 1.2
     const rg = g.createRadialGradient(x, y, r * 0.15, x, y, r)
     rg.addColorStop(0, 'rgba(0,0,0,.95)')
     rg.addColorStop(0.65, 'rgba(0,0,0,.6)')
@@ -205,23 +206,41 @@ export function initWallWash(canvas: HTMLCanvasElement): { destroy: () => void }
     g.beginPath()
     g.arc(x, y, r, 0, 7)
     g.fill()
-    for (let i = 0; i < 9; i++) {
-      const a = Math.random() * 6.2832
-      const d = r * (0.65 + Math.random() * 1.3)
-      g.fillStyle = `rgba(0,0,0,${R(0.35, 0.75)})`
+    // Downspill — the sheet of water sheeting down the wall under the
+    // impact point: a few tapered vertical streaks, alpha fading to 0
+    // at the bottom, slight horizontal wander so they read organic.
+    const streaks = 2 + (Math.random() < 0.5 ? 1 : 0)
+    for (let i = 0; i < streaks; i++) {
+      const len = R(120, 260)
+      const sx = x + R(-r * 0.5, r * 0.5)
+      const ex = sx + R(-9, 9)
+      const w0 = R(7, 14)
+      const w1 = w0 * R(0.15, 0.35)
+      const a = R(0.35, 0.6)
+      const sg = g.createLinearGradient(0, y, 0, y + len)
+      sg.addColorStop(0, `rgba(0,0,0,${a})`)
+      sg.addColorStop(0.7, `rgba(0,0,0,${a * 0.4})`)
+      sg.addColorStop(1, 'rgba(0,0,0,0)')
+      g.fillStyle = sg
       g.beginPath()
-      g.arc(x + Math.cos(a) * d, y + Math.sin(a) * d, R(1.5, 6.5) * pow, 0, 7)
+      g.moveTo(sx - w0 / 2, y)
+      g.quadraticCurveTo(sx - w0 * 0.4 + R(-3, 3), y + len * 0.55, ex - w1 / 2, y + len)
+      g.lineTo(ex + w1 / 2, y + len)
+      g.quadraticCurveTo(sx + w0 * 0.4 + R(-3, 3), y + len * 0.55, sx + w0 / 2, y)
+      g.closePath()
       g.fill()
     }
-    for (let i = 0; i < 3; i++) {
-      const dx = x + R(-14, 14)
-      const len = R(50, 150) * pow
-      const w = R(3, 9)
+    // One short faded drip at high power only (near-nozzle corridor
+    // samples) — secondary detail, not the main look.
+    if (pow > 0.8) {
+      const len = R(40, 90)
+      const sx = x + R(-10, 10)
+      const w = R(2, 5)
       const dg = g.createLinearGradient(0, y, 0, y + len)
-      dg.addColorStop(0, 'rgba(0,0,0,.55)')
+      dg.addColorStop(0, 'rgba(0,0,0,.28)')
       dg.addColorStop(1, 'rgba(0,0,0,0)')
       g.fillStyle = dg
-      g.fillRect(dx - w / 2, y, w, len)
+      g.fillRect(sx - w / 2, y, w, len)
     }
     g.globalCompositeOperation = 'source-over'
     wctx.fillStyle = 'rgba(110,155,195,.15)'
