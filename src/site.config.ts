@@ -40,4 +40,4 @@ export const techStack: TechStackItem[] = [
  * (water jets in a header-height strip at the top of the hero). Both
  * engines live in src/lib/; nothing else needs to change.
  */
-export const HERO_ANIMATION: 'wall-wash' | 'splash' = 'wall-wash'
+export const HERO_ANIMATION: 'wall-wash' | 'splash' = 'splash'
