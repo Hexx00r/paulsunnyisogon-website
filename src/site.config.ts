@@ -46,7 +46,7 @@ export type LatestBuild = {
   eyebrow: string
   name: string
   pitch: string
-  /** Small grey honesty pill — the demo-business disclaimer. Non-negotiable. */
+  /** Small grey honesty pill: the demo-business disclaimer. Non-negotiable. */
   honestyPill: string
   proofChips: string[]
   liveUrl: string
@@ -56,7 +56,7 @@ export type LatestBuild = {
     alt: string
     /** Address shown in the browser-frame chrome bar. */
     barUrl: string
-    /** Natural pixel size — set to the real screenshot dimensions. */
+    /** Natural pixel size: set to the real screenshot dimensions. */
     width: number
     height: number
   }
@@ -71,9 +71,9 @@ export type LatestBuild = {
  * pixel size. No component changes needed.
  */
 export const latestBuild: LatestBuild = {
-  eyebrow: 'Just shipped — demo build',
+  eyebrow: 'Just shipped: demo build',
   name: 'Sydney Jet Wash',
-  pitch: 'A complete pressure cleaning website — instant estimates, before/after slider, quote funnel — running on zero-cost Cloudflare infrastructure.',
+  pitch: 'A complete pressure cleaning website with instant estimates, before/after slider and quote funnel, running on zero-cost Cloudflare infrastructure.',
   honestyPill: 'Fictional business · real system · same stack I deploy for clients',
   proofChips: [
     '30-second instant estimate',

@@ -4,7 +4,7 @@ import { BrowserShot } from '@/components/Shared'
 import { latestBuild } from '@/site.config'
 
 /**
- * "Latest Build" showcase — sits directly below the Hero on the homepage.
+ * "Latest Build" showcase: sits directly below the Hero on the homepage.
  * All content comes from the `latestBuild` object in site.config.ts; this
  * component never hardcodes project-specific copy.
  */
@@ -24,7 +24,7 @@ export default function LatestBuild() {
       />
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 lg:min-h-screen lg:grid-cols-2 lg:gap-20 lg:py-28">
-        {/* LEFT — real full-page screenshot in the CSS browser frame, cyan glow */}
+        {/* LEFT: real full-page screenshot in the CSS browser frame, cyan glow */}
         <Reveal>
           <a
             href={build.liveUrl}
@@ -49,7 +49,7 @@ export default function LatestBuild() {
           </a>
         </Reveal>
 
-        {/* RIGHT — eyebrow, headline, honesty pill, proof chips, CTAs */}
+        {/* RIGHT: eyebrow, headline, honesty pill, proof chips, CTAs */}
         <div>
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-[0.05em] text-apple-blue">
@@ -68,7 +68,7 @@ export default function LatestBuild() {
           </Reveal>
 
           <Reveal delay={200}>
-            {/* Honesty pill — the demo is a fictional business; the label stays. */}
+            {/* Honesty pill: the demo is a fictional business; the label stays. */}
             <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-apple-sub">
               <Info className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
               {build.honestyPill}
