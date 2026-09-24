@@ -72,24 +72,70 @@ export type LatestBuild = {
  */
 export const latestBuild: LatestBuild = {
   eyebrow: 'Just shipped: demo build',
-  name: 'Sydney Jet Wash',
-  pitch: 'A complete pressure cleaning website with instant estimates, before/after slider and quote funnel, running on zero-cost Cloudflare infrastructure.',
+  name: 'Gawler Place Dental',
+  pitch: 'A complete dental practice website — 13 services, offer funnels, before/after case galleries — on the same zero-cost stack.',
   honestyPill: 'Fictional business · real system · same stack I deploy for clients',
   proofChips: [
-    '30-second instant estimate',
-    'Drag before/after slider',
-    'Fixed-quote funnel',
+    '13 service pages',
+    'Before/after drag sliders',
+    '$199 offer funnel',
     'Hand-coded · $0/month hosting',
   ],
-  liveUrl: 'https://sydney-jet-wash.pages.dev',
-  repoUrl: 'https://github.com/Hexx00r/website-business',
+  liveUrl: 'https://gawler-dental-demo.pages.dev',
+  repoUrl: 'https://github.com/Hexx00r/dental-clinic',
   screenshot: {
-    src: '/images/builds/sydney-jet-wash.jpg',
-    alt: 'Full-page screenshot of the Sydney Jet Wash demo website',
-    barUrl: 'sydney-jet-wash.pages.dev',
+    src: '/images/builds/gawler-place-dental.jpg',
+    alt: 'Full-page screenshot of the Gawler Place Dental demo website',
+    barUrl: 'gawler-dental-demo.pages.dev',
     width: 1440,
-    height: 9241,
+    height: 7382,
   },
-  primaryCta: { label: 'View Live Demo', href: 'https://sydney-jet-wash.pages.dev' },
+  primaryCta: { label: 'View Live Demo', href: 'https://gawler-dental-demo.pages.dev' },
   secondaryCta: { label: 'Get Yours', href: '/#calculator' },
 }
+
+export type DemoFleetItem = {
+  name: string
+  /** One-line niche label, e.g. "Trade services — pressure washing". */
+  niche: string
+  liveUrl: string
+  screenshot: {
+    src: string
+    alt: string
+    barUrl: string
+    width: number
+    height: number
+  }
+}
+
+/**
+ * Demo fleet row under the Latest Build section. Every card carries the
+ * "Demo build — fictional business" pill; that label is non-negotiable.
+ * Thumbnails are viewport screenshots (not full-page) at public/images/builds/.
+ */
+export const demoFleet: DemoFleetItem[] = [
+  {
+    name: 'Sydney Jet Wash',
+    niche: 'Trade services — pressure washing',
+    liveUrl: 'https://sydney-jet-wash.pages.dev',
+    screenshot: {
+      src: '/images/builds/sydney-jet-wash-thumb.jpg',
+      alt: 'Screenshot of the Sydney Jet Wash demo website',
+      barUrl: 'sydney-jet-wash.pages.dev',
+      width: 1440,
+      height: 960,
+    },
+  },
+  {
+    name: 'Gawler Place Dental',
+    niche: 'Appointments — dental practice',
+    liveUrl: 'https://gawler-dental-demo.pages.dev',
+    screenshot: {
+      src: '/images/builds/gawler-place-dental-thumb.jpg',
+      alt: 'Screenshot of the Gawler Place Dental demo website',
+      barUrl: 'gawler-dental-demo.pages.dev',
+      width: 1440,
+      height: 960,
+    },
+  },
+]

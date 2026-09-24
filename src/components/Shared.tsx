@@ -57,6 +57,7 @@ export function BrowserShot({
   width,
   height,
   className = '',
+  imgClassName = '',
 }: {
   src: string
   alt: string
@@ -65,6 +66,8 @@ export function BrowserShot({
   width?: number
   height?: number
   className?: string
+  /** Optional extra classes for the img itself (e.g. fixed-height object-cover crop). */
+  imgClassName?: string
 }) {
   return (
     <figure
@@ -80,7 +83,7 @@ export function BrowserShot({
           </span>
         )}
       </div>
-      <img src={src} alt={alt} width={width} height={height} loading="lazy" className="block h-auto w-full" />
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" className={`block h-auto w-full ${imgClassName}`} />
     </figure>
   )
 }

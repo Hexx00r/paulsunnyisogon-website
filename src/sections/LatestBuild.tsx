@@ -1,7 +1,10 @@
 import { ArrowUpRight, Info } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 import { BrowserShot } from '@/components/Shared'
-import { latestBuild } from '@/site.config'
+import { latestBuild, demoFleet } from '@/site.config'
+
+/** Non-negotiable disclaimer on every demo-fleet card. */
+const FLEET_PILL = 'Demo build — fictional business'
 
 /**
  * "Latest Build" showcase: sits directly below the Hero on the homepage.
@@ -104,6 +107,63 @@ export default function LatestBuild() {
               </a>
             </div>
           </Reveal>
+        </div>
+      </div>
+
+      {/* Demo fleet row: previous demo builds, each labelled as fictional */}
+      <div className="relative mx-auto max-w-6xl px-6 pb-24 lg:pb-28">
+        <Reveal>
+          <div className="flex items-end justify-between gap-6 border-t border-white/10 pt-10">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.05em] text-apple-blue">
+                Demo fleet
+              </p>
+              <h3 className="mt-2 text-2xl font-bold tracking-[-0.01em] text-apple-ink">
+                More demo builds
+              </h3>
+            </div>
+            <p className="hidden max-w-sm text-sm leading-relaxed text-apple-sub sm:block">
+              Same system, different niches — every demo runs on the zero-cost stack.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="mt-8 grid gap-8 sm:grid-cols-2">
+          {demoFleet.map((demo, i) => (
+            <Reveal key={demo.name} delay={i * 100}>
+              <a
+                href={demo.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative block"
+                aria-label={`Open the ${demo.name} live demo`}
+              >
+                <div
+                  aria-hidden="true"
+                  className="absolute -inset-2 rounded-[22px] border border-[rgb(0_212_255/0.18)] shadow-[0_0_50px_rgb(0_212_255/0.08)] transition-shadow duration-300 group-hover:shadow-[0_0_80px_rgb(0_212_255/0.18)]"
+                />
+                <BrowserShot
+                  src={demo.screenshot.src}
+                  alt={demo.screenshot.alt}
+                  url={demo.screenshot.barUrl}
+                  width={demo.screenshot.width}
+                  height={demo.screenshot.height}
+                  imgClassName="h-52 object-cover object-top"
+                  className="relative"
+                />
+              </a>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 px-1">
+                <div>
+                  <h4 className="text-lg font-semibold text-apple-ink">{demo.name}</h4>
+                  <p className="text-sm text-apple-sub">{demo.niche}</p>
+                </div>
+                <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-apple-sub">
+                  <Info className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  {FLEET_PILL}
+                </p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
