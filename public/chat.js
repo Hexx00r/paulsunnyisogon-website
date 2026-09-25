@@ -112,6 +112,14 @@
   btn.addEventListener("click", function () { setOpen(!open); });
   closeBtn.addEventListener("click", function () { setOpen(false); });
 
+  /* Nav/footer links marked data-pdc-chat open the panel instead of navigating. */
+  document.addEventListener("click", function (e) {
+    var t = e.target && e.target.closest ? e.target.closest("[data-pdc-chat]") : null;
+    if (!t) return;
+    e.preventDefault();
+    setOpen(true);
+  });
+
   /* Swipe-down on the sheet header closes (standard mobile pattern). */
   var dragY = null;
   head.addEventListener("touchstart", function (e) {

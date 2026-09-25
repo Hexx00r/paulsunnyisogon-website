@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import { Droplet, Menu, X } from 'lucide-react'
 import { BOOKING } from '@/components/Shared'
 
-const NAV = [
+const NAV: { label: string; href: string; chat?: boolean }[] = [
   { label: 'What I Build', href: '#build' },
   { label: 'Case Studies', href: '#case-study-dj' },
   { label: 'Automations', href: '#automations' },
   { label: 'Guides', href: '/guides/' },
   { label: 'About', href: '#about' },
+  { label: 'Chat', href: '#chat', chat: true },
 ]
 
 export default function Header() {
@@ -55,6 +56,7 @@ export default function Header() {
                 <a
                   key={item.href}
                   href={item.href}
+                  data-pdc-chat={item.chat ? '' : undefined}
                   className="text-xs font-normal text-apple-ink opacity-70 transition-opacity duration-300 hover:opacity-100"
                 >
                   {item.label}
@@ -98,6 +100,7 @@ export default function Header() {
             <a
               key={item.href}
               href={item.href}
+              data-pdc-chat={item.chat ? '' : undefined}
               onClick={() => setOpen(false)}
               className="border-b border-apple-borderSoft py-4 text-2xl font-semibold tracking-tight text-apple-ink"
             >

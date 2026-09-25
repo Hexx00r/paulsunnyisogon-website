@@ -5,7 +5,7 @@ const GITHUB_URL = 'https://github.com/Hexx00r'
 
 const COLUMNS: {
   title: string
-  links: { label: string; href: string; external?: boolean; download?: boolean }[]
+  links: { label: string; href: string; external?: boolean; download?: boolean; chat?: boolean }[]
 }[] = [
   {
     title: 'Explore',
@@ -21,6 +21,7 @@ const COLUMNS: {
     title: 'Work with me',
     links: [
       { label: 'Book a Call', href: BOOKING, external: true },
+      { label: 'Chat', href: '#chat', chat: true },
       { label: 'Email', href: MAILTO },
       { label: 'Resume', href: RESUME, download: true },
     ],
@@ -57,6 +58,7 @@ export default function Footer() {
                       download={link.download || undefined}
                       target={link.external ? '_blank' : undefined}
                       rel={link.external ? 'noopener noreferrer' : undefined}
+                      data-pdc-chat={link.chat ? '' : undefined}
                       className="text-xs text-apple-sub transition-colors hover:text-apple-ink"
                     >
                       {link.label}
