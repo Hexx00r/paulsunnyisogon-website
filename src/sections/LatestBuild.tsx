@@ -13,6 +13,8 @@ const FLEET_PILL = 'Demo build — fictional business'
  */
 export default function LatestBuild() {
   const build = latestBuild
+  // The featured build must not appear again in the fleet row below it.
+  const fleet = demoFleet.filter((d) => d.liveUrl !== build.liveUrl)
 
   return (
     <section id="latest-build" className="relative scroll-mt-16 overflow-hidden bg-apple-surface">
@@ -129,7 +131,7 @@ export default function LatestBuild() {
         </Reveal>
 
         <div className="mt-8 grid gap-8 sm:grid-cols-2">
-          {demoFleet.map((demo, i) => (
+          {fleet.map((demo, i) => (
             <Reveal key={demo.name} delay={i * 100}>
               <a
                 href={demo.liveUrl}
