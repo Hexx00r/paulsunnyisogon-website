@@ -61,7 +61,7 @@ function lastmodFor(rel, absDistPath) {
 
 const urls = htmlFiles
   .map((p) => relative(dist, p).split('\\').join('/')) // windows-safe rel paths
-  .filter((rel) => rel !== '404.html' && rel !== 'pressure-cleaning-website-design.html')
+  .filter((rel) => rel !== '404.html' && rel !== 'pressure-cleaning-website-design.html' && rel !== 'booked.html')
   .map((rel) => ({
     loc: base + toRoute(rel),
     lastmod: lastmodFor(rel, join(dist, rel)),
