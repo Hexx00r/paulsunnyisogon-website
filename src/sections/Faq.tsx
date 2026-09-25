@@ -38,7 +38,7 @@ export default function Faq() {
     <section id="faq" className="scroll-mt-16 bg-apple-surface py-[120px]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, '\\u003c') }}
       />
       <div className="mx-auto max-w-3xl px-6">
         <Reveal>
