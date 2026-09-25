@@ -31,13 +31,13 @@ for (const width of [360, 768, 1440]) {
   const texts = ['Gawler Place Dental', 'Demo fleet', 'Sydney Jet Wash', '13 service pages', 'gawler-dental-demo.pages.dev']
   for (const t of texts) check(`${width}: text "${t}"`, (await page.textContent('body')).includes(t))
 
-  check(`${width}: fleet pill x2`, (await page.locator('text=Demo build — fictional business').count()) === 2)
+  check(`${width}: fleet pill x1 (featured build excluded)`, (await page.locator('text=Demo build — fictional business').count()) === 1)
   check(`${width}: honesty pill`, (await page.locator('text=Fictional business · real system').count()) === 1)
 
   const imgs = await page.$$eval('#latest-build img', (els) =>
     els.map((e) => ({ src: e.src, ok: e.complete && e.naturalWidth > 0 }))
   )
-  check(`${width}: latest-build images decoded`, imgs.length >= 3 && imgs.every((i) => i.ok), JSON.stringify(imgs))
+  check(`${width}: latest-build images decoded`, imgs.length >= 2 && imgs.every((i) => i.ok), JSON.stringify(imgs))
 
   const links = await page.$$eval('#latest-build a[href]', (els) => els.map((e) => e.href))
   check(`${width}: no broken responses`, bad.length === 0, bad.join('; '))

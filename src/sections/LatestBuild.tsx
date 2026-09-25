@@ -130,7 +130,7 @@ export default function LatestBuild() {
           </div>
         </Reveal>
 
-        <div className="mt-8 grid gap-8 sm:grid-cols-2">
+        <div className={`mt-8 grid gap-8 ${fleet.length > 1 ? 'sm:grid-cols-2' : ''}`}>
           {fleet.map((demo, i) => (
             <Reveal key={demo.name} delay={i * 100}>
               <a
