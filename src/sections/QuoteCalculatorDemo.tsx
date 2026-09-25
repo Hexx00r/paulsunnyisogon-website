@@ -51,7 +51,8 @@ function QuoteCalculator() {
     return { lines, subtotal, heavyAdj, bundle, total, minApplied }
   }, [selected, areas, heavy])
 
-  const canSubmit = calc.lines.length > 0 && !sending
+  const hasTbc = calc.lines.some((l) => l.tbc)
+  const canSubmit = calc.lines.length > 0 && !hasTbc && !sending
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -275,12 +276,15 @@ function QuoteCalculator() {
         >
           {sending
             ? 'Sending…'
-            : calc.lines.length
-              ? `Send quote request · ${money(calc.total)}${calc.lines.some((l) => l.tbc) ? '+' : ''}`
+            : calc.lines.length && !hasTbc
+              ? `Send quote request · ${money(calc.total)}`
               : 'Send quote request'}
         </button>
         {calc.lines.length === 0 && (
           <p className="mt-2 text-center text-xs text-apple-sub">Tick at least one service above first.</p>
+        )}
+        {calc.lines.length > 0 && hasTbc && (
+          <p className="mt-2 text-center text-xs text-apple-sub">Add an approximate area for the per-m² services to send.</p>
         )}
       </form>
     </div>
