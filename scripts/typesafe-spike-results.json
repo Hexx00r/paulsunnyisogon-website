@@ -1,0 +1,1256 @@
+{
+  "spike": "TypeSafe chat intent classification",
+  "model": "jev-latest",
+  "ranAt": "2026-09-25T16:35:42.632Z",
+  "summary": {
+    "total": 27,
+    "ok": 27,
+    "failed": 0,
+    "intentMismatches": 1
+  },
+  "findings": {
+    "intent": {
+      "correct": 26,
+      "total": 27,
+      "mismatches": [
+        {
+          "id": "pricing",
+          "text": "What are your rates for a basic landing page?",
+          "expected": "pricing",
+          "got": "quote_request",
+          "confidence": 0.7
+        }
+      ]
+    },
+    "is_spam": {
+      "spamMinNoul": 0.98,
+      "nonSpamMaxNoul": 0.05
+    },
+    "confidence": {
+      "avgIntent": 0.9370370370370371,
+      "avgUrgency": 0.9066666666666667
+    },
+    "avgLatencyMs": 394,
+    "tokens": {
+      "input": 21077,
+      "output": 3014
+    }
+  },
+  "results": [
+    {
+      "id": "quote_request",
+      "expected": "quote_request",
+      "text": "I need a website for my pressure cleaning business, about 5 pages with a quote form. Can you give me a rough price?",
+      "ok": true,
+      "latencyMs": 1458,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 789,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "quote_request",
+          "probabilities": {
+            "booking_question": 0,
+            "pricing": 0,
+            "spam": 0,
+            "faq": 0,
+            "none_match": 0,
+            "off_topic": 0,
+            "casual": 0,
+            "quote_request": 1
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.02
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "quote_ecommerce",
+      "expected": "quote_request",
+      "text": "Looking to get an online store built for my candle brand, maybe 20 products to start. What would something like that cost?",
+      "ok": true,
+      "latencyMs": 1356,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 789,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "quote_request",
+          "probabilities": {
+            "faq": 0,
+            "pricing": 0,
+            "spam": 0,
+            "none_match": 0,
+            "quote_request": 1,
+            "off_topic": 0,
+            "booking_question": 0,
+            "casual": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "quote_rebuild",
+      "expected": "quote_request",
+      "text": "I want to rebuild my landscaping company's outdated website and add an online booking form. Can you send me an estimate?",
+      "ok": true,
+      "latencyMs": 414,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 786,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "quote_request",
+          "probabilities": {
+            "casual": 0,
+            "spam": 0,
+            "quote_request": 1,
+            "booking_question": 0,
+            "faq": 0,
+            "none_match": 0,
+            "pricing": 0,
+            "off_topic": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "quote_urgent",
+      "expected": "quote_request",
+      "text": "My current website just crashed and I need a replacement ASAP — five pages, quote form, the works. Can you help urgently?",
+      "ok": true,
+      "latencyMs": 235,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 788,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "quote_request",
+          "probabilities": {
+            "quote_request": 0.93,
+            "spam": 0,
+            "pricing": 0,
+            "none_match": 0.06,
+            "booking_question": 0.01,
+            "off_topic": 0,
+            "casual": 0,
+            "faq": 0
+          },
+          "confidence": 0.91
+        },
+        "is_spam": {
+          "noul": 0.04
+        },
+        "urgency": {
+          "score": 2,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0,
+            "1": 0,
+            "2": 1
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "booking_question",
+      "expected": "booking_question",
+      "text": "Do you have any availability next week for a call to discuss my project?",
+      "ok": true,
+      "latencyMs": 253,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 777,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "booking_question",
+          "probabilities": {
+            "pricing": 0,
+            "none_match": 0,
+            "casual": 0,
+            "quote_request": 0,
+            "faq": 0,
+            "off_topic": 0,
+            "spam": 0,
+            "booking_question": 1
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.04
+        },
+        "urgency": {
+          "score": 1,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0,
+            "1": 1,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "booking_intro_call",
+      "expected": "booking_question",
+      "text": "Can we book a 30-minute intro call sometime Thursday or Friday?",
+      "ok": true,
+      "latencyMs": 264,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 777,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "booking_question",
+          "probabilities": {
+            "off_topic": 0,
+            "casual": 0,
+            "faq": 0,
+            "quote_request": 0,
+            "booking_question": 1,
+            "none_match": 0,
+            "spam": 0,
+            "pricing": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0.91,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0.09,
+            "1": 0.91,
+            "2": 0
+          },
+          "confidence": 0.87
+        }
+      }
+    },
+    {
+      "id": "booking_consult",
+      "expected": "booking_question",
+      "text": "I'd like to schedule a consultation to talk about my site — what's your booking process?",
+      "ok": true,
+      "latencyMs": 260,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 781,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "booking_question",
+          "probabilities": {
+            "quote_request": 0,
+            "faq": 0,
+            "off_topic": 0,
+            "none_match": 0,
+            "pricing": 0,
+            "spam": 0,
+            "casual": 0,
+            "booking_question": 1
+          },
+          "confidence": 0.99
+        },
+        "is_spam": {
+          "noul": 0.02
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "booking_mixed",
+      "expected": "booking_question",
+      "text": "I'd like to book a call next week to discuss a website for my bakery — mainly to talk through options and ballpark costs.",
+      "ok": true,
+      "latencyMs": 275,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 789,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "booking_question",
+          "probabilities": {
+            "booking_question": 0.87,
+            "none_match": 0,
+            "off_topic": 0,
+            "pricing": 0,
+            "quote_request": 0.13,
+            "casual": 0,
+            "spam": 0,
+            "faq": 0
+          },
+          "confidence": 0.85
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 1,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0,
+            "1": 1,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "faq",
+      "expected": "faq",
+      "text": "How long does a typical website build take?",
+      "ok": true,
+      "latencyMs": 283,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 771,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "faq",
+          "probabilities": {
+            "spam": 0,
+            "off_topic": 0,
+            "booking_question": 0,
+            "none_match": 0,
+            "casual": 0,
+            "quote_request": 0,
+            "pricing": 0,
+            "faq": 1
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.02
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "faq_stack",
+      "expected": "faq",
+      "text": "Do you build sites with WordPress or custom code?",
+      "ok": true,
+      "latencyMs": 248,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 774,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "faq",
+          "probabilities": {
+            "quote_request": 0,
+            "spam": 0,
+            "none_match": 0,
+            "off_topic": 0,
+            "casual": 0,
+            "faq": 1,
+            "booking_question": 0,
+            "pricing": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "faq_cms",
+      "expected": "faq",
+      "text": "Will I be able to update the content myself once the site is live?",
+      "ok": true,
+      "latencyMs": 255,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 777,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "faq",
+          "probabilities": {
+            "casual": 0,
+            "quote_request": 0,
+            "pricing": 0,
+            "none_match": 0,
+            "booking_question": 0,
+            "faq": 1,
+            "off_topic": 0,
+            "spam": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.02
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "faq_mixed",
+      "expected": "faq",
+      "text": "What's your typical timeline for a 5-page site? Hoping to launch before my trade show in March.",
+      "ok": true,
+      "latencyMs": 275,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 785,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "faq",
+          "probabilities": {
+            "quote_request": 0.01,
+            "faq": 0.99,
+            "off_topic": 0,
+            "none_match": 0,
+            "casual": 0,
+            "spam": 0,
+            "pricing": 0,
+            "booking_question": 0
+          },
+          "confidence": 0.98
+        },
+        "is_spam": {
+          "noul": 0.02
+        },
+        "urgency": {
+          "score": 1,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0,
+            "1": 1,
+            "2": 0
+          },
+          "confidence": 0.99
+        }
+      }
+    },
+    {
+      "id": "pricing",
+      "expected": "pricing",
+      "text": "What are your rates for a basic landing page?",
+      "ok": true,
+      "latencyMs": 309,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 772,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "quote_request",
+          "probabilities": {
+            "quote_request": 0.74,
+            "spam": 0,
+            "faq": 0,
+            "casual": 0,
+            "off_topic": 0,
+            "pricing": 0.26,
+            "none_match": 0,
+            "booking_question": 0
+          },
+          "confidence": 0.7
+        },
+        "is_spam": {
+          "noul": 0.02
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "pricing_ballpark",
+      "expected": "pricing",
+      "text": "How much do you charge for a website, roughly? Just a ballpark is fine.",
+      "ok": true,
+      "latencyMs": 297,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 780,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "pricing",
+          "probabilities": {
+            "quote_request": 0.01,
+            "booking_question": 0,
+            "pricing": 0.99,
+            "casual": 0,
+            "none_match": 0,
+            "off_topic": 0,
+            "faq": 0,
+            "spam": 0
+          },
+          "confidence": 0.99
+        },
+        "is_spam": {
+          "noul": 0.02
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "pricing_hourly",
+      "expected": "pricing",
+      "text": "What's your hourly rate for freelance dev work?",
+      "ok": true,
+      "latencyMs": 310,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 772,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "pricing",
+          "probabilities": {
+            "faq": 0,
+            "spam": 0,
+            "off_topic": 0,
+            "casual": 0,
+            "none_match": 0,
+            "booking_question": 0,
+            "pricing": 1,
+            "quote_request": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "casual",
+      "expected": "casual",
+      "text": "Hey, just came across your portfolio. Nice work!",
+      "ok": true,
+      "latencyMs": 305,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 773,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "casual",
+          "probabilities": {
+            "casual": 1,
+            "spam": 0,
+            "off_topic": 0,
+            "faq": 0,
+            "booking_question": 0,
+            "none_match": 0,
+            "pricing": 0,
+            "quote_request": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.05
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "casual_blog",
+      "expected": "casual",
+      "text": "Thanks for the tips in your latest blog post — really helpful stuff.",
+      "ok": true,
+      "latencyMs": 319,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 776,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "casual",
+          "probabilities": {
+            "faq": 0,
+            "none_match": 0,
+            "booking_question": 0,
+            "quote_request": 0,
+            "pricing": 0,
+            "casual": 1,
+            "spam": 0,
+            "off_topic": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "casual_animations",
+      "expected": "casual",
+      "text": "Just dropping by to say I love the animations on your homepage.",
+      "ok": true,
+      "latencyMs": 350,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 775,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "casual",
+          "probabilities": {
+            "quote_request": 0,
+            "off_topic": 0,
+            "booking_question": 0,
+            "casual": 1,
+            "none_match": 0,
+            "pricing": 0,
+            "faq": 0,
+            "spam": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.04
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "spam",
+      "expected": "spam",
+      "text": "SEO backlink services - guaranteed #1 Google ranking, cheap! Click here: best-seo.example",
+      "ok": true,
+      "latencyMs": 338,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 782,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "spam",
+          "probabilities": {
+            "booking_question": 0,
+            "none_match": 0,
+            "faq": 0,
+            "quote_request": 0,
+            "pricing": 0,
+            "casual": 0,
+            "spam": 1,
+            "off_topic": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.99
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "spam_seo_pitch",
+      "expected": "spam",
+      "text": "Hi there, we noticed your website is not ranking on Google page 1. Our guaranteed SEO service will fix that — reply now for 50% off your first month!",
+      "ok": true,
+      "latencyMs": 389,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 798,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "spam",
+          "probabilities": {
+            "casual": 0,
+            "quote_request": 0,
+            "pricing": 0,
+            "none_match": 0,
+            "booking_question": 0,
+            "faq": 0,
+            "off_topic": 0,
+            "spam": 1
+          },
+          "confidence": 0.99
+        },
+        "is_spam": {
+          "noul": 0.98
+        },
+        "urgency": {
+          "score": 1.33,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0.18,
+            "1": 0.3,
+            "2": 0.52
+          },
+          "confidence": 0
+        }
+      }
+    },
+    {
+      "id": "spam_prize",
+      "expected": "spam",
+      "text": "Congratulations! Your email was selected in our weekly draw. Claim your free iPhone now at free-gift.example/claim",
+      "ok": true,
+      "latencyMs": 403,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 787,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "spam",
+          "probabilities": {
+            "off_topic": 0,
+            "booking_question": 0,
+            "none_match": 0,
+            "pricing": 0,
+            "quote_request": 0,
+            "faq": 0,
+            "spam": 1,
+            "casual": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.99
+        },
+        "urgency": {
+          "score": 0.48,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0.55,
+            "1": 0.41,
+            "2": 0.04
+          },
+          "confidence": 0.28
+        }
+      }
+    },
+    {
+      "id": "spam_inheritance",
+      "expected": "spam",
+      "text": "Dear sir/madam, I am the legal representative of a deceased client with $10,000,000 to transfer. I seek a trustworthy partner abroad and will share 30%.",
+      "ok": true,
+      "latencyMs": 352,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 804,
+        "output_tokens": 111
+      },
+      "answers": {
+        "intent": {
+          "choice": "spam",
+          "probabilities": {
+            "casual": 0,
+            "quote_request": 0,
+            "pricing": 0,
+            "none_match": 0,
+            "booking_question": 0,
+            "faq": 0,
+            "off_topic": 0.03,
+            "spam": 0.97
+          },
+          "confidence": 0.97
+        },
+        "is_spam": {
+          "noul": 0.98
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "off_topic",
+      "expected": "off_topic",
+      "text": "Do you know what the weather is like in Melbourne today?",
+      "ok": true,
+      "latencyMs": 336,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 774,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "off_topic",
+          "probabilities": {
+            "casual": 0.01,
+            "spam": 0,
+            "pricing": 0,
+            "faq": 0,
+            "booking_question": 0,
+            "off_topic": 0.99,
+            "quote_request": 0,
+            "none_match": 0
+          },
+          "confidence": 0.98
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0.11,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0.89,
+            "1": 0.11,
+            "2": 0
+          },
+          "confidence": 0.83
+        }
+      }
+    },
+    {
+      "id": "off_topic_sports",
+      "expected": "off_topic",
+      "text": "Who do you reckon wins the grand final this weekend?",
+      "ok": true,
+      "latencyMs": 326,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 773,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "off_topic",
+          "probabilities": {
+            "none_match": 0,
+            "casual": 0.24,
+            "off_topic": 0.76,
+            "spam": 0,
+            "booking_question": 0,
+            "faq": 0,
+            "quote_request": 0,
+            "pricing": 0
+          },
+          "confidence": 0.73
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0.67,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 0.33,
+            "1": 0.67,
+            "2": 0
+          },
+          "confidence": 0.51
+        }
+      }
+    },
+    {
+      "id": "off_topic_recipe",
+      "expected": "off_topic",
+      "text": "Can you recommend a good recipe for banana bread?",
+      "ok": true,
+      "latencyMs": 355,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 772,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "off_topic",
+          "probabilities": {
+            "casual": 0,
+            "spam": 0,
+            "off_topic": 1,
+            "faq": 0,
+            "none_match": 0,
+            "booking_question": 0,
+            "pricing": 0,
+            "quote_request": 0
+          },
+          "confidence": 1
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "vague_inquiry",
+      "expected": "none_match",
+      "text": "I might need a website at some point, not really sure yet",
+      "ok": true,
+      "latencyMs": 334,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 775,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "none_match",
+          "probabilities": {
+            "booking_question": 0,
+            "spam": 0,
+            "off_topic": 0,
+            "faq": 0,
+            "casual": 0.3,
+            "pricing": 0,
+            "quote_request": 0.01,
+            "none_match": 0.6900000000000001
+          },
+          "confidence": 0.64
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    },
+    {
+      "id": "vague_deciding",
+      "expected": "none_match",
+      "text": "Honestly I'm still deciding whether I need a new site at all — no specific questions yet.",
+      "ok": true,
+      "latencyMs": 336,
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 781,
+        "output_tokens": 112
+      },
+      "answers": {
+        "intent": {
+          "choice": "none_match",
+          "probabilities": {
+            "booking_question": 0,
+            "none_match": 0.63,
+            "faq": 0,
+            "quote_request": 0,
+            "pricing": 0,
+            "casual": 0.37,
+            "spam": 0,
+            "off_topic": 0
+          },
+          "confidence": 0.57
+        },
+        "is_spam": {
+          "noul": 0.03
+        },
+        "urgency": {
+          "score": 0,
+          "legend": {
+            "0": "No time pressure — general question, browsing, or no timeframe mentioned.",
+            "1": "Some time pressure — mentions a timeframe like 'this month' or 'next week'.",
+            "2": "High urgency — needs a fast response, using words like 'asap', 'urgent', or describing something broken."
+          },
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0
+          },
+          "confidence": 1
+        }
+      }
+    }
+  ]
+}
