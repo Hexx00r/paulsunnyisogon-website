@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { MapPin } from 'lucide-react'
-import { BOOKING, YOUTUBE } from '@/components/Shared'
+import { DEMO_MAILTO, YOUTUBE } from '@/components/Shared'
 import { VideoModal } from '@/lib/video-modal'
 import { HERO_ANIMATION } from '@/site.config'
 import Reveal from '@/components/Reveal'
@@ -9,6 +9,17 @@ import Reveal from '@/components/Reveal'
 // the no-JS fallback href and the modal player can never drift apart.
 // (Change the video in one place: the YOUTUBE constant.)
 const DEMO_VIDEO_ID = YOUTUBE.match(/youtu\.be\/([\w-]+)/)?.[1] ?? ''
+
+// Both H1 branches below render this text; only one mounts per mode, so the
+// page always has exactly one H1.
+const HEADLINE = 'Websites and AI chatbots that turn enquiries into booked jobs'
+
+// Proof strip: verifiable facts only. No invented stats, ratings or logos.
+const PROOF = [
+  'Melbourne High Pressure Cleaning: full rebrand + lead funnel',
+  'DJ Property & Cleaning: complete GoHighLevel system, open-sourced',
+  'quote-relay: leads to GHL + Telegram in real time, on the free tier',
+]
 
 export default function Hero() {
   // Enhance the "Watch the Demo" link client-side only: with JS, clicks open
@@ -99,39 +110,54 @@ export default function Hero() {
                box as the headline. Computed layout is unchanged. */
             <div className="relative mx-auto mt-8 max-w-5xl">
               <h1 className="text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.02] tracking-[-0.02em] text-apple-ink">
-                Your website should work harder than your pressure washer.
+                {HEADLINE}
               </h1>
               <canvas ref={washRef} aria-hidden="true" className="wall-wash-canvas" />
             </div>
           ) : (
             <h1 className="mx-auto mt-8 max-w-5xl text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.02] tracking-[-0.02em] text-apple-ink">
-              Your website should work harder than your pressure washer.
+              {HEADLINE}
             </h1>
           )}
         </Reveal>
 
         <Reveal delay={200}>
           <p className="mx-auto mt-8 max-w-2xl text-[19px] leading-[1.5] text-apple-sub md:text-xl">
-            Complete GoHighLevel systems, plus the custom code, webhooks,
-            <br className="hidden md:block" /> and technical SEO most GHL freelancers can&apos;t touch.
+            For Australian cleaning, trade and dental businesses. I build the fast website, the AI
+            chat assistant that qualifies leads at 11pm, and the GoHighLevel follow-up that books them.
           </p>
         </Reveal>
 
         <Reveal delay={300}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <a href={BOOKING} target="_blank" rel="noreferrer" className="btn-primary">
-              Book a Free Funnel Website Audit
+            <a href={DEMO_MAILTO} className="btn-primary">
+              Get a free demo of your site rebuilt
             </a>
+            <a href="#latest-build" className="btn-secondary">
+              See the dental rebuild
+            </a>
+          </div>
+          {/* Kept as a quiet text link so the video modal still has a trigger */}
+          <p className="mt-5 text-sm text-apple-sub">
+            or{' '}
             <a
               href={YOUTUBE}
               target="_blank"
               rel="noreferrer"
               data-video-modal
-              className="btn-secondary"
+              className="underline underline-offset-4 transition-colors hover:text-apple-ink"
             >
-              Watch the Demo
+              watch the demo video
             </a>
-          </div>
+          </p>
+        </Reveal>
+
+        <Reveal delay={400}>
+          <ul className="mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-2 border-t border-white/10 pt-6 text-xs text-apple-sub">
+            {PROOF.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </Reveal>
       </div>
     </section>

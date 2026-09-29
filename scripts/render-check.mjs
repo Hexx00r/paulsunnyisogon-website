@@ -28,11 +28,11 @@ for (const width of [360, 768, 1440]) {
   page.on('response', (r) => r.status() >= 400 && bad.push(`${r.status()} ${r.url()}`))
   await page.goto(BASE, { waitUntil: 'networkidle', timeout: 30000 })
 
-  const texts = ['Gawler Place Dental', 'Demo fleet', 'Sydney Jet Wash', '13 service pages', 'gawler-dental-demo.pages.dev']
+  const texts = ['Gawler Place Dental', 'Demo fleet', 'Sydney Jet Wash', '$0.00006 per qualified lead', 'gawler-dental-demo.pages.dev']
   for (const t of texts) check(`${width}: text "${t}"`, (await page.textContent('body')).includes(t))
 
   check(`${width}: fleet pill x1 (featured build excluded)`, (await page.locator('text=Demo build — fictional business').count()) === 1)
-  check(`${width}: honesty pill`, (await page.locator('text=Fictional business · real system').count()) === 1)
+  check(`${width}: honesty pill`, (await page.locator('text=Spec demo · not a paying client').count()) === 1)
 
   const imgs = await page.$$eval('#latest-build img', (els) =>
     els.map((e) => ({ src: e.src, ok: e.complete && e.naturalWidth > 0 }))

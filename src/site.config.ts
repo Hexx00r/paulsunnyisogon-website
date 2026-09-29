@@ -75,15 +75,15 @@ export type LatestBuild = {
  * pixel size. No component changes needed.
  */
 export const latestBuild: LatestBuild = {
-  eyebrow: 'Just shipped: demo build',
+  eyebrow: 'Featured build: spec demo',
   name: 'Gawler Place Dental',
-  pitch: 'A complete dental practice website — 13 services, offer funnels, before/after case galleries — on the same zero-cost stack.',
-  honestyPill: 'Fictional business · real system · same stack I deploy for clients',
+  pitch: 'An Adelaide CBD dental Wix site, rebuilt overnight in Astro 5 on Cloudflare Pages. A smart chat assistant qualifies leads 24/7 and sends emergencies straight to a call-now path.',
+  honestyPill: 'Spec demo · not a paying client · same stack I deploy for clients',
   proofChips: [
-    '13 service pages',
-    'Before/after drag sliders',
-    '$199 offer funnel',
-    'Hand-coded · $0/month hosting',
+    '~1 s mobile load',
+    'Qualifies leads 24/7',
+    '$0.00006 per qualified lead',
+    '$0 hosting',
   ],
   liveUrl: 'https://gawler-dental-demo.pages.dev',
   repoUrl: 'https://github.com/Hexx00r/dental-clinic',
