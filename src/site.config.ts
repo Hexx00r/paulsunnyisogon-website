@@ -6,11 +6,15 @@ export type TechStackItem = {
   label: string
   value: string
 }
-/** Tech Stack section content (rendered in Hero). */
+/** Tech Stack content. Not currently rendered anywhere; kept accurate for when it is. */
 export const techStack: TechStackItem[] = [
   {
-    label: 'Frontend',
-    value: 'TypeScript static sites (no frameworks), deployed via GitHub Actions',
+    label: 'This site',
+    value: 'React 19 + Vite with a custom prerender, deployed to GitHub Pages via GitHub Actions',
+  },
+  {
+    label: 'Client sites',
+    value: 'Astro 5 on Cloudflare Pages',
   },
   {
     label: 'Backend',
@@ -30,7 +34,7 @@ export const techStack: TechStackItem[] = [
   },
   {
     label: 'Languages',
-    value: 'JavaScript, Python, PowerShell',
+    value: 'TypeScript, JavaScript, Python, PowerShell',
   },
 ]
 

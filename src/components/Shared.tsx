@@ -4,7 +4,8 @@ export const EMAIL = 'paulsunnyisogon@gmail.com'
 export const MAILTO = `mailto:${EMAIL}?subject=Free%20Funnel%20Website%20Audit%20Request`
 export const YOUTUBE = 'https://youtu.be/BoxC1hGvrZo?si=PS-OS4KbCIEolAGV'
 export const BOOKING = 'https://api.leadconnectorhq.com/widget/booking/3VFHT95QH0s3uIZ7ED9H'
-export const RESUME = 'Paul-Sunny-Isogon-Resume.pdf'
+// Old filename (Paul-Sunny-Isogon-Resume.pdf) is kept in public/ as a copy so existing links still work.
+export const RESUME = 'Paul-Sunny-Isogon-Jr-Resume.pdf'
 
 /**
  * Section label — all-caps, 12px, wide tracking, muted gray.
