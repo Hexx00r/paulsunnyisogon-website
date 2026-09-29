@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { MapPin } from 'lucide-react'
-import { DEMO_MAILTO, YOUTUBE } from '@/components/Shared'
+import { DEMO_CHAT_PREFILL, DEMO_MAILTO, YOUTUBE } from '@/components/Shared'
 import { VideoModal } from '@/lib/video-modal'
 import { HERO_ANIMATION } from '@/site.config'
 import Reveal from '@/components/Reveal'
@@ -130,16 +130,24 @@ export default function Hero() {
 
         <Reveal delay={300}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <a href={DEMO_MAILTO} className="btn-primary">
-              Get a free demo of your site rebuilt
+            <a href={DEMO_MAILTO} data-pdc-chat={DEMO_CHAT_PREFILL} className="btn-primary">
+              Get a free demo rebuild
             </a>
             <a href="#latest-build" className="btn-secondary">
               See the dental rebuild
             </a>
           </div>
-          {/* Kept as a quiet text link so the video modal still has a trigger */}
+          {/* Quiet fallbacks: email for anyone who'd rather not chat, and the
+              demo video (keeps the video modal's trigger on the page) */}
           <p className="mt-5 text-sm text-apple-sub">
             or{' '}
+            <a
+              href={DEMO_MAILTO}
+              className="underline underline-offset-4 transition-colors hover:text-apple-ink"
+            >
+              email me
+            </a>
+            {' · '}
             <a
               href={YOUTUBE}
               target="_blank"

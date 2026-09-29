@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Droplet, Menu, X } from 'lucide-react'
-import { BOOKING } from '@/components/Shared'
+import { DEMO_CHAT_PREFILL, DEMO_MAILTO } from '@/components/Shared'
 
 const NAV: { label: string; href: string; chat?: boolean }[] = [
   { label: 'What I Build', href: '#build' },
@@ -66,12 +66,11 @@ export default function Header() {
             </nav>
 
             <a
-              href={BOOKING}
-              target="_blank"
-              rel="noreferrer"
+              href={DEMO_MAILTO}
+              data-pdc-chat={DEMO_CHAT_PREFILL}
               className="inline-flex rounded-full bg-apple-blueSolid px-3 py-1.5 text-[11px] font-semibold text-black transition-all duration-300 hover:bg-apple-blueDark md:px-4 md:text-xs"
             >
-              Free Funnel Website Audit
+              Free demo rebuild
             </a>
 
             {/* Mobile hamburger */}
@@ -109,12 +108,12 @@ export default function Header() {
             </a>
           ))}
           <a
-            href={BOOKING}
-            target="_blank"
-            rel="noreferrer"
+            href={DEMO_MAILTO}
+            data-pdc-chat={DEMO_CHAT_PREFILL}
+            onClick={() => setOpen(false)}
             className="mt-6 inline-flex items-center justify-center rounded-full bg-apple-blueSolid px-6 py-3 text-base font-semibold text-black transition-all duration-300 hover:bg-apple-blueDark"
           >
-            Book a Free Funnel Website Audit
+            Get a free demo rebuild
           </a>
         </nav>
       </div>

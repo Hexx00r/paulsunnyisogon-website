@@ -112,12 +112,21 @@
   btn.addEventListener("click", function () { setOpen(!open); });
   closeBtn.addEventListener("click", function () { setOpen(false); });
 
-  /* Nav/footer links marked data-pdc-chat open the panel instead of navigating. */
+  /* Nav/footer links marked data-pdc-chat open the panel instead of navigating.
+     A non-empty attribute value pre-fills the input (not sent); a [bracketed]
+     part is selected so the visitor can type straight over it. */
   document.addEventListener("click", function (e) {
     var t = e.target && e.target.closest ? e.target.closest("[data-pdc-chat]") : null;
     if (!t) return;
     e.preventDefault();
+    var prefill = t.getAttribute("data-pdc-chat");
+    if (prefill) input.value = prefill;
     setOpen(true);
+    if (prefill) {
+      var s = prefill.indexOf("["), end = prefill.indexOf("]", s);
+      if (s > -1 && end > s) input.setSelectionRange(s, end + 1);
+      else input.setSelectionRange(prefill.length, prefill.length);
+    }
   });
 
   /* Swipe-down on the sheet header closes (standard mobile pattern). */

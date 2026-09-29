@@ -2,9 +2,11 @@ import type { ReactNode } from 'react'
 
 export const EMAIL = 'paulsunnyisogon@gmail.com'
 export const MAILTO = `mailto:${EMAIL}?subject=Free%20Funnel%20Website%20Audit%20Request`
-/** Free spec-demo offer: prefilled email asking for the prospect's current site. */
+/** Free spec-demo offer. Links carry DEMO_CHAT_PREFILL in data-pdc-chat so public/chat.js
+ * opens the chat pre-filled; DEMO_MAILTO is the href used without JS and as the email fallback. */
+export const DEMO_CHAT_PREFILL = "I'd like a free demo rebuild of my website: [your site URL]"
 export const DEMO_MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent('Free demo rebuild request')}&body=${encodeURIComponent('My current website: \nMy business and suburb: \n')}`
-export const YOUTUBE ='https://youtu.be/BoxC1hGvrZo?si=PS-OS4KbCIEolAGV'
+export const YOUTUBE = 'https://youtu.be/BoxC1hGvrZo?si=PS-OS4KbCIEolAGV'
 export const BOOKING = 'https://api.leadconnectorhq.com/widget/booking/3VFHT95QH0s3uIZ7ED9H'
 // Old filename (Paul-Sunny-Isogon-Resume.pdf) is kept in public/ as a copy so existing links still work.
 export const RESUME = 'Paul-Sunny-Isogon-Jr-Resume.pdf'
