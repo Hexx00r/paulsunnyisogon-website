@@ -1,9 +1,27 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react'
 import { MapPin } from 'lucide-react'
 import { DEMO_CHAT_PREFILL, DEMO_MAILTO, YOUTUBE } from '@/components/Shared'
 import { VideoModal } from '@/lib/video-modal'
 import { HERO_ANIMATION } from '@/site.config'
 import Reveal from '@/components/Reveal'
+import LogoDraw from '@/components/LogoDraw'
+
+const LOGO_DRAW = HERO_ANIMATION === 'logo-draw'
+
+/**
+ * Hero copy wrapper. Under 'logo-draw' it is a CSS fade-up that starts on
+ * first paint (no IntersectionObserver, no JS wait); `step` sets a 60 ms
+ * stagger. Other modes keep the original scroll Reveal.
+ */
+function HeroItem({ step, children }: { step: number; children: ReactNode }) {
+  if (!LOGO_DRAW) return <Reveal delay={step * 100}>{children}</Reveal>
+  const style: CSSProperties = { animationDelay: `${140 + step * 60}ms` }
+  return (
+    <div className="hero-rise" style={style}>
+      {children}
+    </div>
+  )
+}
 
 // Modal video ID — derived from the YOUTUBE link in components/Shared.tsx so
 // the no-JS fallback href and the modal player can never drift apart.
@@ -49,6 +67,7 @@ export default function Hero() {
   const splashRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    if (LOGO_DRAW) return // CSS-only mode: no canvas engine to load
     const cv = HERO_ANIMATION === 'wall-wash' ? washRef.current : splashRef.current
     if (!cv) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -96,13 +115,29 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto max-w-6xl px-6 pb-14 pt-20 text-center md:pt-32">
-        <Reveal>
+        {LOGO_DRAW && <LogoDraw className="mb-8" />}
+
+        {LOGO_DRAW ? (
           <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.05em] text-apple-sub">
             <MapPin className="h-3.5 w-3.5 text-apple-blue" />
             Philippines-based · Serving AU · US · UK
           </p>
-        </Reveal>
+        ) : (
+          <Reveal>
+            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.05em] text-apple-sub">
+              <MapPin className="h-3.5 w-3.5 text-apple-blue" />
+              Philippines-based · Serving AU · US · UK
+            </p>
+          </Reveal>
+        )}
 
+        {/* H1: under logo-draw it is plain (paints on the first frame, never
+            animated) so it can't delay the LCP. */}
+        {LOGO_DRAW ? (
+          <h1 className="mx-auto mt-8 max-w-5xl text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.02] tracking-[-0.02em] text-apple-ink">
+            {HEADLINE}
+          </h1>
+        ) : (
         <Reveal delay={100}>
           {HERO_ANIMATION === 'wall-wash' ? (
             /* Sizing classes moved from the h1 to this wrapper so the
@@ -120,17 +155,22 @@ export default function Hero() {
             </h1>
           )}
         </Reveal>
+        )}
 
-        <Reveal delay={200}>
+        <HeroItem step={1}>
           <p className="mx-auto mt-8 max-w-2xl text-[19px] leading-[1.5] text-apple-sub md:text-xl">
             For Australian cleaning, trade and dental businesses. I build the fast website, the AI
             chat assistant that qualifies leads at 11pm, and the GoHighLevel follow-up that books them.
           </p>
-        </Reveal>
+        </HeroItem>
 
-        <Reveal delay={300}>
+        <HeroItem step={2}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <a href={DEMO_MAILTO} data-pdc-chat={DEMO_CHAT_PREFILL} className="btn-primary">
+            <a
+              href={DEMO_MAILTO}
+              data-pdc-chat={DEMO_CHAT_PREFILL}
+              className={`btn-primary${LOGO_DRAW ? ' hero-shine' : ''}`}
+            >
               Get a free demo rebuild
             </a>
             <a href="#latest-build" className="btn-secondary">
@@ -158,15 +198,15 @@ export default function Hero() {
               watch the demo video
             </a>
           </p>
-        </Reveal>
+        </HeroItem>
 
-        <Reveal delay={400}>
+        <HeroItem step={3}>
           <ul className="mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-2 border-t border-white/10 pt-6 text-xs text-apple-sub">
             {PROOF.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-        </Reveal>
+        </HeroItem>
       </div>
     </section>
   )
