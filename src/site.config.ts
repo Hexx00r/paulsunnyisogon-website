@@ -40,11 +40,12 @@ export const techStack: TechStackItem[] = [
 
 /**
  * Hero headline animation. Edit this ONE word to switch the homepage hero
- * effect — 'wall-wash' (contained grime canvas on the H1) or 'splash'
- * (water jets in a header-height strip at the top of the hero). Both
- * engines live in src/lib/; nothing else needs to change.
+ * effect — 'logo-draw' (the logo mark draws itself once above the H1),
+ * 'wall-wash' (contained grime canvas on the H1) or 'splash' (water jets
+ * in a header-height strip at the top of the hero). Engines live in
+ * src/lib/; nothing else needs to change.
  */
-export const HERO_ANIMATION: 'wall-wash' | 'splash' = 'wall-wash'
+export const HERO_ANIMATION: 'logo-draw' | 'wall-wash' | 'splash' = 'logo-draw'
 
 export type LatestBuild = {
   eyebrow: string
