@@ -92,3 +92,38 @@ export function BrowserShot({
     </figure>
   )
 }
+
+/** "Code in the chat" mark. Solid variant fills the bubble (for use on the cyan chat button). */
+export function LogoMark({ size = 28, className }: { size?: number; className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      width={size}
+      height={size}
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+    >
+      <path
+        d="M14 10 H50 A8 8 0 0 1 58 18 V38 A8 8 0 0 1 50 46 H30 L18 55 V46 H14 A8 8 0 0 1 6 38 V18 A8 8 0 0 1 14 10 Z"
+        stroke="#F5F5F7"
+        strokeWidth="4.5"
+        strokeLinejoin="round"
+      />
+      <polyline points="21,20 14,28 21,36" stroke="#F5F5F7" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="43,20 50,28 43,36" stroke="#F5F5F7" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="32" cy="28" r="7" fill="#00D4FF" />
+    </svg>
+  )
+}
+
+export function Wordmark() {
+  return (
+    <span className="text-[15px] font-semibold" style={{ letterSpacing: '-0.5px' }}>
+      <span style={{ color: '#F5F5F7' }}>paulsunny</span>
+      <span style={{ color: '#00D4FF' }}>.dev</span>
+    </span>
+  )
+}

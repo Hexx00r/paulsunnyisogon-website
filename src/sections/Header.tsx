@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Droplet, Menu, X } from 'lucide-react'
-import { DEMO_CHAT_PREFILL, DEMO_MAILTO } from '@/components/Shared'
+import { Menu, X } from 'lucide-react'
+import { DEMO_CHAT_PREFILL, DEMO_MAILTO, LogoMark, Wordmark } from '@/components/Shared'
 
 const NAV: { label: string; href: string; chat?: boolean }[] = [
   { label: 'What I Build', href: '#build' },
@@ -42,11 +42,9 @@ export default function Header() {
         style={{ backgroundColor: scrolled ? 'rgba(10,10,10,0.7)' : 'transparent' }}
       >
         <div className="relative z-10 flex h-12 items-center justify-between gap-4 px-5">
-          <a href="#top" className="flex items-center gap-2 text-apple-ink" aria-label="Home">
-            <Droplet className="h-5 w-5 text-apple-blue" strokeWidth={2.5} />
-            <span className="hidden text-sm font-semibold tracking-tight sm:block">
-              Paul Isogon
-            </span>
+          <a href="/" className="flex items-center text-apple-ink" style={{ gap: 12 }} aria-label="paulsunny.dev home">
+            <LogoMark size={28} />
+            <Wordmark />
           </a>
 
           {/* Right cluster: nav beside the CTA so the bar's center stays

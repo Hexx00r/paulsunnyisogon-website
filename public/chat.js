@@ -20,7 +20,7 @@
 
   var btn = document.createElement("button");
   btn.setAttribute("aria-label", "Open chat");
-  btn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0a0a0a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.5-8.5 8.38 8.38 0 0 1 8.5 8.5z"/></svg>';
+  btn.innerHTML = '<svg viewBox="0 0 64 64" width="30" height="30" fill="none" aria-hidden="true"><path d="M14 10 H50 A8 8 0 0 1 58 18 V38 A8 8 0 0 1 50 46 H30 L18 55 V46 H14 A8 8 0 0 1 6 38 V18 A8 8 0 0 1 14 10 Z" fill="#00D4FF" stroke="#0A0A0C" stroke-width="4.5" stroke-linejoin="round"/><polyline points="21,20 14,28 21,36" stroke="#0A0A0C" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="43,20 50,28 43,36" stroke="#0A0A0C" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="28" r="7" fill="#0A0A0C"/></svg>';
   css(btn, { position: "fixed", bottom: "20px", right: "20px", width: "56px", height: "56px", borderRadius: "50%", background: C.accent, border: "none", cursor: "pointer", zIndex: "60", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 30px rgba(0,212,255,0.35)" });
 
   var panel = document.createElement("div");
