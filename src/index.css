@@ -124,17 +124,63 @@
     border-color: #f5f5f7;
   }
 
-  /* Raised panel on the #0a0a0a canvas */
+  /* Card: the one card style for the whole site.
+     Spec: flex column, 20px gap, 28px padding, #121216 fill,
+     1px #26262D border, 20px radius. */
   .card {
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 28px;
+    background-color: #121216;
+    border: 1px solid #26262d;
+    border-radius: 20px;
+    transition:
+      border-color 180ms ease-out,
+      translate 180ms ease-out,
+      box-shadow 180ms ease-out;
   }
-  /* Apple product-card hover: subtle scale + cyan glow */
-  .card-lift:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 40px rgb(0 212 255 / 0.1);
-    border-color: rgb(0 212 255 / 0.25);
+  .card > * {
+    margin-top: 0;
+  }
+  /* Flow variant: keeps the card look but lets children use their own
+     vertical margins (forms, estimate panels, screenshot + caption). */
+  .card-flow {
+    display: block;
+  }
+  /* Featured variant: cyan border */
+  .card-featured {
+    border-color: #00d4ff;
+  }
+  /* Hover lift (pointer devices only). Uses the independent `translate`
+     property so it never fights Reveal's inline transform. */
+  @media (hover: hover) {
+    .card-lift:hover {
+      border-color: #00d4ff;
+      translate: 0 -2px;
+      box-shadow: 0 10px 30px rgb(0 212 255 / 0.08);
+    }
+  }
+  .card-lift:focus-within {
+    border-color: #00d4ff;
+  }
+  .card-lift:has(:focus-visible) {
+    outline: 2px solid #00d4ff;
+    outline-offset: 3px;
+  }
+  @media (max-width: 479px) {
+    .card {
+      padding: 20px;
+      border-radius: 16px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+    .card-lift:hover {
+      translate: none;
+    }
   }
 }
 
