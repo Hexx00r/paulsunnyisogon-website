@@ -35,13 +35,13 @@ export default function Projects() {
               key={p.name}
               as="article"
               delay={i * 100}
-              className="card card-lift flex flex-col rounded-[28px] p-8 md:p-10"
+              className="card card-lift"
             >
               <p.icon className="h-10 w-10 text-apple-blue" strokeWidth={1.5} />
-              <h3 className="mt-6 text-xl font-semibold text-apple-ink">{p.name}</h3>
-              <p className="mt-3 flex-1 text-base leading-relaxed text-apple-sub">{p.desc}</p>
+              <h3 className="text-xl font-semibold text-apple-ink">{p.name}</h3>
+              <p className="flex-1 text-base leading-relaxed text-apple-sub">{p.desc}</p>
               {p.owned && (
-                <p className="mt-5 text-sm font-medium text-apple-blue">{p.owned}</p>
+                <p className="text-sm font-medium text-apple-blue">{p.owned}</p>
               )}
             </Reveal>
           ))}

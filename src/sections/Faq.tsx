@@ -49,9 +49,9 @@ export default function Faq() {
         </Reveal>
         <div className="mt-12 space-y-4">
           {FAQS.map((f, i) => (
-            <Reveal as="article" key={f.q} delay={i * 80} className="card rounded-[28px] p-8">
+            <Reveal as="article" key={f.q} delay={i * 80} className="card">
               <h3 className="text-lg font-semibold text-apple-ink">{f.q}</h3>
-              <p className="mt-3 leading-relaxed text-apple-sub">{f.a}</p>
+              <p className="leading-relaxed text-apple-sub">{f.a}</p>
             </Reveal>
           ))}
         </div>

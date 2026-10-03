@@ -68,11 +68,11 @@ export default function WhatIBuild() {
               key={item.title}
               as="article"
               delay={(i % 3) * 100}
-              className="card card-lift rounded-[28px] p-8 md:p-10"
+              className="card card-lift"
             >
               <item.icon className="h-10 w-10 text-apple-blue" strokeWidth={1.5} />
-              <h3 className="mt-6 text-xl font-semibold text-apple-ink">{item.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-apple-sub">{item.desc}</p>
+              <h3 className="text-xl font-semibold text-apple-ink">{item.title}</h3>
+              <p className="text-base leading-relaxed text-apple-sub">{item.desc}</p>
             </Reveal>
           ))}
         </div>

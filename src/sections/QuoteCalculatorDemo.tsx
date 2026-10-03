@@ -170,7 +170,7 @@ function QuoteCalculator() {
       </div>
 
       {/* instant estimate panel */}
-      <div className="mt-8 rounded-[20px] border border-apple-hairline bg-black/40 p-6 md:p-8">
+      <div className="card card-flow mt-8">
         <p className="text-xs font-semibold tracking-[0.25em] text-apple-blue">
           INSTANT ESTIMATE
         </p>
@@ -215,7 +215,7 @@ function QuoteCalculator() {
       </div>
 
       {/* quote request form */}
-      <form onSubmit={handleSubmit} className="mt-8 rounded-[20px] border border-apple-hairline p-6 md:p-8">
+      <form onSubmit={handleSubmit} className="card card-flow mt-8">
         <p className="text-xs font-semibold tracking-[0.25em] text-apple-blue">GET YOUR FIXED QUOTE</p>
         <p className="mt-2 text-sm leading-relaxed text-apple-sub">
           Happy with the ballpark? Send it through — the fixed quote is confirmed within one

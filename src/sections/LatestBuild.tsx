@@ -132,7 +132,7 @@ export default function LatestBuild() {
 
         <div className={`mt-8 grid gap-8 ${fleet.length > 1 ? 'sm:grid-cols-2' : ''}`}>
           {fleet.map((demo, i) => (
-            <Reveal key={demo.name} delay={i * 100}>
+            <Reveal key={demo.name} delay={i * 100} className="card card-lift card-flow">
               <a
                 href={demo.liveUrl}
                 target="_blank"
