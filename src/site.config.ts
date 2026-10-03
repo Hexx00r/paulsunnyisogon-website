@@ -55,7 +55,6 @@ export type LatestBuild = {
   honestyPill: string
   proofChips: string[]
   liveUrl: string
-  repoUrl: string
   screenshot: {
     src: string
     alt: string
@@ -77,25 +76,24 @@ export type LatestBuild = {
  */
 export const latestBuild: LatestBuild = {
   eyebrow: 'Featured build: spec demo',
-  name: 'Gawler Place Dental',
-  pitch: 'An Adelaide CBD dental Wix site, rebuilt overnight in Astro 5 on Cloudflare Pages. A smart chat assistant qualifies leads 24/7 and sends emergencies straight to a call-now path.',
+  name: 'Sydney Jet Wash',
+  pitch: 'A Sydney pressure washing site with an instant-quote calculator built in. Customers price their own job in under a minute, and the enquiry lands as a follow-up-ready lead instead of a missed call.',
   honestyPill: 'Spec demo · not a paying client · same stack I deploy for clients',
   proofChips: [
-    '~1 s mobile load',
-    'Qualifies leads 24/7',
-    '$0.00006 per qualified lead',
+    'Instant quote calculator',
+    'Follow-up that books the job',
+    'Review requests on autopilot',
     '$0 hosting',
   ],
-  liveUrl: 'https://gawler-dental-demo.pages.dev',
-  repoUrl: 'https://github.com/Hexx00r/dental-clinic',
+  liveUrl: 'https://sydney-jet-wash.pages.dev',
   screenshot: {
-    src: '/images/builds/gawler-place-dental.jpg',
-    alt: 'Full-page screenshot of the Gawler Place Dental demo website',
-    barUrl: 'gawler-dental-demo.pages.dev',
+    src: '/images/builds/sydney-jet-wash.jpg',
+    alt: 'Full-page screenshot of the Sydney Jet Wash demo website',
+    barUrl: 'sydney-jet-wash.pages.dev',
     width: 1440,
-    height: 7382,
+    height: 9241,
   },
-  primaryCta: { label: 'View Live Demo', href: 'https://gawler-dental-demo.pages.dev' },
+  primaryCta: { label: 'View Live Demo', href: 'https://sydney-jet-wash.pages.dev' },
   secondaryCta: { label: 'Get Yours', href: '/#calculator' },
 }
 

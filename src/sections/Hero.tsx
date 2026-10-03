@@ -79,7 +79,7 @@ const DEMO_VIDEO_ID = YOUTUBE.match(/youtu\.be\/([\w-]+)/)?.[1] ?? ''
 
 // Both H1 branches below render this text; only one mounts per mode, so the
 // page always has exactly one H1.
-const HEADLINE = 'Websites and AI chatbots that turn enquiries into booked jobs'
+const HEADLINE = 'Instant quotes that turn enquiries into booked pressure washing jobs'
 
 // Proof strip: verifiable facts only. No invented stats, ratings or logos.
 const PROOF = [
@@ -172,7 +172,7 @@ export default function Hero() {
         <HeroItem delay={0} step={0}>
           <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.05em] text-apple-sub">
             <MapPin className="h-3.5 w-3.5 text-apple-blue" />
-            Philippines-based · Serving AU · US · UK
+            Built for Australian pressure washing & exterior cleaning businesses
           </p>
         </HeroItem>
 
@@ -199,8 +199,8 @@ export default function Hero() {
 
         <HeroItem delay={200} step={1}>
           <p className="mx-auto mt-8 max-w-2xl text-[19px] leading-[1.5] text-apple-sub md:text-xl">
-            For Australian cleaning, trade and dental businesses. I build the fast website, the AI
-            chat assistant that qualifies leads at 11pm, and the GoHighLevel follow-up that books them.
+            For Australian pressure washing and exterior cleaning businesses. An instant-quote website
+            plus a follow-up system that turns enquiries into booked jobs while you're on the tools.
           </p>
         </HeroItem>
 
@@ -214,7 +214,7 @@ export default function Hero() {
               Get a free demo rebuild
             </a>
             <a href="#latest-build" className="btn-secondary">
-              See the dental rebuild
+              See the live demo
             </a>
           </div>
           {/* Quiet fallbacks: email for anyone who'd rather not chat, and the
