@@ -144,3 +144,52 @@ export const demoFleet: DemoFleetItem[] = [
     },
   },
 ]
+
+export type PricingPlan = {
+  name: string
+  tagline: string
+  prefix?: string
+  price: string
+  unit: string
+  wasPrice?: string
+  priceNote?: string
+  badge?: string
+  popular?: boolean
+  features: string[]
+}
+
+/** Pricing cards (AUD). Keep in sync with the Offer JSON-LD in index.html and the FAQ answer. */
+export const pricing: PricingPlan[] = [
+  {
+    name: 'Quote-to-Job System',
+    tagline: 'The full lead-to-booked-job build.',
+    prefix: 'From',
+    price: 'AUD $697',
+    unit: 'one-time',
+    wasPrice: 'AUD $1,200',
+    badge: 'Founding client rate · first 5 clients',
+    features: [
+      'Instant-quote funnel with per-m² pricing',
+      'GHL pipeline and CRM',
+      'SMS and email follow-up sequences',
+      'Booking calendar',
+      'Review request automation',
+    ],
+  },
+  {
+    name: 'Care Plan',
+    tagline: 'Keep it running while you stay on the tools.',
+    price: 'AUD $147',
+    unit: '/mo',
+    popular: true,
+    features: ['Hosting and updates', 'Monthly lead report', 'Missed-call text-back'],
+  },
+  {
+    name: 'After-hours AI assistant',
+    tagline: 'Add-on for the Quote-to-Job System.',
+    price: '+AUD $297',
+    unit: 'setup',
+    priceNote: '+ AUD $49/mo',
+    features: ['Qualifies leads 24/7', 'Emergency and priority routing'],
+  },
+]

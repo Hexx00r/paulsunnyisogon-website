@@ -2,6 +2,7 @@ import Header from '@/sections/Header'
 import Hero from '@/sections/Hero'
 import LatestBuild from '@/sections/LatestBuild'
 import WhatIBuild from '@/sections/WhatIBuild'
+import Pricing from '@/sections/Pricing'
 import QuoteCalculatorDemo from '@/sections/QuoteCalculatorDemo'
 import CaseStudyDJ from '@/sections/CaseStudyDJ'
 import CaseStudyMelbourne from '@/sections/CaseStudyMelbourne'
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <LatestBuild />
         <WhatIBuild />
+        <Pricing />
         <QuoteCalculatorDemo />
         <CaseStudyDJ />
         <CaseStudyMelbourne />

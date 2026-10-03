@@ -4,6 +4,7 @@ import { BOOKING, BOOKING_LABEL, LogoMark, Wordmark } from '@/components/Shared'
 
 const NAV: { label: string; href: string; chat?: boolean }[] = [
   { label: 'What I Build', href: '#build' },
+  { label: 'Pricing', href: '#pricing' },
   { label: 'Case Studies', href: '#case-study-dj' },
   { label: 'Automations', href: '#automations' },
   { label: 'Calculator', href: '#calculator' },
