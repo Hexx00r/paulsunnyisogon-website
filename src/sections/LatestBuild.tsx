@@ -1,6 +1,6 @@
 import { ArrowUpRight, Info } from 'lucide-react'
 import Reveal from '@/components/Reveal'
-import { BrowserShot } from '@/components/Shared'
+import { BrowserShot, CAL_ATTRS } from '@/components/Shared'
 import { latestBuild, demoFleet } from '@/site.config'
 
 /** Non-negotiable disclaimer on every demo-fleet card. */
@@ -104,7 +104,11 @@ export default function LatestBuild() {
                 {build.primaryCta.label}
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
-              <a href={build.secondaryCta.href} className="btn-secondary">
+              <a
+                href={build.secondaryCta.href}
+                {...(build.secondaryCta.cal ? CAL_ATTRS : {})}
+                className="btn-secondary"
+              >
                 {build.secondaryCta.label}
               </a>
             </div>

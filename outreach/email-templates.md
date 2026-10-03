@@ -14,7 +14,7 @@ I rebuilt your site with an instant-quote calculator. Here's the live link: {{de
 Customers price their own job in under a minute, and the enquiry reaches your phone as a lead, so
 you're not chasing quotes from the ladder. It's a free spec demo, no obligation.
 
-If it's useful, grab 15 minutes and I'll walk you through it: https://cal.com/paulsunny/audit
+If it's useful, grab 15 minutes and I'll walk you through it: https://cal.com/paulsunny/15min
 
 Paul Sunny
 paulsunnydev.com
@@ -30,7 +30,7 @@ Hi {{first_name}},
 Just checking you saw the demo of your site: {{demo_url}}
 
 Try the calculator on your phone. It takes about a minute. If it looks like something you'd use,
-here's a 15-minute slot to talk it through: https://cal.com/paulsunny/audit
+here's a 15-minute slot to talk it through: https://cal.com/paulsunny/15min
 
 Paul
 
@@ -43,7 +43,7 @@ Hi {{first_name}},
 Last note from me. The demo stays live for another week: {{demo_url}}
 
 If the timing's wrong, no worries at all. If you'd like a 15-minute look at how it would work for
-{{business}}, you can book here: https://cal.com/paulsunny/audit
+{{business}}, you can book here: https://cal.com/paulsunny/15min
 
 Paul
 

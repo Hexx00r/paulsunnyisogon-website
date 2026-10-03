@@ -1,4 +1,4 @@
-import { BOOKING, BOOKING_LABEL, Kicker } from '@/components/Shared'
+import { BOOKING, BOOKING_LABEL, CAL_ATTRS, Kicker } from '@/components/Shared'
 import Reveal from '@/components/Reveal'
 import djHero from '@/assets/dj-hero.webp'
 import { djStats } from '@/site.config'
@@ -68,6 +68,7 @@ export default function CaseStudyDJ() {
         <Reveal delay={300}>
           <a
             href={BOOKING}
+            {...CAL_ATTRS}
             target="_blank"
             rel="noreferrer"
             className="btn-secondary mt-9"
