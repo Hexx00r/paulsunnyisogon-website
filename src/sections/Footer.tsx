@@ -1,11 +1,11 @@
 import { Droplet } from 'lucide-react'
-import { BOOKING, MAILTO, YOUTUBE } from '@/components/Shared'
+import { BOOKING, CAL_ATTRS, MAILTO, YOUTUBE } from '@/components/Shared'
 
 const GITHUB_URL = 'https://github.com/Hexx00r'
 
 const COLUMNS: {
   title: string
-  links: { label: string; href: string; external?: boolean; download?: boolean; chat?: boolean }[]
+  links: { label: string; href: string; external?: boolean; download?: boolean; chat?: boolean; cal?: boolean }[]
 }[] = [
   {
     title: 'Explore',
@@ -20,7 +20,7 @@ const COLUMNS: {
   {
     title: 'Work with me',
     links: [
-      { label: 'Book a Call', href: BOOKING, external: true },
+      { label: 'Book a Call', href: BOOKING, external: true, cal: true },
       { label: 'Chat', href: '#chat', chat: true },
       { label: 'Email', href: MAILTO },
     ],
@@ -58,6 +58,7 @@ export default function Footer() {
                       target={link.external ? '_blank' : undefined}
                       rel={link.external ? 'noopener noreferrer' : undefined}
                       data-pdc-chat={link.chat ? '' : undefined}
+                      {...(link.cal ? CAL_ATTRS : {})}
                       className="text-xs text-apple-sub transition-colors hover:text-apple-ink"
                     >
                       {link.label}

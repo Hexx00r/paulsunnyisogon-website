@@ -67,7 +67,7 @@ export type LatestBuild = {
     height: number
   }
   primaryCta: { label: string; href: string }
-  secondaryCta: { label: string; href: string }
+  secondaryCta: { label: string; href: string; cal?: boolean }
 }
 
 /**
@@ -96,7 +96,7 @@ export const latestBuild: LatestBuild = {
     height: 9241,
   },
   primaryCta: { label: 'View Live Demo', href: 'https://sydney-jet-wash.pages.dev' },
-  secondaryCta: { label: BOOKING_LABEL, href: BOOKING },
+  secondaryCta: { label: BOOKING_LABEL, href: BOOKING, cal: true },
 }
 
 export type DemoFleetItem = {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import { MapPin } from 'lucide-react'
-import { BOOKING, BOOKING_LABEL, YOUTUBE } from '@/components/Shared'
+import { BOOKING, BOOKING_LABEL, CAL_ATTRS, YOUTUBE } from '@/components/Shared'
 import { VideoModal } from '@/lib/video-modal'
 import { initLogoDraw } from '@/lib/logo-draw'
 import { HERO_ANIMATION, latestBuild } from '@/site.config'
@@ -208,6 +208,7 @@ export default function Hero() {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
               href={BOOKING}
+              {...CAL_ATTRS}
               target="_blank"
               rel="noopener noreferrer"
               className={`btn-primary${LOGO_DRAW ? ' ld-shine' : ''}`}

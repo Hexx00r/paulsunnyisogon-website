@@ -1,5 +1,5 @@
 import { Check } from 'lucide-react'
-import { BOOKING, BOOKING_LABEL, Kicker } from '@/components/Shared'
+import { BOOKING, BOOKING_LABEL, CAL_ATTRS, Kicker } from '@/components/Shared'
 import Reveal from '@/components/Reveal'
 import { pricing } from '@/site.config'
 
@@ -68,6 +68,7 @@ export default function Pricing() {
 
               <a
                 href={BOOKING}
+                {...CAL_ATTRS}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`mt-8 justify-center ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}

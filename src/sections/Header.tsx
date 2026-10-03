@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import { BOOKING, BOOKING_LABEL, LogoMark, Wordmark } from '@/components/Shared'
+import { BOOKING, BOOKING_LABEL, CAL_ATTRS, LogoMark, Wordmark } from '@/components/Shared'
 
 const NAV: { label: string; href: string; chat?: boolean }[] = [
   { label: 'What I Build', href: '#build' },
@@ -66,6 +66,7 @@ export default function Header() {
 
             <a
               href={BOOKING}
+              {...CAL_ATTRS}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex rounded-full bg-apple-blueSolid px-3 py-1.5 text-[11px] font-semibold text-black transition-all duration-300 hover:bg-apple-blueDark md:px-4 md:text-xs"
@@ -109,6 +110,7 @@ export default function Header() {
           ))}
           <a
             href={BOOKING}
+            {...CAL_ATTRS}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}

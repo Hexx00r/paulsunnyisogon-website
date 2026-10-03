@@ -5,7 +5,13 @@ export const EMAIL = 'paulsunnyisogon@gmail.com'
 export const MAILTO = `mailto:${EMAIL}`
 export const YOUTUBE = 'https://youtu.be/BoxC1hGvrZo?si=PS-OS4KbCIEolAGV'
 /** The one booking link. Every primary CTA points here. */
-export const BOOKING = 'https://cal.com/paulsunny/audit'
+export const BOOKING = 'https://cal.com/paulsunny/15min'
+/** Spread onto every booking CTA: opens the Cal.com popup (loader in index.html); without JS the href still works. */
+export const CAL_ATTRS = {
+  'data-cal-link': 'paulsunny/15min',
+  'data-cal-namespace': '15min',
+  'data-cal-config': '{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}',
+} as const
 export const BOOKING_LABEL = 'Book a free 15-min audit'
 
 /**
