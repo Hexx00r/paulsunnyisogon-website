@@ -1,3 +1,5 @@
+import { BOOKING, BOOKING_LABEL } from '@/components/Shared'
+
 /** quote-relay Cloudflare Worker endpoint that receives calculator quote submissions. */
 export const QUOTE_RELAY_ENDPOINT =
   'https://quote-relay.paulsunny.workers.dev/quote/paulsunnydev'
@@ -94,7 +96,7 @@ export const latestBuild: LatestBuild = {
     height: 9241,
   },
   primaryCta: { label: 'View Live Demo', href: 'https://sydney-jet-wash.pages.dev' },
-  secondaryCta: { label: 'Get Yours', href: '/#calculator' },
+  secondaryCta: { label: BOOKING_LABEL, href: BOOKING },
 }
 
 export type DemoFleetItem = {

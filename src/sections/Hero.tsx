@@ -1,9 +1,9 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import { MapPin } from 'lucide-react'
-import { DEMO_CHAT_PREFILL, DEMO_MAILTO, YOUTUBE } from '@/components/Shared'
+import { BOOKING, BOOKING_LABEL, YOUTUBE } from '@/components/Shared'
 import { VideoModal } from '@/lib/video-modal'
 import { initLogoDraw } from '@/lib/logo-draw'
-import { HERO_ANIMATION } from '@/site.config'
+import { HERO_ANIMATION, latestBuild } from '@/site.config'
 import Reveal from '@/components/Reveal'
 
 const LOGO_DRAW = HERO_ANIMATION === 'logo-draw'
@@ -207,25 +207,25 @@ export default function Hero() {
         <HeroItem delay={300} step={2}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
-              href={DEMO_MAILTO}
-              data-pdc-chat={DEMO_CHAT_PREFILL}
+              href={BOOKING}
+              target="_blank"
+              rel="noopener noreferrer"
               className={`btn-primary${LOGO_DRAW ? ' ld-shine' : ''}`}
             >
-              Get a free demo rebuild
-            </a>
-            <a href="#latest-build" className="btn-secondary">
-              See the live demo
+              {BOOKING_LABEL}
             </a>
           </div>
-          {/* Quiet fallbacks: email for anyone who'd rather not chat, and the
+          {/* Quiet secondary links: the featured live demo, and the
               demo video (keeps the video modal's trigger on the page) */}
           <p className="mt-5 text-sm text-apple-sub">
             or{' '}
             <a
-              href={DEMO_MAILTO}
+              href={latestBuild.liveUrl}
+              target="_blank"
+              rel="noreferrer"
               className="underline underline-offset-4 transition-colors hover:text-apple-ink"
             >
-              email me
+              see a live demo
             </a>
             {' · '}
             <a

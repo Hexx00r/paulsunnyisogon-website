@@ -1,4 +1,4 @@
-import { BOOKING, Kicker } from '@/components/Shared'
+import { BOOKING, BOOKING_LABEL, Kicker } from '@/components/Shared'
 import Reveal from '@/components/Reveal'
 import djHero from '@/assets/dj-hero.webp'
 
@@ -55,7 +55,7 @@ export default function CaseStudyDJ() {
             rel="noreferrer"
             className="btn-secondary mt-9"
           >
-            Book a Free Funnel Website Audit
+            {BOOKING_LABEL}
           </a>
         </Reveal>
       </div>
