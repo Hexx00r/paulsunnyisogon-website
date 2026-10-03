@@ -19,7 +19,7 @@ If it's useful, grab 15 minutes and I'll walk you through it: https://cal.com/pa
 Paul Sunny
 paulsunnydev.com
 
-*(Word count of the body: ~85. Keep it under 90.)*
+*(Body is about 60 words. Keep it under 90.)*
 
 ## Follow-up #1 (day 3)
 
