@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import { DEMO_CHAT_PREFILL, DEMO_MAILTO } from '@/components/Shared'
-import { Logo } from '@/components/Logo'
+import { BOOKING, BOOKING_LABEL, LogoMark, Wordmark } from '@/components/Shared'
 
 const NAV: { label: string; href: string; chat?: boolean }[] = [
   { label: 'What I Build', href: '#build' },
+  { label: 'Pricing', href: '#pricing' },
   { label: 'Case Studies', href: '#case-study-dj' },
   { label: 'Automations', href: '#automations' },
   { label: 'Calculator', href: '#calculator' },
@@ -43,8 +43,9 @@ export default function Header() {
         style={{ backgroundColor: scrolled ? 'rgba(10,10,10,0.7)' : 'transparent' }}
       >
         <div className="relative z-10 flex h-12 items-center justify-between gap-4 px-5">
-          <a href="#top" className="flex items-center text-apple-ink" aria-label="paulsunny.dev home">
-            <Logo size={26} />
+          <a href="/" className="flex items-center text-apple-ink" style={{ gap: 12 }} aria-label="paulsunny.dev home">
+            <LogoMark size={28} />
+            <Wordmark />
           </a>
 
           {/* Right cluster: nav beside the CTA so the bar's center stays
@@ -64,11 +65,12 @@ export default function Header() {
             </nav>
 
             <a
-              href={DEMO_MAILTO}
-              data-pdc-chat={DEMO_CHAT_PREFILL}
+              href={BOOKING}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex rounded-full bg-apple-blueSolid px-3 py-1.5 text-[11px] font-semibold text-black transition-all duration-300 hover:bg-apple-blueDark md:px-4 md:text-xs"
             >
-              Free demo rebuild
+              {BOOKING_LABEL}
             </a>
 
             {/* Mobile hamburger */}
@@ -106,12 +108,13 @@ export default function Header() {
             </a>
           ))}
           <a
-            href={DEMO_MAILTO}
-            data-pdc-chat={DEMO_CHAT_PREFILL}
+            href={BOOKING}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setOpen(false)}
             className="mt-6 inline-flex items-center justify-center rounded-full bg-apple-blueSolid px-6 py-3 text-base font-semibold text-black transition-all duration-300 hover:bg-apple-blueDark"
           >
-            Get a free demo rebuild
+            {BOOKING_LABEL}
           </a>
         </nav>
       </div>

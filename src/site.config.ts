@@ -1,3 +1,5 @@
+import { BOOKING, BOOKING_LABEL } from '@/components/Shared'
+
 /** quote-relay Cloudflare Worker endpoint that receives calculator quote submissions. */
 export const QUOTE_RELAY_ENDPOINT =
   'https://quote-relay.paulsunny.workers.dev/quote/paulsunnydev'
@@ -39,10 +41,11 @@ export const techStack: TechStackItem[] = [
 ]
 
 /**
- * Hero animation. Edit this ONE word to switch the homepage hero effect:
- * 'logo-draw' (the logo builds itself once, CSS only; H1 static),
- * 'wall-wash' (contained grime canvas on the H1) or 'splash' (water jets in
- * a header-height strip at the top of the hero). Nothing else needs to change.
+ * Hero headline animation. Edit this ONE word to switch the homepage hero
+ * effect — 'logo-draw' (the logo mark draws itself once above the H1),
+ * 'wall-wash' (contained grime canvas on the H1) or 'splash' (water jets
+ * in a header-height strip at the top of the hero). Engines live in
+ * src/lib/; nothing else needs to change.
  */
 export const HERO_ANIMATION: 'logo-draw' | 'wall-wash' | 'splash' = 'logo-draw'
 
@@ -54,7 +57,6 @@ export type LatestBuild = {
   honestyPill: string
   proofChips: string[]
   liveUrl: string
-  repoUrl: string
   screenshot: {
     src: string
     alt: string
@@ -76,26 +78,25 @@ export type LatestBuild = {
  */
 export const latestBuild: LatestBuild = {
   eyebrow: 'Featured build: spec demo',
-  name: 'Gawler Place Dental',
-  pitch: 'An Adelaide CBD dental Wix site, rebuilt overnight in Astro 5 on Cloudflare Pages. A smart chat assistant qualifies leads 24/7 and sends emergencies straight to a call-now path.',
+  name: 'Sydney Jet Wash',
+  pitch: 'A Sydney pressure washing site with an instant-quote calculator built in. Customers price their own job in under a minute, and the enquiry lands as a follow-up-ready lead instead of a missed call.',
   honestyPill: 'Spec demo · not a paying client · same stack I deploy for clients',
   proofChips: [
-    '~1 s mobile load',
-    'Qualifies leads 24/7',
-    '$0.00006 per qualified lead',
+    'Instant quote calculator',
+    'Follow-up that books the job',
+    'Review requests on autopilot',
     '$0 hosting',
   ],
-  liveUrl: 'https://gawler-dental-demo.pages.dev',
-  repoUrl: 'https://github.com/Hexx00r/dental-clinic',
+  liveUrl: 'https://sydney-jet-wash.pages.dev',
   screenshot: {
-    src: '/images/builds/gawler-place-dental.jpg',
-    alt: 'Full-page screenshot of the Gawler Place Dental demo website',
-    barUrl: 'gawler-dental-demo.pages.dev',
+    src: '/images/builds/sydney-jet-wash.jpg',
+    alt: 'Full-page screenshot of the Sydney Jet Wash demo website',
+    barUrl: 'sydney-jet-wash.pages.dev',
     width: 1440,
-    height: 7382,
+    height: 9241,
   },
-  primaryCta: { label: 'View Live Demo', href: 'https://gawler-dental-demo.pages.dev' },
-  secondaryCta: { label: 'Get Yours', href: '/#calculator' },
+  primaryCta: { label: 'View Live Demo', href: 'https://sydney-jet-wash.pages.dev' },
+  secondaryCta: { label: BOOKING_LABEL, href: BOOKING },
 }
 
 export type DemoFleetItem = {
@@ -141,5 +142,90 @@ export const demoFleet: DemoFleetItem[] = [
       width: 1440,
       height: 960,
     },
+  },
+]
+
+export type PricingPlan = {
+  name: string
+  tagline: string
+  prefix?: string
+  price: string
+  unit: string
+  wasPrice?: string
+  priceNote?: string
+  badge?: string
+  popular?: boolean
+  features: string[]
+}
+
+/** Pricing cards (AUD). Keep in sync with the Offer JSON-LD in index.html and the FAQ answer. */
+export const pricing: PricingPlan[] = [
+  {
+    name: 'Quote-to-Job System',
+    tagline: 'The full lead-to-booked-job build.',
+    prefix: 'From',
+    price: 'AUD $697',
+    unit: 'one-time',
+    wasPrice: 'AUD $1,200',
+    badge: 'Founding client rate · first 5 clients',
+    features: [
+      'Instant-quote funnel with per-m² pricing',
+      'GHL pipeline and CRM',
+      'SMS and email follow-up sequences',
+      'Booking calendar',
+      'Review request automation',
+    ],
+  },
+  {
+    name: 'Care Plan',
+    tagline: 'Keep it running while you stay on the tools.',
+    price: 'AUD $147',
+    unit: '/mo',
+    popular: true,
+    features: ['Hosting and updates', 'Monthly lead report', 'Missed-call text-back'],
+  },
+  {
+    name: 'After-hours AI assistant',
+    tagline: 'Add-on for the Quote-to-Job System.',
+    price: '+AUD $297',
+    unit: 'setup',
+    priceNote: '+ AUD $49/mo',
+    features: ['Qualifies leads 24/7', 'Emergency and priority routing'],
+  },
+]
+
+export type CaseStat = {
+  label: string
+  /** null = number not supplied yet. The stat row stays hidden until every value is set. */
+  value: string | null
+}
+
+/**
+ * DJ Property & Cleaning stat row (Case study 01).
+ * TODO: Paul to supply real numbers. Never invent these. The row renders only when
+ * every value below is non-null, so no placeholder ever reaches production.
+ */
+export const djStats: CaseStat[] = [
+  { label: 'Average enquiry response time', value: null }, // TODO: e.g. "under 1 minute"
+  { label: 'Leads per month', value: null }, // TODO
+  { label: 'Google reviews gained', value: null }, // TODO
+]
+
+/** Flip to true only once the testimonials below are client-approved, with name. */
+export const SHOW_TESTIMONIALS = false
+
+export type Testimonial = { quote: string; name: string; business: string }
+
+/** TODO: replace both with client-approved text and names before enabling SHOW_TESTIMONIALS. */
+export const testimonials: Testimonial[] = [
+  {
+    quote: 'TODO: client-approved testimonial text goes here.',
+    name: 'TODO: Client name',
+    business: 'TODO: Business, suburb',
+  },
+  {
+    quote: 'TODO: client-approved testimonial text goes here.',
+    name: 'TODO: Client name',
+    business: 'TODO: Business, suburb',
   },
 ]

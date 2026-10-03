@@ -11,7 +11,7 @@ const FAQS = [
   },
   {
     q: 'How much does a system like this cost?',
-    a: 'Every build is scoped to the business: the services you offer, your pricing logic, and the automations you need. Book a free funnel website audit and I\'ll map exactly what your system looks like before you commit to anything.',
+    a: "The Quote-to-Job System starts from AUD $697 one-time (the founding client rate for the first 5 clients; normally AUD $1,200). The optional Care Plan is AUD $147/mo for hosting, updates, a monthly lead report and missed-call text-back. The after-hours AI assistant add-on is +AUD $297 setup and +AUD $49/mo. Book a free 15-min audit and I'll confirm exactly what your business needs before you commit to anything.",
   },
   {
     q: 'Who have you built this for?',

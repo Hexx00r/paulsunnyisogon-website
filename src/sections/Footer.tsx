@@ -1,5 +1,5 @@
-import { BOOKING, MAILTO, RESUME, YOUTUBE } from '@/components/Shared'
-import { LogoMark } from '@/components/Logo'
+import { Droplet } from 'lucide-react'
+import { BOOKING, MAILTO, YOUTUBE } from '@/components/Shared'
 
 const GITHUB_URL = 'https://github.com/Hexx00r'
 
@@ -23,7 +23,6 @@ const COLUMNS: {
       { label: 'Book a Call', href: BOOKING, external: true },
       { label: 'Chat', href: '#chat', chat: true },
       { label: 'Email', href: MAILTO },
-      { label: 'Resume', href: RESUME, download: true },
     ],
   },
   {
@@ -39,11 +38,9 @@ export default function Footer() {
   return (
     <footer className="bg-apple-surface py-10">
       <div className="mx-auto max-w-6xl px-6">
-        <a href="#top" className="flex items-center gap-2 text-apple-ink" aria-label="paulsunny.dev home">
-          <LogoMark size={24} />
-          <span className="text-sm font-semibold tracking-[-0.02em]">
-            paulsunny<span className="text-apple-blue">.dev</span>
-          </span>
+        <a href="#top" className="flex items-center gap-2 text-apple-ink" aria-label="Home">
+          <Droplet className="h-5 w-5 text-apple-blue" strokeWidth={2.5} />
+          <span className="text-sm font-semibold tracking-tight">Paul Isogon</span>
         </a>
 
         <nav className="mt-10 grid gap-8 sm:grid-cols-3" aria-label="Footer">

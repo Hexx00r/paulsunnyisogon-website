@@ -1,15 +1,12 @@
 import type { ReactNode } from 'react'
 
 export const EMAIL = 'paulsunnyisogon@gmail.com'
-export const MAILTO = `mailto:${EMAIL}?subject=Free%20Funnel%20Website%20Audit%20Request`
-/** Free spec-demo offer. Links carry DEMO_CHAT_PREFILL in data-pdc-chat so public/chat.js
- * opens the chat pre-filled; DEMO_MAILTO is the href used without JS and as the email fallback. */
-export const DEMO_CHAT_PREFILL = "I'd like a free demo rebuild of my website: [your site URL]"
-export const DEMO_MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent('Free demo rebuild request')}&body=${encodeURIComponent('My current website: \nMy business and suburb: \n')}`
+/** Plain email link, footer only. Every primary CTA goes to BOOKING. */
+export const MAILTO = `mailto:${EMAIL}`
 export const YOUTUBE = 'https://youtu.be/BoxC1hGvrZo?si=PS-OS4KbCIEolAGV'
-export const BOOKING = 'https://api.leadconnectorhq.com/widget/booking/3VFHT95QH0s3uIZ7ED9H'
-// Old filename (Paul-Sunny-Isogon-Resume.pdf) is kept in public/ as a copy so existing links still work.
-export const RESUME = 'Paul-Sunny-Isogon-Jr-Resume.pdf'
+/** The one booking link. Every primary CTA points here. */
+export const BOOKING = 'https://cal.com/paulsunny/audit'
+export const BOOKING_LABEL = 'Book a free 15-min audit'
 
 /**
  * Section label — all-caps, 12px, wide tracking, muted gray.
@@ -90,5 +87,40 @@ export function BrowserShot({
       </div>
       <img src={src} alt={alt} width={width} height={height} loading="lazy" className={`block h-auto w-full ${imgClassName}`} />
     </figure>
+  )
+}
+
+/** "Code in the chat" mark. Solid variant fills the bubble (for use on the cyan chat button). */
+export function LogoMark({ size = 28, className }: { size?: number; className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      width={size}
+      height={size}
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+    >
+      <path
+        d="M14 10 H50 A8 8 0 0 1 58 18 V38 A8 8 0 0 1 50 46 H30 L18 55 V46 H14 A8 8 0 0 1 6 38 V18 A8 8 0 0 1 14 10 Z"
+        stroke="#F5F5F7"
+        strokeWidth="4.5"
+        strokeLinejoin="round"
+      />
+      <polyline points="21,20 14,28 21,36" stroke="#F5F5F7" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="43,20 50,28 43,36" stroke="#F5F5F7" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="32" cy="28" r="7" fill="#00D4FF" />
+    </svg>
+  )
+}
+
+export function Wordmark() {
+  return (
+    <span className="text-[15px] font-semibold" style={{ letterSpacing: '-0.5px' }}>
+      <span style={{ color: '#F5F5F7' }}>paulsunny</span>
+      <span style={{ color: '#00D4FF' }}>.dev</span>
+    </span>
   )
 }
