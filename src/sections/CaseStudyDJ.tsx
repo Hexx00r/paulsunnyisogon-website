@@ -1,6 +1,10 @@
 import { BOOKING, BOOKING_LABEL, Kicker } from '@/components/Shared'
 import Reveal from '@/components/Reveal'
 import djHero from '@/assets/dj-hero.webp'
+import { djStats } from '@/site.config'
+
+// Only show the stat row once every number has been supplied (no placeholders in production).
+const STATS_READY = djStats.every((s) => s.value !== null)
 
 export default function CaseStudyDJ() {
   return (
@@ -47,6 +51,19 @@ export default function CaseStudyDJ() {
             tired of watching leads slip through the cracks while my parents were on the job.
           </p>
         </Reveal>
+
+        {STATS_READY && (
+          <Reveal delay={250}>
+            <dl className="mt-10 grid w-full max-w-3xl grid-cols-1 gap-6 border-y border-white/10 py-6 sm:grid-cols-3">
+              {djStats.map((st) => (
+                <div key={st.label}>
+                  <dd className="text-3xl font-bold tracking-tight text-apple-ink">{st.value}</dd>
+                  <dt className="mt-1 text-xs uppercase tracking-[0.05em] text-apple-sub">{st.label}</dt>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        )}
 
         <Reveal delay={300}>
           <a

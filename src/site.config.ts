@@ -193,3 +193,39 @@ export const pricing: PricingPlan[] = [
     features: ['Qualifies leads 24/7', 'Emergency and priority routing'],
   },
 ]
+
+export type CaseStat = {
+  label: string
+  /** null = number not supplied yet. The stat row stays hidden until every value is set. */
+  value: string | null
+}
+
+/**
+ * DJ Property & Cleaning stat row (Case study 01).
+ * TODO: Paul to supply real numbers. Never invent these. The row renders only when
+ * every value below is non-null, so no placeholder ever reaches production.
+ */
+export const djStats: CaseStat[] = [
+  { label: 'Average enquiry response time', value: null }, // TODO: e.g. "under 1 minute"
+  { label: 'Leads per month', value: null }, // TODO
+  { label: 'Google reviews gained', value: null }, // TODO
+]
+
+/** Flip to true only once the testimonials below are client-approved, with name. */
+export const SHOW_TESTIMONIALS = false
+
+export type Testimonial = { quote: string; name: string; business: string }
+
+/** TODO: replace both with client-approved text and names before enabling SHOW_TESTIMONIALS. */
+export const testimonials: Testimonial[] = [
+  {
+    quote: 'TODO: client-approved testimonial text goes here.',
+    name: 'TODO: Client name',
+    business: 'TODO: Business, suburb',
+  },
+  {
+    quote: 'TODO: client-approved testimonial text goes here.',
+    name: 'TODO: Client name',
+    business: 'TODO: Business, suburb',
+  },
+]

@@ -6,6 +6,7 @@ import Pricing from '@/sections/Pricing'
 import QuoteCalculatorDemo from '@/sections/QuoteCalculatorDemo'
 import CaseStudyDJ from '@/sections/CaseStudyDJ'
 import CaseStudyMelbourne from '@/sections/CaseStudyMelbourne'
+import Testimonials from '@/sections/Testimonials'
 import AutomationEngine from '@/sections/AutomationEngine'
 import Projects from '@/sections/Projects'
 import WhyMe from '@/sections/WhyMe'
@@ -24,6 +25,7 @@ export default function Home() {
         <QuoteCalculatorDemo />
         <CaseStudyDJ />
         <CaseStudyMelbourne />
+        <Testimonials />
         <AutomationEngine />
         <Projects />
         <WhyMe />
