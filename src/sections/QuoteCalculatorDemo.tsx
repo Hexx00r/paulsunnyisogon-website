@@ -98,9 +98,6 @@ function QuoteCalculator() {
         Same pricing logic I wire into client funnels. Tick services, type an area, watch the
         estimate update.
       </p>
-      <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-apple-blueSoft px-4 py-1.5 text-xs font-medium text-apple-blue">
-        ⏱ Booking up fast - spring wash season is our busiest time
-      </p>
 
       {/* service picker */}
       <div className="mt-8">
@@ -299,6 +296,9 @@ export default function QuoteCalculatorDemo() {
       <div className="mx-auto max-w-[680px] px-6">
         <Reveal className="text-center">
           <Kicker>Try the calculator</Kicker>
+          <p className="mt-3 text-sm text-apple-sub">
+            Live demo — this is the calculator I build into your site.
+          </p>
         </Reveal>
 
         <Reveal delay={100} y={32} className="mt-10">

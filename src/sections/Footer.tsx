@@ -1,5 +1,5 @@
 import { Droplet } from 'lucide-react'
-import { BOOKING, MAILTO, RESUME, YOUTUBE } from '@/components/Shared'
+import { BOOKING, MAILTO, YOUTUBE } from '@/components/Shared'
 
 const GITHUB_URL = 'https://github.com/Hexx00r'
 
@@ -23,7 +23,6 @@ const COLUMNS: {
       { label: 'Book a Call', href: BOOKING, external: true },
       { label: 'Chat', href: '#chat', chat: true },
       { label: 'Email', href: MAILTO },
-      { label: 'Resume', href: RESUME, download: true },
     ],
   },
   {

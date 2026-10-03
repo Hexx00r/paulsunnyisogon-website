@@ -7,8 +7,6 @@ export const YOUTUBE = 'https://youtu.be/BoxC1hGvrZo?si=PS-OS4KbCIEolAGV'
 /** The one booking link. Every primary CTA points here. */
 export const BOOKING = 'https://cal.com/paulsunny/audit'
 export const BOOKING_LABEL = 'Book a free 15-min audit'
-// Old filename (Paul-Sunny-Isogon-Resume.pdf) is kept in public/ as a copy so existing links still work.
-export const RESUME = 'Paul-Sunny-Isogon-Jr-Resume.pdf'
 
 /**
  * Section label — all-caps, 12px, wide tracking, muted gray.
