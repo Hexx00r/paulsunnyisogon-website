@@ -2,7 +2,8 @@
 // "Latest Build" showcase and demo-fleet row. Re-run after any demo site
 // changes so the frames stay truthful. Real screenshots only — never mockups.
 //
-// Run:  node scripts/capture-build-shots.mjs
+// Run:  node scripts/capture-build-shots.mjs            (all targets)
+//       node scripts/capture-build-shots.mjs bondproof  (only URLs/files containing "bondproof")
 
 import { fileURLToPath } from 'node:url'
 import { mkdirSync } from 'node:fs'
@@ -15,7 +16,9 @@ mkdirSync(OUT_DIR, { recursive: true })
 const TARGETS = [
   ['https://gawler-dental-demo.pages.dev', 'gawler-place-dental.jpg', 'gawler-place-dental-thumb.jpg', 960, true],
   ['https://sydney-jet-wash.pages.dev', null, 'sydney-jet-wash-thumb.jpg', 960, false],
+  ['https://bondproof-bond-demo.paulsunny.workers.dev', null, 'bondproof-cleaning-thumb.jpg', 960, false],
 ]
+const FILTER = process.argv[2]
 
 // Patient before/after photos must never appear on paulsunnydev.com. Blur
 // every image inside any section that carries Before/After slider labels.
@@ -32,6 +35,7 @@ function blurBeforeAfterPhotos() {
 const browser = await chromium.launch()
 try {
   for (const [url, fullFile, thumbFile, thumbHeight, blurBeforeAfter] of TARGETS) {
+    if (FILTER && !`${url} ${thumbFile}`.includes(FILTER)) continue
     const page = await browser.newPage({ viewport: { width: 1440, height: 960 } })
     await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 })
     await page.waitForTimeout(1500) // let hero/entrance animations settle
