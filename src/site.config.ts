@@ -143,6 +143,18 @@ export const demoFleet: DemoFleetItem[] = [
       height: 960,
     },
   },
+  {
+    name: 'BondProof Cleaning',
+    niche: 'Instant quotes — bond cleaning',
+    liveUrl: 'https://bondproof-bond-demo.paulsunny.workers.dev',
+    screenshot: {
+      src: '/images/builds/bondproof-bond-cleaning-thumb.jpg',
+      alt: 'Screenshot of the BondProof Cleaning demo website',
+      barUrl: 'bondproof-bond-demo.paulsunny.workers.dev',
+      width: 1440,
+      height: 960,
+    },
+  },
 ]
 
 export type PricingPlan = {
