@@ -53,6 +53,6 @@ Stack: Vite + React SPA with static HTML SEO pages in `public/` (guides in `publ
 - [ ] No new third-party scripts unless the page needs them
 
 ## 9. Indexing (after publish)
-- [ ] Page appears in `sitemap.xml` (`public/sitemap.xml` is hand-maintained and doesn't exist yet, so create it)
+- [ ] Run `npm run sitemap` (after `npm run build`; regenerates `dist/sitemap.xml` from the built HTML, with lastmod from git) and confirm the page's URL appears in it. The build also runs this automatically, so the sitemap deployed from `main` is always current. Pages with `noindex`, `404.html` and `booked.html` are excluded on purpose.
 - [ ] Indexing requested in Google Search Console via URL Inspection
 - [ ] Recheck rank and impressions in GSC after 14 days

@@ -26,5 +26,6 @@ Config:
    - Show the list. If it is not empty, the first line of the reply says: "DIFF GATE: N elements missing". If it is empty, say "DIFF GATE: clean".
 5. Publish only after an explicit yes from the user, given in this conversation after the diff gate was shown.
    - Never commit straight to `main` (a push to `main` goes live on GitHub Pages). Commit to a git branch, run `npm run build && npm run verify`, then `npx vite preview` and share the local preview URL. Run the seo-process checks that need a live page (forms, links, schema, PageSpeed) on that preview. PageSpeed and the Rich Results Test need a public URL, so run them after the merge or mark N/A and say so.
+   - Run `npm run sitemap` after the build and confirm the new page's URL is listed in `dist/sitemap.xml`.
    - A yes covers this page and this version only. Any edit after the yes needs a new diff gate and a new yes.
    - After the merge to main goes live, run `chatSeo/seo-process.md` section 9 (sitemap, GSC indexing request, 14-day recheck).

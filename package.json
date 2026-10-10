@@ -9,7 +9,8 @@
     "postbuild": "node scripts/prerender.mjs && node scripts/build.mjs",
     "verify": "node scripts/verify.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sitemap": "node scripts/build.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.562.0",
