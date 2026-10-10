@@ -15,6 +15,7 @@ mkdirSync(OUT_DIR, { recursive: true })
 const TARGETS = [
   ['https://gawler-dental-demo.pages.dev', 'gawler-place-dental.jpg', 'gawler-place-dental-thumb.jpg', 960, true],
   ['https://sydney-jet-wash.pages.dev', null, 'sydney-jet-wash-thumb.jpg', 960, false],
+  ['https://bondproof-bond-demo.paulsunny.workers.dev', null, 'bondproof-bond-cleaning-thumb.jpg', 960, false],
 ]
 
 // Patient before/after photos must never appear on paulsunnydev.com. Blur
